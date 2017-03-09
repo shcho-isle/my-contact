@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/registr")
+@RequestMapping(value = "/register")
 public class UserController {
 
 //    @Qualifier(value = "userJsonService") //Раскоментировать для использования JSON File
@@ -31,7 +31,7 @@ public class UserController {
             userService.createUser(user).getId();
         } catch (NullPointerException e) {
             model.put("message", "Пользователь с такими данными уже есть");
-            return "registr";
+            return "register";
         } catch (Exception e) {
             e.printStackTrace();
         }

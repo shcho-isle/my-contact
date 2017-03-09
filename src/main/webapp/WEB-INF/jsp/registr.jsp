@@ -13,7 +13,7 @@
 <body>
 
 <div class="container" style="width: 300px;" align="center">
-    <form:form action="registr" method="post" commandName="userForm">
+    <form:form action="register" method="post" commandName="userForm">
 
         <h2 class="form-signin-heading">Введите данные для регистрации</h2>
 
