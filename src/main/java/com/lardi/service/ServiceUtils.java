@@ -21,7 +21,7 @@ public class ServiceUtils {
             message += dot + "Отчество слишком короткое\n";
         }
         String mobilePhone = allRequestParams.get("mobilePhone");
-        Pattern phonePattern = Pattern.compile("^((\\+)380[\\(]\\d{2}[\\)]{1}{1})[0-9]{1}[0-9]{6}$");
+        Pattern phonePattern = Pattern.compile("^(\\+)380[(]\\d{2}[)][0-9]{7}$");
         Matcher phoneMatcher = phonePattern.matcher(mobilePhone);
         if (!phoneMatcher.matches()) {
             message += dot + "Неверный формат номера телефона\n";
@@ -42,8 +42,14 @@ public class ServiceUtils {
         FileInputStream fis;
         Properties property = new Properties();
 
+        String config = System.getProperty("lardi.conf");
+
         try {
-            fis = new FileInputStream("src/main/resources/application.properties");
+            if (config == null) {
+                fis = new FileInputStream("config/application.properties");
+            } else {
+                fis = new FileInputStream(System.getProperty("lardi.conf"));
+            }
             property.load(fis);
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");

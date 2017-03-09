@@ -1,6 +1,9 @@
 package com.lardi.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -10,12 +13,18 @@ public class User extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "login")
+    @NotBlank
+    @Size(min = 3, max = 25, message = " must between 3 and 25 characters")
     private String login;
 
     @Column(name = "password")
+    @NotBlank
+    @Size(min = 5, max = 64, message = " must between 5 and 64 characters")
     private String password;
 
     @Column(name = "full_name")
+    @NotBlank
+    @Size(min = 5, max = 50, message = " must between 5 and 50 characters")
     private String fullName;
 
     public User() {

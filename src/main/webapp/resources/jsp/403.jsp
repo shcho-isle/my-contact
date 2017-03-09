@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css" media="screen">
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
+    <script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" defer></script>
     <title>Error</title>
 </head>
 <body class="security-app">

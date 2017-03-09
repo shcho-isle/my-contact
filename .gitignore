@@ -1,7 +1,5 @@
 .idea
-.mvn
-out
 target
 *.iml
-log
 *.md
+*.json
