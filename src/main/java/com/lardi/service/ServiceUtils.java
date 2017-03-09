@@ -46,7 +46,7 @@ public class ServiceUtils {
 
         try {
             if (config == null) {
-                fis = new FileInputStream("config/application.properties");
+                fis = new FileInputStream("config/storage.properties");
             } else {
                 fis = new FileInputStream(System.getProperty("lardi.conf"));
             }
