@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         if (userList == null)
             return null;
         Optional<User> match = userList.stream()
-                .filter(u -> u.getLogin().equals(id))
+                .filter(u -> u.getId().equals(id))
                 .findFirst();
         return match.orElse(null);
     }

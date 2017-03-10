@@ -35,7 +35,7 @@ public class UserServiceTest {
     @Test
     public void shouldGetUser() throws Exception {
         User user = new User("max", "$2a$10$tbmoYsawbPFAYnnWNLz9SezgX.FcgoSMVMba8TtPqxepMltLc4i/m", "ultimax@ukr.net");
-        User returnedUser = userJsonService.get(100);
+        User returnedUser = userJsonService.get(101);
         assertEquals(user.getLogin(), returnedUser.getLogin());
     }
 }

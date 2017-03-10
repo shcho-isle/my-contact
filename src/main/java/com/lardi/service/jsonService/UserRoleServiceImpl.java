@@ -54,6 +54,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public UserRole getRoleByUserId(Integer userId) throws Exception {
         User user = userJsonService.get(userId);
+        System.out.println("+++++++++++++++++++++++++++++++++" + user);
         List<UserRole> userRoleList = getAllRolesAndUsers();
         Optional<UserRole> match
                 = userRoleList.stream()
