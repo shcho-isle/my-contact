@@ -1,4 +1,4 @@
-package com.lardi.service;
+package com.lardi.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

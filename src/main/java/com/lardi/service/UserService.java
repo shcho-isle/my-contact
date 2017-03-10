@@ -1,11 +1,15 @@
 package com.lardi.service;
 
 import com.lardi.model.User;
+import com.lardi.util.exception.NotFoundException;
+
+import java.io.IOException;
 
 public interface UserService {
-    User createUser(User user) throws Exception;
 
-    User getUser(String name) throws Exception;
+    User save(User user) throws IOException;
 
-    boolean checkRegisteredUsers(String login, String fullName) throws Exception;
+    User get(Integer id) throws NotFoundException, IOException;
+
+    User getByLogin(String login) throws NotFoundException, IOException;
 }

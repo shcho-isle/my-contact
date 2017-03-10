@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.User;
 import com.lardi.model.UserRole;
-import com.lardi.service.ServiceUtils;
+import com.lardi.util.ServiceUtils;
 import com.lardi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -52,17 +52,17 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole getRoleByLogin(String login) throws Exception {
-        User user = userJsonService.getUser(login);
+    public UserRole getRoleByUserId(Integer userId) throws Exception {
+        User user = userJsonService.get(userId);
         List<UserRole> userRoleList = getAllRolesAndUsers();
         Optional<UserRole> match
                 = userRoleList.stream()
-                .filter(ur -> ur.getUserId() == user.getId())
+                .filter(ur -> ur.getUserId().equals(user.getId()))
                 .findFirst();
         if (match.isPresent()) {
             return match.get();
         } else {
-            throw new Exception("The UserRole of  " + login + " not found");
+            throw new Exception("The UserRole of  " + userId + " not found");
         }
     }
 

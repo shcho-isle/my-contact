@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.User;
-import com.lardi.service.ServiceUtils;
+import com.lardi.util.ServiceUtils;
 import com.lardi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,9 +43,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) throws Exception {
+    public User save(User user) throws IOException {
         List<User> userList = getAllUsers();
-        if (!checkRegisteredUsers(user.getLogin(), user.getFullName()))
+        if (!checkRegisteredUsers(user.getId(), user.getFullName()))
             return null;
         if (userList == null)
             userList = new ArrayList<>();
@@ -58,7 +58,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String login) throws IOException {
+    public User get(Integer id) throws IOException {
+        List<User> userList = getAllUsers();
+        if (userList == null)
+            return null;
+        Optional<User> match = userList.stream()
+                .filter(u -> u.getLogin().equals(id))
+                .findFirst();
+        return match.orElse(null);
+    }
+
+    @Override
+    public User getByLogin(String login) throws IOException {
         List<User> userList = getAllUsers();
         if (userList == null)
             return null;
@@ -79,9 +90,8 @@ public class UserServiceImpl implements UserService {
         return match.orElse(null);
     }
 
-    @Override
-    public boolean checkRegisteredUsers(String login, String fullName) throws Exception {
-        return getUser(login) == null & getUserFullName(fullName) == null;
+    public boolean checkRegisteredUsers(Integer id, String fullName) throws IOException {
+        return get(id) == null & getUserFullName(fullName) == null;
     }
 
     private void transactionWrite(List<User> userList) {

@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
-import com.lardi.service.ServiceUtils;
+import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -90,16 +90,16 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public boolean updateContact(Contact customer) {
+    public boolean updateContact(Contact contact) {
         try {
             List<Contact> contactList = getAllBaseContacts();
             int matchIdx;
             Optional<Contact> match = contactList.stream()
-                    .filter(c -> c.getId() == customer.getId())
+                    .filter(c -> c.getId().equals(contact.getId()))
                     .findFirst();
             if (match.isPresent()) {
                 matchIdx = contactList.indexOf(match.get());
-                contactList.set(matchIdx, customer);
+                contactList.set(matchIdx, contact);
             }
             transactionWrite(contactList);
             return true;

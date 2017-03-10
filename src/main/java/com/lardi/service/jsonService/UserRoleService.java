@@ -7,5 +7,6 @@ import java.io.IOException;
 
 public interface UserRoleService {
     void createRole(User user) throws IOException;
-    UserRole getRoleByLogin(String login) throws Exception;
+
+    UserRole getRoleByUserId(Integer userId) throws Exception;
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +22,18 @@ class CustomUserDetails implements UserDetailsService {
     private UserService userJsonService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException, DataAccessException {
         List<GrantedAuthority> gas = new ArrayList<>();
         gas.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        User user = null;
+        User u = null;
         try {
-            user = userJsonService.getUser(username);
-        } catch (Exception e) {
+            u = userJsonService.getByLogin(login);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), gas);
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + login + " is not found");
+        }
+        return new org.springframework.security.core.userdetails.User(u.getLogin(), u.getPassword(), gas);
     }
 }

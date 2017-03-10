@@ -2,7 +2,7 @@ package service.jsonService;
 
 import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
-import com.lardi.service.ServiceUtils;
+import com.lardi.util.ServiceUtils;
 import com.lardi.service.jsonService.ContactServiceImpl;
 import com.lardi.service.jsonService.JsonFileServiceImpl;
 import org.junit.Before;

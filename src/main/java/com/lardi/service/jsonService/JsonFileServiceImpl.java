@@ -1,6 +1,6 @@
 package com.lardi.service.jsonService;
 
-import com.lardi.service.ServiceUtils;
+import com.lardi.util.ServiceUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

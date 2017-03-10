@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/register")
 public class RegisterController {
 
-    @Qualifier(value = "userJsonService") //Раскоментировать для использования JSON File
+//    @Qualifier(value = "userJsonService") //Раскоментировать для использования JSON File
     @Autowired
     private UserService userService;
 
@@ -31,7 +31,7 @@ public class RegisterController {
     public String processRegistration(@Valid User user, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
-                userService.createUser(user);
+                userService.save(user);
                 status.setComplete();
                 return "redirect:login?message=app.registered&fullname=" + user.getFullName();
             } catch (DataIntegrityViolationException ex) {

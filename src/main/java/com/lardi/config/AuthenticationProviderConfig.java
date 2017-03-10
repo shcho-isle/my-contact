@@ -1,6 +1,6 @@
 package com.lardi.config;
 
-import com.lardi.service.ServiceUtils;
+import com.lardi.util.ServiceUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;

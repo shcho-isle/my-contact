@@ -30,7 +30,7 @@ public class UserRoleServiceTest {
     @Before
     public void createUser() throws Exception {
         User user = new User("max", "1234577", "ultimax@ukr.net");
-        userJsonService.createUser(user);
+        userJsonService.save(user);
         System.out.println("Before");
     }
 
@@ -44,7 +44,7 @@ public class UserRoleServiceTest {
     @Test
     public void shouldGetRoleByLogin() throws Exception {
         System.out.println("now2");
-        UserRole returnedUserRole = userRoleService.getRoleByLogin("max");
+        UserRole returnedUserRole = userRoleService.getRoleByUserId(101);
         assertEquals(returnedUserRole.getRole(), "ROLE_ADMIN");
     }
 }

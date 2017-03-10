@@ -27,22 +27,15 @@ public class UserServiceTest {
     @Test
     public void shouldCreateUser() throws Exception {
         User user = new User("max", "1234577", "ultimax@ukr.net");
-        userJsonService.createUser(user);
+        userJsonService.save(user);
         User user2 = new User("kris", "1234577", "mysyundra@ya.ru");
-        userJsonService.createUser(user2);
+        userJsonService.save(user2);
     }
 
     @Test
     public void shouldGetUser() throws Exception {
         User user = new User("max", "$2a$10$tbmoYsawbPFAYnnWNLz9SezgX.FcgoSMVMba8TtPqxepMltLc4i/m", "ultimax@ukr.net");
-        User returnedUser = userJsonService.getUser("max");
+        User returnedUser = userJsonService.get(100);
         assertEquals(user.getLogin(), returnedUser.getLogin());
-    }
-
-    @Test
-    public void shouldCheckRegisteredUser() throws Exception {
-        User user = new User("max", "$2a$10$tbmoYsawbPFAYnnWNLz9SezgX.FcgoSMVMba8TtPqxepMltLc4i/m", "ultimax@ukr.net");
-        boolean isUserFree = userJsonService.checkRegisteredUsers(user.getLogin(), user.getFullName());
-        assertFalse(isUserFree);
     }
 }

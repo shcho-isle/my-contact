@@ -2,6 +2,7 @@ package com.lardi.service;
 
 import com.lardi.model.Contact;
 import com.lardi.repository.datajpa.ContactRepository;
+import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
