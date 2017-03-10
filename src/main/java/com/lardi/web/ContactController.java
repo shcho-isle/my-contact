@@ -22,7 +22,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @RequestMapping(value = {"/contact/", "/contact"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public ModelAndView getContacts(@RequestParam Map<String, String> allRequestParams) throws Exception {
         ModelAndView model = null;
         if (allRequestParams.containsKey("searchAction")) {
@@ -45,7 +45,7 @@ public class ContactController {
         }
     }
 
-    @RequestMapping(value = {"/new-contact/", "/new-contact"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/new-contact", method = RequestMethod.GET)
     public ModelAndView getContacts() throws Exception {
         return new ModelAndView("new-contact");
     }
@@ -71,7 +71,7 @@ public class ContactController {
         return model;
     }
 
-    @RequestMapping(value = {"/contact/", "/contact"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/contact", method = RequestMethod.POST)
     public ModelAndView postContacts(@RequestParam Map<String, String> allRequestParams) throws Exception {
         ModelAndView model = null;
         String action = allRequestParams.get("action");

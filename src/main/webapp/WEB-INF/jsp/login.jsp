@@ -5,7 +5,9 @@
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
+
 <body class="security-app">
+
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
@@ -34,6 +36,11 @@
         <c:if test="${param.error ne null}">
             <div class="error">
                     ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+            </div>
+        </c:if>
+        <c:if test="${not empty param.message}">
+            <div class="message">
+                <spring:message code="${param.message}" arguments="${param.fullname}"/>
             </div>
         </c:if>
         <br/>
