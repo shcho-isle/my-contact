@@ -1,4 +1,4 @@
-package com.lardi.repository;
+package com.lardi.repository.datajpa;
 
 import com.lardi.model.User;
 import org.springframework.data.jpa.repository.Query;
@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
-    @Override
-    User save(User user);
-
     User findByLogin(String login);
 
     @Query("select u from User u where u.fullName=:fullName")

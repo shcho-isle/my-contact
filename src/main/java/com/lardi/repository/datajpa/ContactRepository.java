@@ -1,4 +1,4 @@
-package com.lardi.repository;
+package com.lardi.repository.datajpa;
 
 import com.lardi.model.Contact;
 import org.springframework.data.jpa.repository.Query;

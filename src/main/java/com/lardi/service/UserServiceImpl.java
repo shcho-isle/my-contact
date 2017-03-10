@@ -1,9 +1,9 @@
 package com.lardi.service;
 
 import com.lardi.model.User;
-import com.lardi.repository.UserRepository;
+import com.lardi.repository.datajpa.UserRepository;
 import com.lardi.model.UserRole;
-import com.lardi.repository.UserRolesRepository;
+import com.lardi.repository.datajpa.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

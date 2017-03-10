@@ -3,6 +3,7 @@ package com.lardi.web;
 import com.lardi.model.User;
 import com.lardi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/register")
 public class RegisterController {
 
-//    @Qualifier(value = "userJsonService") //Раскоментировать для использования JSON File
+    @Qualifier(value = "userJsonService") //Раскоментировать для использования JSON File
     @Autowired
     private UserService userService;
 

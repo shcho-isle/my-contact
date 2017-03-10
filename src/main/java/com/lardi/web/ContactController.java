@@ -3,6 +3,7 @@ package com.lardi.web;
 import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import java.util.Map;
 @RequestMapping
 public class ContactController {
 
-//    @Qualifier(value = "contactJsonService") //Раскоментировать для использования JSON File
+    @Qualifier(value = "contactJsonService") //Раскоментировать для использования JSON File
     @Autowired
     private ContactService contactService;
 

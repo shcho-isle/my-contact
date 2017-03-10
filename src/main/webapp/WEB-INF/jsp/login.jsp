@@ -35,7 +35,7 @@
     <div class="container">
         <c:if test="${param.error ne null}">
             <div class="error">
-                    ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                <spring:message code="app.badCredentials"/>
             </div>
         </c:if>
         <c:if test="${not empty param.message}">
@@ -80,7 +80,9 @@
         unwanted and harmful to the environment.
     </div>
 </div>
+
 <jsp:include page="fragments/footer.jsp"/>
+
 <script type="text/javascript">
     <c:if test="${not empty param.login}">
     setCredentials("${param.login}", "");
@@ -90,5 +92,6 @@
         $('input[name="password"]').val(password);
     }
 </script>
+
 </body>
 </html>
