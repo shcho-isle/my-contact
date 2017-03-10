@@ -17,7 +17,6 @@ import javax.validation.Valid;
 @RequestMapping(value = "/register")
 public class RegisterController {
 
-//    @Qualifier(value = "userJsonService") //Раскоментировать для использования JSON File
     @Autowired
     private UserService userService;
 

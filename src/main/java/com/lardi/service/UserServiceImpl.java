@@ -2,8 +2,8 @@ package com.lardi.service;
 
 import com.lardi.model.User;
 import com.lardi.model.UserRole;
-import com.lardi.repository.datajpa.UserRepository;
-import com.lardi.repository.datajpa.UserRolesRepository;
+import com.lardi.repository.datajpa.CrudUserRepository;
+import com.lardi.repository.datajpa.CrudUserRolesRepository;
 import com.lardi.util.PasswordUtil;
 import com.lardi.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import org.springframework.util.Assert;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository repository;
+    private CrudUserRepository repository;
 
     @Autowired
-    private UserRolesRepository roleRepository;
+    private CrudUserRolesRepository roleRepository;
 
     @CacheEvict(value = "users", allEntries = true)
     @Override

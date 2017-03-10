@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface CrudUserRepository extends CrudRepository<User, Integer> {
 
     @Query("select u from User u where u.fullName=:fullName")
     User finByFullName(@Param("fullName") String fullName);

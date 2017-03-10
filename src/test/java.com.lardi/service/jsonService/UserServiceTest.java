@@ -2,7 +2,6 @@ package service.jsonService;
 
 import com.lardi.model.User;
 import com.lardi.service.UserService;
-import com.lardi.service.jsonService.JsonFileServiceImpl;
 import com.lardi.service.jsonService.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,11 +11,9 @@ import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextHierarchy({
-        @ContextConfiguration(classes = JsonFileServiceImpl.class),
         @ContextConfiguration(classes = UserServiceImpl.class)
 })
 public class UserServiceTest {

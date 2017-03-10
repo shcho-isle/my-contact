@@ -1,7 +1,7 @@
 package com.lardi.service;
 
 import com.lardi.model.Contact;
-import com.lardi.repository.datajpa.ContactRepository;
+import com.lardi.repository.datajpa.CrudContactRepository;
 import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ContactServiceImpl implements ContactService {
 
     @Autowired
-    private ContactRepository contactRepository;
+    private CrudContactRepository crudContactRepository;
 
     private String getCurrentUser() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -22,7 +22,7 @@ public class ContactServiceImpl implements ContactService {
 
     public List<Contact> getAllContacts() {
         List<Contact> list = new ArrayList<>();
-        contactRepository.findByUserLogin(getCurrentUser()).forEach(list::add);
+        crudContactRepository.findByUserLogin(getCurrentUser()).forEach(list::add);
         return list;
     }
 
@@ -52,16 +52,16 @@ public class ContactServiceImpl implements ContactService {
     }
 
     public Integer saveContact(Contact contact) {
-        return contactRepository.save(contact).getId();
+        return crudContactRepository.save(contact).getId();
     }
 
     public boolean updateContact(Contact customer) {
-        return contactRepository.save(customer).getId().equals(customer.getId());
+        return crudContactRepository.save(customer).getId().equals(customer.getId());
     }
 
     public boolean deleteContact(Integer id) {
-        contactRepository.delete(id);
-        return !contactRepository.exists(id);
+        crudContactRepository.delete(id);
+        return !crudContactRepository.exists(id);
     }
 
     public String validateNewContact(Map<String, String> allRequestParams) {

@@ -4,7 +4,6 @@ import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
 import com.lardi.util.ServiceUtils;
 import com.lardi.service.jsonService.ContactServiceImpl;
-import com.lardi.service.jsonService.JsonFileServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +25,6 @@ import static junit.framework.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextHierarchy({
-        @ContextConfiguration(classes = JsonFileServiceImpl.class),
         @ContextConfiguration(classes = ContactServiceImpl.class)
 })
 @WithMockUser(username = "max")

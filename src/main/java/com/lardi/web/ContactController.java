@@ -19,7 +19,6 @@ import java.util.Map;
 @RequestMapping
 public class ContactController {
 
-//    @Qualifier(value = "contactJsonService") //Раскоментировать для использования JSON File
     @Autowired
     private ContactService contactService;
 

@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ContactRepository extends CrudRepository<Contact, Integer> {
+public interface CrudContactRepository extends CrudRepository<Contact, Integer> {
 
     @Override
     Contact save(Contact contact);
