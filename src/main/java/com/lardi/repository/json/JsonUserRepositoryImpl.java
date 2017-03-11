@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.User;
 import com.lardi.repository.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("jsonUserRepository")
-public class JsonUserRepository extends AbstractJsonRepository implements UserRepository {
+public class JsonUserRepositoryImpl extends AbstractJsonRepository implements UserRepository {
     private final String className = User.class.getName();
 
     @Override

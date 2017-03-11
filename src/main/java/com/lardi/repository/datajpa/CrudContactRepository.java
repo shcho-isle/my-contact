@@ -1,23 +1,20 @@
 package com.lardi.repository.datajpa;
 
 import com.lardi.model.Contact;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CrudContactRepository extends CrudRepository<Contact, Integer> {
 
-    @Override
-    Contact save(Contact contact);
+    List<Contact> findByUserLogin(String userLogin);
 
-    @Query("select c from Contact c where c.userLogin=:userLogin")
-    Iterable<Contact> findByUserLogin(@Param("userLogin") String userLogin);
-
-    @Override
-    boolean exists(Integer id);
-
-    @Override
-    void delete(Integer id);
+    @Modifying
+    @Query("DELETE FROM Contact c WHERE c.id=:id")
+    int delete(@Param("id") int id);
 }

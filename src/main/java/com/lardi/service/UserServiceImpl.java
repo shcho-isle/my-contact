@@ -17,11 +17,13 @@ import org.springframework.util.Assert;
 @ComponentScan(basePackages = "com.lardi")
 public class UserServiceImpl implements UserService {
 
-    @Qualifier(value = "dataJpaUserRepository")
+//    @Qualifier(value = "dataJpaUserRepository")
+    @Qualifier(value = "jsonUserRepository")
     @Autowired
     private UserRepository repository;
 
-    @Qualifier(value = "dataJpaRoleRepository")
+//    @Qualifier(value = "dataJpaRoleRepository")
+    @Qualifier(value = "jsonRoleRepository")
     @Autowired
     private RoleRepository roleRepository;
 

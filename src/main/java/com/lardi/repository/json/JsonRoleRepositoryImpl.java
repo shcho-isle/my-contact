@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.Role;
-import com.lardi.model.User;
 import com.lardi.repository.RoleRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class JsonRoleRepository extends AbstractJsonRepository implements RoleRepository {
+@Repository("jsonRoleRepository")
+public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements RoleRepository {
     private final String className = Role.class.getName();
 
     @Override
