@@ -4,21 +4,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_idx")})
-public class UserRole extends BaseEntity {
+public class Role extends BaseEntity {
     @Column(name = "role")
     private String role;
 
     @Column(name = "user_id")
     private Integer userId;
 
-    public UserRole() {
+    public Role() {
     }
 
-    public UserRole(Integer userId) {
+    public Role(Integer userId) {
         this(null, userId);
     }
 
-    public UserRole(Integer id, Integer userId) {
+    public Role(Integer id, Integer userId) {
         super(id);
         this.role = "ROLE_ADMIN";
         this.userId = userId;
@@ -42,7 +42,7 @@ public class UserRole extends BaseEntity {
 
     @Override
     public String toString() {
-        return "UserRole{" +
+        return "Role{" +
                 "id=" + getId() +
                 ", role='" + role + '\'' +
                 '}';

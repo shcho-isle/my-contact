@@ -1,11 +1,11 @@
 package service.jsonService;
 
 import com.lardi.model.User;
-import com.lardi.model.UserRole;
+import com.lardi.model.Role;
 import com.lardi.service.UserService;
 import com.lardi.service.UserServiceImpl;
-import com.lardi.service.jsonService.UserRoleService;
-import com.lardi.service.jsonService.UserRoleServiceImpl;
+import com.lardi.service.jsonService.RoleService;
+import com.lardi.service.jsonService.RoleServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +18,11 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {UserRoleServiceImpl.class, UserServiceImpl.class})
-public class UserRoleServiceTest {
+@ContextConfiguration(classes = {RoleServiceImpl.class, UserServiceImpl.class})
+public class RoleServiceTest {
 
     @Autowired
-    private UserRoleService userRoleService;
+    private RoleService roleService;
 
     @Autowired
     private UserService service;
@@ -37,14 +37,14 @@ public class UserRoleServiceTest {
     @Test
     public void shouldCreateRole() throws IOException {
         User user = new User("max", "1234577", "ultimax@ukr.net");
-        userRoleService.createRole(user);
+        roleService.createRole(user);
         System.out.println("now1");
     }
 
     @Test
     public void shouldGetRoleByLogin() throws Exception {
         System.out.println("now2");
-        UserRole returnedUserRole = userRoleService.getRoleByUserId(101);
-        assertEquals(returnedUserRole.getRole(), "ROLE_ADMIN");
+        Role returnedRole = roleService.getRoleByUserId(101);
+        assertEquals(returnedRole.getRole(), "ROLE_ADMIN");
     }
 }
