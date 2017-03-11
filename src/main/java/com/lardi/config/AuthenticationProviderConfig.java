@@ -3,6 +3,7 @@ package com.lardi.config;
 import com.lardi.util.ServiceUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
@@ -24,7 +25,8 @@ public class AuthenticationProviderConfig {
         return driverManagerDataSource;
     }
 
-    @Bean(name = "userDetailsService")
+    @Profile("mysql")
+    @Bean("dataJpaUserDetailsService")
     public UserDetailsService userDetailsService() throws IOException {
         JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
         jdbcImpl.setDataSource(dataSource());

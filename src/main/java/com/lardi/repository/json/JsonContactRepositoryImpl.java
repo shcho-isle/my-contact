@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.Contact;
 import com.lardi.repository.ContactRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+@Profile("json")
 @Repository("jsonContactRepository")
 public class JsonContactRepositoryImpl extends AbstractJsonRepository implements ContactRepository {
     private final String className = Contact.class.getName();

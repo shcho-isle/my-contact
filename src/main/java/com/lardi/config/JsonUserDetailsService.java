@@ -1,8 +1,9 @@
-package com.lardi.service;
+package com.lardi.config;
 
 import com.lardi.model.User;
 import com.lardi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,8 +16,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service(value = "userJsonDetailsService")
-class CustomUserDetails implements UserDetailsService {
+@Profile("json")
+@Service("jsonUserDetailsService")
+class JsonUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userJsonService;

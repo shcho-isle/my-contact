@@ -2,38 +2,31 @@ package com.lardi.service;
 
 import com.lardi.model.Contact;
 import com.lardi.repository.ContactRepository;
-import com.lardi.repository.datajpa.CrudContactRepository;
 import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service("contactService")
+@Service
 public class ContactServiceImpl implements ContactService {
 
-//    @Qualifier(value = "dataJpaContactRepository")
-    @Qualifier(value = "jsonContactRepository")
     @Autowired
     private ContactRepository repository;
 
-    private String getCurrentUser() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-
     @Override
-    public List<Contact> getAllContacts() {
+    public List<Contact> getAll() {
         List<Contact> list = new ArrayList<>();
-        repository.getByUserLogin(getCurrentUser()).forEach(list::add);
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        repository.getByUserLogin(login).forEach(list::add);
         return list;
     }
 
     @Override
-    public List<Contact> searchContactsByFirstName(String firstName) {
-        List<Contact> contactList = getAllContacts();
+    public List<Contact> searchByFirstName(String firstName) {
+        List<Contact> contactList = getAll();
 
         Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getFirstName)
                 .thenComparing(Contact::getLastName);
@@ -45,8 +38,8 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact getContact(Integer id) throws Exception {
-        List<Contact> contactList = getAllContacts();
+    public Contact get(Integer id) throws Exception {
+        List<Contact> contactList = getAll();
         Optional<Contact> match
                 = contactList.stream()
                 .filter(e -> e.getId().equals(id))
@@ -59,17 +52,17 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Integer saveContact(Contact contact) {
+    public Integer save(Contact contact) {
         return repository.save(contact).getId();
     }
 
     @Override
-    public boolean updateContact(Contact contact) {
+    public boolean update(Contact contact) {
         return repository.update(contact);
     }
 
     @Override
-    public boolean deleteContact(Integer id) {
+    public boolean delete(Integer id) {
         return repository.delete(id);
     }
 

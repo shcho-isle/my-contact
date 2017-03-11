@@ -7,23 +7,16 @@ import com.lardi.repository.UserRepository;
 import com.lardi.util.PasswordUtil;
 import com.lardi.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-@Service("userService")
-@ComponentScan(basePackages = "com.lardi")
+@Service
 public class UserServiceImpl implements UserService {
 
-//    @Qualifier(value = "dataJpaUserRepository")
-    @Qualifier(value = "jsonUserRepository")
     @Autowired
     private UserRepository repository;
 
-//    @Qualifier(value = "dataJpaRoleRepository")
-    @Qualifier(value = "jsonRoleRepository")
     @Autowired
     private RoleRepository roleRepository;
 

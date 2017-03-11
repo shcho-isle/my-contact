@@ -3,7 +3,6 @@ package com.lardi.web;
 import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +36,7 @@ public class ContactController {
             }
             return model;
         } else {
-            List<Contact> contactList = contactService.getAllContacts();
+            List<Contact> contactList = contactService.getAll();
             model = new ModelAndView("list-contacts");
             model.addObject("contactList", contactList);
             model.addObject("currentUser", SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase());
@@ -52,7 +51,7 @@ public class ContactController {
 
     private ModelAndView searchContactByName(Map<String, String> allRequestParams) throws IOException {
         String contactName = allRequestParams.get("contactName");
-        List<Contact> result = contactService.searchContactsByFirstName(contactName);
+        List<Contact> result = contactService.searchByFirstName(contactName);
         return forwardListContacts(result);
     }
 
@@ -64,7 +63,7 @@ public class ContactController {
 
     private ModelAndView searchContactById(Map<String, String> allRequestParams) throws Exception {
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-        Contact contact = contactService.getContact(idContact);
+        Contact contact = contactService.get(idContact);
         ModelAndView model = new ModelAndView("new-contact");
         model.addObject("contact", contact);
         model.addObject("action", "edit");
@@ -106,8 +105,8 @@ public class ContactController {
         String email = allRequestParams.get("email");
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         Contact contact = new Contact(lastName, name, middleName, mobilePhone, homePhone, address, email, currentUser);
-        Integer idContact = contactService.saveContact(contact);
-        List<Contact> contactList = contactService.getAllContacts();
+        Integer idContact = contactService.save(contact);
+        List<Contact> contactList = contactService.getAll();
         model.addObject("idContact", idContact);
         String message = "Новый контакт успешно создан";
         model.addObject("message", message);
@@ -119,7 +118,7 @@ public class ContactController {
         String error = contactService.validateNewContact(allRequestParams);
         if (error.length() > 0) {
             Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-            Contact contact = contactService.getContact(idContact);
+            Contact contact = contactService.get(idContact);
             ModelAndView model = new ModelAndView("new-contact");
             model.addObject("contact", contact);
             model.addObject("action", "edit");
@@ -138,12 +137,12 @@ public class ContactController {
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
         Contact contact = new Contact(idContact, lastName, name, middleName, mobilePhone, homePhone, address, email, currentUser);
         contact.setId(idContact);
-        boolean success = contactService.updateContact(contact);
+        boolean success = contactService.update(contact);
         String message = null;
         if (success) {
             message = "Контакт успешно обновлён!";
         }
-        List<Contact> contactList = contactService.getAllContacts();
+        List<Contact> contactList = contactService.getAll();
         model.addObject("idContact", idContact);
         model.addObject("message", message);
         model.addObject("contactList", contactList);
@@ -153,12 +152,12 @@ public class ContactController {
     private ModelAndView removeContactByName(Map<String, String> allRequestParams) throws IOException {
         ModelAndView model = new ModelAndView("list-contacts");
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-        boolean confirm = contactService.deleteContact(idContact);
+        boolean confirm = contactService.delete(idContact);
         if (confirm) {
             String message = "Контакт успешно удалён!";
             model.addObject("message", message);
         }
-        List<Contact> contactList = contactService.getAllContacts();
+        List<Contact> contactList = contactService.getAll();
         model.addObject("contactList", contactList);
         return model;
     }

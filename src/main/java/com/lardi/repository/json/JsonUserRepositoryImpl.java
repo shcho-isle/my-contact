@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.User;
 import com.lardi.repository.UserRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Profile("json")
 @Repository("jsonUserRepository")
 public class JsonUserRepositoryImpl extends AbstractJsonRepository implements UserRepository {
     private final String className = User.class.getName();

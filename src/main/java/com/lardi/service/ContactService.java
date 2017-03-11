@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 public interface ContactService {
-    List<Contact> getAllContacts() throws IOException;
+    List<Contact> getAll() throws IOException;
 
-    List<Contact> searchContactsByFirstName(String name) throws IOException;
+    List<Contact> searchByFirstName(String name) throws IOException;
 
-    Contact getContact(Integer id) throws Exception;
+    Contact get(Integer id) throws Exception;
 
-    Integer saveContact(Contact contact) throws IOException;
+    Integer save(Contact contact) throws IOException;
 
-    boolean updateContact(Contact customer);
+    boolean update(Contact customer);
 
-    boolean deleteContact(Integer id);
+    boolean delete(Integer id);
 
     String validateNewContact(Map<String, String> allRequestParams);
 }

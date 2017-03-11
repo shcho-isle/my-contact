@@ -3,10 +3,12 @@ package com.lardi.repository.datajpa;
 import com.lardi.model.Contact;
 import com.lardi.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Profile("mysql")
 @Repository("dataJpaContactRepository")
 public class DataJpaContactRepositoryImpl implements ContactRepository {
 
