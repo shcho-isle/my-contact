@@ -4,20 +4,38 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.Role;
+import com.lardi.model.User;
+import com.lardi.repository.RoleRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class JsonRoleRepository extends AbstractJsonRepository {
+public class JsonRoleRepository extends AbstractJsonRepository implements RoleRepository {
     private final String className = Role.class.getName();
 
-    public List<Role> getAllRolesAndUsers() throws IOException {
+    @Override
+    public void save(Role role) {
+        List<Role> roleList = getAllRolesAndUsers();
+        if (roleList == null)
+            roleList = new ArrayList<>();
+        role.setId(roleList.size() + 100);
+        roleList.add(role);
+        transactionWrite(roleList);
+    }
+
+    public List<Role> getAllRolesAndUsers() {
         File f = getFilePath(className);
         if (!f.exists()) {
-            f.createNewFile();
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.err.println("ERROR: cannot create new file: " + className);
+                e.printStackTrace();
+            }
         }
         Gson gson = new Gson();
         String jsonOutput = readJson(className);
