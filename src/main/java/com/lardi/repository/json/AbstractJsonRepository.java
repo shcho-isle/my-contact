@@ -34,6 +34,17 @@ public abstract class AbstractJsonRepository {
         return json;
     }
 
+    void checkIfExists(File f, String className) {
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.err.println("ERROR: cannot create new file: " + className);
+                e.printStackTrace();
+            }
+        }
+    }
+
     File getFilePath(String className) {
         Properties properties = ServiceUtils.getProperties();
         return new File(properties.getProperty("pathToFileFolder") + className + ".json");

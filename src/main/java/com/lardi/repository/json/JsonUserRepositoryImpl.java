@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -60,14 +59,7 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
 
     public List<User> getAllUsers() {
         File f = getFilePath(className);
-        if (!f.exists()) {
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                System.err.println("ERROR: cannot create new file: " + className);
-                e.printStackTrace();
-            }
-        }
+        checkIfExists(f, className);
 
         Gson gson = new Gson();
 
