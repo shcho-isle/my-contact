@@ -5,7 +5,6 @@ import com.lardi.model.UserRole;
 import com.lardi.repository.json.JsonRoleRepository;
 import com.lardi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,9 +15,8 @@ import java.util.Optional;
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
 
-    @Qualifier(value = "userJsonService")
     @Autowired
-    private UserService userJsonService;
+    private UserService userService;
 
     @Autowired
     private JsonRoleRepository jsonRoleRepository;
@@ -36,7 +34,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public UserRole getRoleByUserId(Integer userId) throws Exception {
-        User user = userJsonService.get(userId);
+        User user = userService.get(userId);
         List<UserRole> userRoleList = jsonRoleRepository.getAllRolesAndUsers();
         Optional<UserRole> match
                 = userRoleList.stream()

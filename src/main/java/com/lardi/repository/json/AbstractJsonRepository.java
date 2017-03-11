@@ -2,30 +2,35 @@ package com.lardi.repository.json;
 
 import com.lardi.util.ServiceUtils;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 public abstract class AbstractJsonRepository {
     void writeJson(String json, String fileName) {
-        try {
-            FileWriter writer = new FileWriter(new File(ServiceUtils.getProperties().getProperty("pathToFileFolder") + fileName + ".json"));
+        String fullFileName = ServiceUtils.getProperties().getProperty("pathToFileFolder") + fileName + ".json";
+
+        try(FileWriter writer = new FileWriter(new File(fullFileName))) {
             writer.write(json);
-            writer.close();
         } catch (IOException e) {
+            System.err.println("ERROR: cannot write to: " + fullFileName);
             e.printStackTrace();
         }
     }
 
-    String readJson(String fileName) throws IOException {
-        FileReader reader = new FileReader(new File(ServiceUtils.getProperties().getProperty("pathToFileFolder") + fileName + ".json"));
+    String readJson(String fileName) {
         String json = "";
         int c;
-        while ((c = reader.read()) != -1) {
-            json += (char) c;
+        String fullFileName = ServiceUtils.getProperties().getProperty("pathToFileFolder") + fileName + ".json";
+
+        try(FileReader reader = new FileReader(new File(fullFileName))) {
+            while ((c = reader.read()) != -1) {
+                json += (char) c;
+            }
+        } catch (IOException e) {
+            System.err.println("ERROR: cannot read from: " + fullFileName);
+            e.printStackTrace();
         }
+
         return json;
     }
 

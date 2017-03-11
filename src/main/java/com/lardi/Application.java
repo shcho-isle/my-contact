@@ -7,7 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories("com.lardi.repository")
+@EnableJpaRepositories("com.lardi.repository.datajpa")
+//@EnableJpaRepositories("com.lardi.repository.json")
 @EntityScan("com.lardi.model")
 @ComponentScan("com.lardi.service")
 public class Application {

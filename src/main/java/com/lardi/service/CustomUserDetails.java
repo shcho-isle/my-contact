@@ -1,4 +1,4 @@
-package com.lardi.config;
+package com.lardi.service;
 
 import com.lardi.model.User;
 import com.lardi.service.UserService;
@@ -9,13 +9,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository(value = "userJsonDetailsService")
+@Service(value = "userJsonDetailsService")
 class CustomUserDetails implements UserDetailsService {
 
     @Autowired

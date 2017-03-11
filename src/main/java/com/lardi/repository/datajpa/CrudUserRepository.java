@@ -9,8 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CrudUserRepository extends CrudRepository<User, Integer> {
 
-    @Query("select u from User u where u.fullName=:fullName")
-    User finByFullName(@Param("fullName") String fullName);
-
     User getByLogin(String login);
 }
