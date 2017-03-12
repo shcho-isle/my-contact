@@ -40,10 +40,12 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     }
 
     @Override
-    public Contact save(Contact contact) {
+    public Contact save(Contact contact, Integer userId) {
         List<Contact> contactList = getAllBaseContacts();
         if (contactList == null)
             contactList = new ArrayList<>();
+        User user = userRepository.get(userId);
+        contact.setUserLogin(user.getLogin());
         contact.setId(contactList.size() + 101);
         contactList.add(contact);
         transactionWrite(contactList);
@@ -51,19 +53,21 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     }
 
     @Override
-    public boolean update(Contact contact) {
+    public Contact update(Contact contact, Integer userId) {
         List<Contact> contactList = getAllBaseContacts();
         int matchIdx;
+        User user = userRepository.get(userId);
+        contact.setUserLogin(user.getLogin());
         Optional<Contact> match = contactList.stream()
-                .filter(c -> c.getId().equals(contact.getId()))
+                .filter(c -> c.getId().equals(contact.getId()) && c.getUserLogin().equalsIgnoreCase(user.getLogin()))
                 .findFirst();
         if (match.isPresent()) {
             matchIdx = contactList.indexOf(match.get());
             contactList.set(matchIdx, contact);
             transactionWrite(contactList);
-            return true;
+            return contact;
         } else {
-            return false;
+            return null;
         }
     }
 

@@ -33,13 +33,15 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Integer save(Contact contact) {
-        return repository.save(contact).getId();
+    public Contact save(Contact contact, Integer userId) {
+        Assert.notNull(contact, "contact must not be null");
+        return repository.save(contact, userId);
     }
 
     @Override
-    public boolean update(Contact contact) {
-        return repository.update(contact);
+    public Contact update(Contact contact, Integer userId) {
+        Assert.notNull(contact, "contact must not be null");
+        return checkNotFoundWithId(repository.update(contact, userId), contact.getId());
     }
 
     @Override

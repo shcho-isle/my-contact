@@ -12,7 +12,11 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudContactRepository extends CrudRepository<Contact, Integer> {
 
-    List<Contact> findByUserLogin(String userLogin);
+    @Override
+    Contact save(Contact item);
+
+    @Query("SELECT c FROM Contact c WHERE c.userLogin=:userLogin ORDER BY c.lastName ASC")
+    List<Contact> getAll(@Param("userLogin") String userLogin);
 
     @Modifying
     @Transactional
@@ -20,6 +24,6 @@ public interface CrudContactRepository extends CrudRepository<Contact, Integer> 
     int delete(@Param("id") int id, @Param("userLogin") String userLogin);
 
     @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT c from Contact c WHERE c.userLogin=:userLogin AND (c.firstName LIKE :filterRequest OR c.lastName LIKE :filterRequest OR c.mobilePhone LIKE :filterRequest)")
+    @Query("SELECT c from Contact c WHERE c.userLogin=:userLogin AND (c.firstName LIKE :filterRequest OR c.lastName LIKE :filterRequest OR c.mobilePhone LIKE :filterRequest) ORDER BY c.lastName ASC")
     List<Contact> getFiltered(@Param("filterRequest") String filterRequest, @Param("userLogin") String userLogin);
 }

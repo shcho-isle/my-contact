@@ -8,9 +8,10 @@ public interface ContactRepository {
     // ORDERED lastName
     List<Contact> getAll(Integer userId);
 
-    Contact save(Contact contact);
+    Contact save(Contact contact, Integer userId);
 
-    boolean update(Contact contact);
+    // null if updated contact do not belong to userId
+    Contact update(Contact contact, Integer userId);
 
     // false if meal do not belong to userId
     boolean delete(Integer id, Integer userId);

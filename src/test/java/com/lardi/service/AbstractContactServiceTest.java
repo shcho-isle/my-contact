@@ -36,8 +36,8 @@ public abstract class AbstractContactServiceTest extends AbstractServiceTest {
     @Test
     public void testSave() throws Exception {
         Contact created = getCreated();
-        service.save(created);
-        MATCHER.assertCollectionEquals(Arrays.asList(created, VANO_CONTACT6, VANO_CONTACT5, VANO_CONTACT4, VANO_CONTACT3, VANO_CONTACT2, VANO_CONTACT1), service.getAll(VANO_ID));
+        service.save(created, VANO_ID);
+        MATCHER.assertCollectionEquals(Arrays.asList(created, VANO_CONTACT1, VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
     }
 
     @Test
@@ -55,7 +55,7 @@ public abstract class AbstractContactServiceTest extends AbstractServiceTest {
     @Test
     public void testUpdate() throws Exception {
         Contact updated = getUpdated();
-        service.update(updated);
+        service.update(updated, VANO_ID);
         MATCHER.assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
     }
 
@@ -63,26 +63,17 @@ public abstract class AbstractContactServiceTest extends AbstractServiceTest {
     public void testUpdateNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage("Not found entity with id=" + SERG_CONTACT_ID);
-        service.update(SERG_CONTACT1);
+        service.update(SERG_CONTACT1, VANO_ID);
     }
 
     @Test
     public void testGetAll() throws Exception {
         MATCHER.assertCollectionEquals(CONTACTS, service.getAll(VANO_ID));
     }
-//
-//    @Test
-//    public void testGetBetween() throws Exception {
-//        MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
-//                service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30), LocalDate.of(2015, Month.MAY, 30), USER_ID));
-//    }
-//
-//    @Test
-//    public void testValidation() throws Exception {
-//        Assume.assumeTrue(isJpaBased());
-//        validateRootCause(() -> service.save(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "  ", 300), USER_ID), ConstraintViolationException.class);
-//        validateRootCause(() -> service.save(new Meal(null, null, "Description", 300), USER_ID), ConstraintViolationException.class);
-//        validateRootCause(() -> service.save(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 9), USER_ID), ConstraintViolationException.class);
-//        validateRootCause(() -> service.save(new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Description", 5001), USER_ID), ConstraintViolationException.class);
-//    }
+
+    @Test
+    public void testGetFiltered() throws Exception {
+        MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT1, VANO_CONTACT3),
+                service.getFiltered("as", VANO_ID));
+    }
 }

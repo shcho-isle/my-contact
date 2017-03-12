@@ -13,9 +13,9 @@ public interface ContactService {
 
     Contact get(Integer id, Integer userId);
 
-    Integer save(Contact contact);
+    Contact save(Contact contact, Integer userId);
 
-    boolean update(Contact customer);
+    Contact update(Contact customer, Integer userId);
 
     void delete(int id, Integer userId);
 

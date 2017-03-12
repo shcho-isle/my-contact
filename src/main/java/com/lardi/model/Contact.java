@@ -44,16 +44,7 @@ public class Contact extends BaseEntity {
     public Contact() {
     }
 
-    public Contact(
-            Integer id,
-            String lastName,
-            String firstName,
-            String middleName,
-            String mobilePhone,
-            String homePhone,
-            String address,
-            String email,
-            String userLogin) {
+    public Contact(Integer id, String lastName, String firstName, String middleName, String mobilePhone, String homePhone, String address, String email) {
         super(id);
         this.lastName = lastName;
         this.firstName = firstName;
@@ -62,19 +53,10 @@ public class Contact extends BaseEntity {
         this.mobilePhone = mobilePhone;
         this.homePhone = homePhone;
         this.email = email;
-        this.userLogin = userLogin;
     }
 
-    public Contact(
-            String lastName,
-            String firstName,
-            String middleName,
-            String mobilePhone,
-            String homePhone,
-            String address,
-            String email,
-            String userLogin) {
-        this(null, lastName, firstName, middleName, mobilePhone, homePhone, address, email, userLogin);
+    public Contact(String lastName, String firstName, String middleName, String mobilePhone, String homePhone, String address, String email) {
+        this(null, lastName, firstName, middleName, mobilePhone, homePhone, address, email);
     }
 
     public String getFirstName() {

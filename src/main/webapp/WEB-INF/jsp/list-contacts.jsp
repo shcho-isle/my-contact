@@ -25,9 +25,9 @@
     <h2>Контакты</h2>
     <!--Search Form -->
     <form action="/contact" method="get" id="seachContactForm" address="form">
-        <input type="hidden" id="searchAction" name="searchAction" value="searchByName">
+        <input type="hidden" id="searchAction" name="searchAction" value="searchInFirstLastMobile">
         <div class="form-group col-xs-5">
-            <input type="text" name="contactName" id="contactName" class="form-control" required="true"
+            <input type="text" name="searchRequest" id="searchRequest" class="form-control" required="true"
                    placeholder="Напишите Имя или Фамилию"/>
         </div>
         <button type="submit" class="btn btn-info">

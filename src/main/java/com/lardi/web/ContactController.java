@@ -31,7 +31,7 @@ public class ContactController {
                 case "searchById":
                     model = searchContactById(allRequestParams);
                     break;
-                case "searchByName":
+                case "searchInFirstLastMobile":
                     model = searchContactByName(allRequestParams);
                     break;
             }
@@ -52,9 +52,9 @@ public class ContactController {
     }
 
     private ModelAndView searchContactByName(Map<String, String> allRequestParams) throws IOException {
-        String contactName = allRequestParams.get("contactName");
+        String searchRequest = allRequestParams.get("searchRequest");
         Integer userId = AuthorizedUser.id();
-        List<Contact> result = service.getFiltered(contactName, userId);
+        List<Contact> result = service.getFiltered(searchRequest, userId);
         return forwardListContacts(result);
     }
 
@@ -107,13 +107,11 @@ public class ContactController {
         String mobilePhone = allRequestParams.get("mobilePhone");
         String homePhone = allRequestParams.get("homePhone");
         String email = allRequestParams.get("email");
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        Contact contact = new Contact(lastName, name, middleName, mobilePhone, homePhone, address, email, currentUser);
-        Integer idContact = service.save(contact);
-
+        Contact contact = new Contact(lastName, name, middleName, mobilePhone, homePhone, address, email);
         Integer userId = AuthorizedUser.id();
+        Contact savedContact = service.save(contact, userId);
         List<Contact> contactList = service.getAll(userId);
-        model.addObject("idContact", idContact);
+        model.addObject("idContact", savedContact.getId());
         String message = "Новый контакт успешно создан";
         model.addObject("message", message);
         model.addObject("contactList", contactList);
@@ -140,16 +138,12 @@ public class ContactController {
         String mobilePhone = allRequestParams.get("mobilePhone");
         String homePhone = allRequestParams.get("homePhone");
         String email = allRequestParams.get("email");
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-        Contact contact = new Contact(idContact, lastName, name, middleName, mobilePhone, homePhone, address, email, currentUser);
+        Contact contact = new Contact(idContact, lastName, name, middleName, mobilePhone, homePhone, address, email);
         contact.setId(idContact);
-        boolean success = service.update(contact);
-        String message = null;
-        if (success) {
-            message = "Контакт успешно обновлён!";
-        }
         Integer userId = AuthorizedUser.id();
+        service.update(contact, userId);
+        String message = "Контакт успешно обновлён!";
         List<Contact> contactList = service.getAll(userId);
         model.addObject("idContact", idContact);
         model.addObject("message", message);
