@@ -28,8 +28,8 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGet() throws Exception {
-        User user = service.get(USER1_ID);
-        MATCHER.assertEquals(USER1, user);
+        User user = service.get(VANO_ID);
+        MATCHER.assertEquals(VANO, user);
     }
 
     @Test(expected = NotFoundException.class)
@@ -40,6 +40,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Test
     public void testGetByLogin() throws Exception {
         User user = service.getByLogin("Vano");
-        MATCHER.assertEquals(USER1, user);
+        MATCHER.assertEquals(VANO, user);
     }
 }

@@ -25,14 +25,14 @@ public class AuthenticationProviderConfig {
         return driverManagerDataSource;
     }
 
-    @Profile("mysql")
-    @Bean("dataJpaUserDetailsService")
-    public UserDetailsService userDetailsService() throws IOException {
-        JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
-        jdbcImpl.setDataSource(dataSource());
-        jdbcImpl.setUsersByUsernameQuery("select login,password,1 from users where login=?");
-        jdbcImpl.setAuthoritiesByUsernameQuery("select b.login, a.role from user_roles a, users b where b.login=? and a.user_id=b.id");
-        return jdbcImpl;
-    }
+//    @Profile("mysql")
+//    @Bean("dataJpaUserDetailsService")
+//    public UserDetailsService userDetailsService() throws IOException {
+//        JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
+//        jdbcImpl.setDataSource(dataSource());
+//        jdbcImpl.setUsersByUsernameQuery("select login,password,1 from users where login=?");
+//        jdbcImpl.setAuthoritiesByUsernameQuery("select b.login, a.role from user_roles a, users b where b.login=? and a.user_id=b.id");
+//        return jdbcImpl;
+//    }
 }
 

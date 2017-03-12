@@ -11,11 +11,11 @@ import java.util.Objects;
 public class UserTestData {
     private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);
 
-    public static final int USER1_ID = 1;
-    public static final int USER2_ID = USER1_ID + 1;
+    public static final int VANO_ID = 1;
+    public static final int SERG_ID = VANO_ID + 1;
 
-    public static final User USER1 = new User(USER1_ID, "Vano", "password", "Yakovenko Ivan Venediktovich");
-    public static final User USER2 = new User(USER2_ID, "Serg", "password", "Rubinov Sergey Nikolaevich");
+    public static final User VANO = new User(VANO_ID, "Vano", "password", "Yakovenko Ivan Venediktovich");
+    public static final User SERG = new User(SERG_ID, "Serg", "password", "Rubinov Sergey Nikolaevich");
 
     public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
             (expected, actual) -> expected == actual ||

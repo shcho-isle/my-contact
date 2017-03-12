@@ -17,4 +17,8 @@ public interface CrudContactRepository extends CrudRepository<Contact, Integer> 
     @Modifying
     @Query("DELETE FROM Contact c WHERE c.id=:id")
     int delete(@Param("id") int id);
+
+    @SuppressWarnings("JpaQlInspection")
+    @Query("SELECT c from Contact c WHERE c.userLogin=:userLogin AND (c.firstName LIKE :filterRequest OR c.lastName LIKE :filterRequest OR c.mobilePhone LIKE :filterRequest)")
+    List<Contact> getFiltered(@Param("filterRequest") String filterRequest, @Param("userLogin") String userLogin);
 }

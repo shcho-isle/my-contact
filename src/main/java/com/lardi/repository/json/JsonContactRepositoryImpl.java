@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.lardi.model.Contact;
+import com.lardi.model.User;
 import com.lardi.repository.ContactRepository;
+import com.lardi.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +19,10 @@ import java.util.stream.Collectors;
 @Profile("json")
 @Repository("jsonContactRepository")
 public class JsonContactRepositoryImpl extends AbstractJsonRepository implements ContactRepository {
+
+    @Autowired
+    private UserRepository userRepository;
+
     private final String className = Contact.class.getName();
 
     @Override
@@ -72,6 +79,32 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         }
     }
 
+    @Override
+    public List<Contact> getFiltered(String filterRequest, Integer userId) {
+        List<Contact> contactList = getAllBaseContacts();
+        if (contactList == null)
+            return Collections.emptyList();
+        User user = userRepository.get(userId);
+        return contactList
+                .stream()
+                .filter(e -> e.getUserLogin().equalsIgnoreCase(user.getLogin())
+                        && (e.getFirstName().contains(filterRequest) || e.getLastName().contains(filterRequest) || e.getMobilePhone().contains(filterRequest)))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Contact get(Integer id, Integer userId) {
+        List<Contact> contactList = getAllBaseContacts();
+        if (contactList == null)
+            return null;
+        Contact contact = contactList
+                .stream()
+                .filter(e -> e.getId().equals(id))
+                .findFirst().orElse(null);
+        User user = userRepository.get(userId);
+        return contact != null && Objects.equals(contact.getUserLogin(), user.getLogin()) ? contact : null;
+    }
+
     public List<Contact> getAllBaseContacts() {
         File f = getFilePath(className);
         checkIfExists(f, className);
@@ -84,8 +117,6 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
         return (List<Contact>) gson.fromJson(jsonOutput, listType);
     }
-
-
 
     public void transactionWrite(List<Contact> contactList) {
         Gson gson = new Gson();

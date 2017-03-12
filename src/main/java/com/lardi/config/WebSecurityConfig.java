@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contact").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login")
+                .formLogin().loginPage("/login").defaultSuccessUrl("/home").failureUrl("/login?error=true").loginProcessingUrl("/spring_security_check")
                 .usernameParameter("login").passwordParameter("password")
                 .and()
                 .logout().logoutSuccessUrl("/login?logout")

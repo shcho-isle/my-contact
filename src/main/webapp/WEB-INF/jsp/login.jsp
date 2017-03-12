@@ -14,7 +14,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <form:form class="navbar-form" role="form" action="/login" method="post">
+                    <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
                         <div class="form-group">
                             <input type="text" placeholder="Login" class="form-control" name="login">
                         </div>

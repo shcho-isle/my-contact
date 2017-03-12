@@ -7,9 +7,9 @@ import java.io.IOException;
 
 public interface UserService {
 
-    User save(User user) throws IOException;
+    User save(User user);
 
-    User get(Integer id) throws NotFoundException, IOException;
+    User get(Integer id) throws NotFoundException;
 
-    User getByLogin(String login) throws NotFoundException, IOException;
+    User getByLogin(String login) throws NotFoundException;
 }

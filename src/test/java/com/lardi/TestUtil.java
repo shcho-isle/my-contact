@@ -25,12 +25,8 @@ public class TestUtil {
     }
 
     public static void mockAuthorize(User user) {
-        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
-            UserDetailsService userDetailsService = appCtx.getBean(UserDetailsService.class);
-
-            SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(user.getLogin()), null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
-        }
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(new AuthorizedUser(user), null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
     }
 
     public static RequestPostProcessor userHttpBasic(User user) {

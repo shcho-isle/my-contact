@@ -1,5 +1,6 @@
 package com.lardi.service;
 
+import com.lardi.AuthorizedUser;
 import com.lardi.model.User;
 import com.lardi.model.Role;
 import com.lardi.repository.RoleRepository;
@@ -8,11 +9,13 @@ import com.lardi.util.PasswordUtil;
 import com.lardi.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -44,11 +47,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByLogin(String login) throws NotFoundException {
-        Assert.notNull(login, "email must not be null");
+        Assert.notNull(login, "login must not be null");
         User user = repository.getByLogin(login);
         if (user == null) {
             throw new NotFoundException("Not found entity with login=" + login);
         }
         return user;
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String login) throws UsernameNotFoundException {
+        User u = repository.getByLogin(login.toLowerCase());
+        if (u == null) {
+            throw new UsernameNotFoundException("User " + login + " is not found");
+        }
+        return new AuthorizedUser(u);
     }
 }

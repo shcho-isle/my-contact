@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface ContactService {
-    List<Contact> getAll() throws IOException;
+    List<Contact> getAll(Integer userId);
 
-    List<Contact> searchByFirstName(String name) throws IOException;
+    List<Contact> getFiltered(String filterRequest, Integer userId);
 
-    Contact get(Integer id) throws Exception;
+    Contact get(Integer id, Integer userId);
 
-    Integer save(Contact contact) throws IOException;
+    Integer save(Contact contact);
 
     boolean update(Contact customer);
 

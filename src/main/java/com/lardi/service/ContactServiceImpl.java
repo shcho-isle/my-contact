@@ -6,9 +6,10 @@ import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import static com.lardi.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -17,7 +18,7 @@ public class ContactServiceImpl implements ContactService {
     private ContactRepository repository;
 
     @Override
-    public List<Contact> getAll() {
+    public List<Contact> getAll(Integer userId) {
         List<Contact> list = new ArrayList<>();
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         repository.getByUserLogin(login).forEach(list::add);
@@ -25,30 +26,14 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<Contact> searchByFirstName(String firstName) {
-        List<Contact> contactList = getAll();
-
-        Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getFirstName)
-                .thenComparing(Contact::getLastName);
-        return contactList
-                .stream()
-                .filter(e -> e.getFirstName().equalsIgnoreCase(firstName) || e.getLastName().equalsIgnoreCase(firstName))
-                .sorted(groupByComparator)
-                .collect(Collectors.toList());
+    public List<Contact> getFiltered(String filterRequest, Integer userId) {
+        Assert.notNull(filterRequest, "filter request must not be null");
+        return repository.getFiltered(filterRequest, userId);
     }
 
     @Override
-    public Contact get(Integer id) throws Exception {
-        List<Contact> contactList = getAll();
-        Optional<Contact> match
-                = contactList.stream()
-                .filter(e -> e.getId().equals(id))
-                .findFirst();
-        if (match.isPresent()) {
-            return match.get();
-        } else {
-            throw new Exception("The Contact id " + id + " not found");
-        }
+    public Contact get(Integer id, Integer userId) {
+        return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
     @Override

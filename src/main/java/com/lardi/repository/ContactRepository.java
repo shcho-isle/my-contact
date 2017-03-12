@@ -12,4 +12,9 @@ public interface ContactRepository {
     boolean update(Contact contact);
 
     boolean delete(Integer id);
+
+    List<Contact> getFiltered(String filterRequest, Integer userId);
+
+    // null if contact do not belong to userId
+    Contact get(Integer id, Integer userId);
 }
