@@ -1,12 +1,13 @@
 package com.lardi.model;
 
+import com.lardi.HasId;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class BaseEntity {
+public class BaseEntity implements HasId {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Access(value = AccessType.PROPERTY)
@@ -19,10 +20,12 @@ public class BaseEntity {
         this.id = id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
