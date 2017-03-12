@@ -4,7 +4,6 @@ import com.lardi.model.Contact;
 import com.lardi.repository.ContactRepository;
 import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -19,10 +18,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<Contact> getAll(Integer userId) {
-        List<Contact> list = new ArrayList<>();
-        String login = SecurityContextHolder.getContext().getAuthentication().getName();
-        repository.getByUserLogin(login).forEach(list::add);
-        return list;
+        return repository.getAll(userId);
     }
 
     @Override
@@ -47,9 +43,10 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        return repository.delete(id);
+    public void delete(int id, Integer userId) {
+        checkNotFoundWithId(repository.delete(id, userId), id);
     }
+
 
     @Override
     public String validateNewContact(Map<String, String> allRequestParams) {

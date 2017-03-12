@@ -17,7 +17,7 @@ public interface ContactService {
 
     boolean update(Contact customer);
 
-    boolean delete(Integer id);
+    void delete(int id, Integer userId);
 
     String validateNewContact(Map<String, String> allRequestParams);
 }

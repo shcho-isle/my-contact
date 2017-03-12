@@ -26,15 +26,15 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     private final String className = Contact.class.getName();
 
     @Override
-    public List<Contact> getByUserLogin(String login) {
+    public List<Contact> getAll(Integer userId) {
         List<Contact> contactList = getAllBaseContacts();
         if (contactList == null)
             return Collections.emptyList();
-        Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getFirstName)
-                .thenComparing(Contact::getLastName);
+        User user = userRepository.get(userId);
+        Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
         return contactList
                 .stream()
-                .filter(e -> e.getUserLogin().equalsIgnoreCase(login))
+                .filter(e -> e.getUserLogin().equalsIgnoreCase(user.getLogin()))
                 .sorted(groupByComparator)
                 .collect(Collectors.toList());
     }
@@ -68,9 +68,10 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Integer id, Integer userId) {
         List<Contact> contactList = getAllBaseContacts();
-        Predicate<Contact> contact = e -> e.getId().equals(id);
+        User user = userRepository.get(userId);
+        Predicate<Contact> contact = e -> (e.getId().equals(id) && e.getUserLogin().equalsIgnoreCase(user.getLogin()));
         if (contactList.removeIf(contact)) {
             transactionWrite(contactList);
             return true;
@@ -85,10 +86,12 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         if (contactList == null)
             return Collections.emptyList();
         User user = userRepository.get(userId);
+        Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
         return contactList
                 .stream()
                 .filter(e -> e.getUserLogin().equalsIgnoreCase(user.getLogin())
                         && (e.getFirstName().contains(filterRequest) || e.getLastName().contains(filterRequest) || e.getMobilePhone().contains(filterRequest)))
+                .sorted(groupByComparator)
                 .collect(Collectors.toList());
     }
 

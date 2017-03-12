@@ -21,8 +21,9 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
     private CrudUserRepository crudUserRepository;
 
     @Override
-    public List<Contact> getByUserLogin(String login) {
-        return crudRepository.findByUserLogin(login);
+    public List<Contact> getAll(Integer userId) {
+        User user = crudUserRepository.findOne(userId);
+        return crudRepository.findByUserLogin(user.getLogin());
     }
 
     @Override
@@ -36,8 +37,9 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
     }
 
     @Override
-    public boolean delete(Integer id) {
-        return crudRepository.delete(id.intValue()) != 0;
+    public boolean delete(Integer id, Integer userId) {
+        User user = crudUserRepository.findOne(userId);
+        return crudRepository.delete(id, user.getLogin()) != 0;
     }
 
     @Override

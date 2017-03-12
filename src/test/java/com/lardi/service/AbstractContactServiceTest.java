@@ -23,14 +23,14 @@ public abstract class AbstractContactServiceTest extends AbstractServiceTest {
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(VANO_CONTACT_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT6, VANO_CONTACT5, VANO_CONTACT4, VANO_CONTACT3, VANO_CONTACT2), service.getAll(VANO_ID));
+        service.delete(VANO_CONTACT_ID, VANO_ID);
+        MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
     }
 
     @Test
     public void testDeleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(SERG_CONTACT_ID);
+        service.delete(SERG_CONTACT_ID, VANO_ID);
     }
 
     @Test

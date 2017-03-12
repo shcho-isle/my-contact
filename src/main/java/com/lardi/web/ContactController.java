@@ -160,12 +160,10 @@ public class ContactController {
     private ModelAndView removeContactByName(Map<String, String> allRequestParams) throws IOException {
         ModelAndView model = new ModelAndView("list-contacts");
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-        boolean confirm = service.delete(idContact);
-        if (confirm) {
-            String message = "Контакт успешно удалён!";
-            model.addObject("message", message);
-        }
-        Integer userId = AuthorizedUser.id();
+        int userId = AuthorizedUser.id();
+        service.delete(idContact, userId);
+        String message = "Контакт успешно удалён!";
+        model.addObject("message", message);
         List<Contact> contactList = service.getAll(userId);
         model.addObject("contactList", contactList);
         return model;

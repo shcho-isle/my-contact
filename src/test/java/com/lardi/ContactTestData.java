@@ -18,12 +18,12 @@ public class ContactTestData {
     public static final Contact VANO_CONTACT2 = new Contact(VANO_CONTACT_ID + 1, "Tsymbal", "Lena", "Viktorivna", "+380(50)1234123", "+380(47)2661181", "Cherkasy, Taraskova str. 16", "lena@gmail.com", "Vano");
     public static final Contact VANO_CONTACT3 = new Contact(VANO_CONTACT_ID + 2, "Kushnir", "Sasha", "Igorevych", "+380(97)9876543", "+380(44)0909098", "Kyiv, Pushkinska str. 10", "sasha@gmail.com", "Vano");
     public static final Contact VANO_CONTACT4 = new Contact(VANO_CONTACT_ID + 3, "Tymoshenko", "Yulia", "Volodymyrivna", "+380(67)8555855", "+380(47)2234567", "Cherkasy, Rustavi str. 8", "yulia@gmail.com", "Vano");
-    public static final Contact VANO_CONTACT5 = new Contact(VANO_CONTACT_ID + 4, "Tiagnybok", "Vitia", "Fedorovych", "+ 380(98)9234567", "+380(44)9234567", "Kyiv, Sosninykh str. 38", "vitia@gmail.com", "Vano");
+    public static final Contact VANO_CONTACT5 = new Contact(VANO_CONTACT_ID + 4, "Tiagnybok", "Vitia", "Fedorovych", "+380(98)9234567", "+380(44)9234567", "Kyiv, Sosninykh str. 38", "vitia@gmail.com", "Vano");
     public static final Contact VANO_CONTACT6 = new Contact(VANO_CONTACT_ID + 5, "Parasiuk", "Grysha", "Petrovych", "+380(93)1234555", "+380(47)2234555", "Cherkasy, Gaidara str. 8", "grysha@gmail.com", "Vano");
     public static final Contact SERG_CONTACT1 = new Contact(SERG_CONTACT_ID, "Dovbash", "Dima", "Grygorovych", "+380(63)3334567", "+380(44)3334567", "Kyiv, Zhylanska str. 99", "dima@gmail.com", "Serg");
     public static final Contact SERG_CONTACT2 = new Contact(SERG_CONTACT_ID + 1, "Kukushkina", "Sveta", "Andreevna", "+380(66)1234567", "+380(44)1234567", "Kyiv, Mechnikova str. 2", "sveta@gmail.com", "Serg");
 
-    public static final List<Contact> CONTACTS = Arrays.asList(VANO_CONTACT6, VANO_CONTACT5, VANO_CONTACT4, VANO_CONTACT3, VANO_CONTACT2, VANO_CONTACT1);
+    public static final List<Contact> CONTACTS = Arrays.asList(VANO_CONTACT1, VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6);
 
     public static Contact getCreated() {
         return new Contact(null, "new_last", "new_first", "new_middle", "+380(00)0000000", "", "", "", "Vano");
