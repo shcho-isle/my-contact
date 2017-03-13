@@ -5,17 +5,13 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <a href="contact" class="navbar-brand"><spring:message code="app.title"/></a>
+        <a href="contacts" class="navbar-brand"><spring:message code="app.title"/></a>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <form:form class="navbar-form" action="logout" method="post">
                         <sec:authorize access="isAuthenticated()">
-                            <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <a class="btn btn-info" href="users"><spring:message code="users.title"/></a>
-                            </sec:authorize>
-                            <a class="btn btn-info" role="button" href="profile">${userTo.name} <spring:message code="app.profile"/></a>
                             <button class="btn btn-primary" type="submit">
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             </button>

@@ -13,7 +13,7 @@ public interface ContactRepository {
     // null if updated contact do not belong to userId
     Contact update(Contact contact, Integer userId);
 
-    // false if meal do not belong to userId
+    // false if contact do not belong to userId
     boolean delete(Integer id, Integer userId);
 
     // ORDERED lastName

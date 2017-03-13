@@ -43,7 +43,7 @@ public class ContactController {
             List<Contact> contactList = service.getAll(userId);
             model = new ModelAndView("contacts");
             model.addObject("contactList", contactList);
-            model.addObject("currentUser", SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase());
+            model.addObject("currentUser", AuthorizedUser.getFullName());
             return model;
         }
     }
@@ -85,9 +85,6 @@ public class ContactController {
                 break;
             case "edit":
                 model = editContactAction(allRequestParams);
-                break;
-            case "remove":
-                model = removeContactByName(allRequestParams);
                 break;
         }
         return model;
@@ -162,5 +159,12 @@ public class ContactController {
         List<Contact> contactList = service.getAll(userId);
         model.addObject("contactList", contactList);
         return model;
+    }
+
+    @GetMapping("/delete-{id}-contact")
+    public String deleteUser(@PathVariable int id) {
+        int userId = AuthorizedUser.id();
+        service.delete(id, userId);
+        return "redirect:contacts";
     }
 }

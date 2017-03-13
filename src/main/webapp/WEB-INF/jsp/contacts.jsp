@@ -1,109 +1,101 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html>
-<head>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
-    <script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" defer></script>
-</head>
-
+<jsp:include page="fragments/headTag.jsp"/>
 <body>
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div align="center" class="container">
-        <h2>Вы вошлки как: <span class="label label-default">${currentUser}</span></h2>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
+<c:if test="${not empty message}">
+    <div class="alert alert-success">
+            ${message}
     </div>
-    <div align="right" class="container">
-        <form action="/logout" method="post">
-            <button type="submit" class="btn btn-primary  btn-md">Выход</button>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-    </div>
-</nav>
-<div class="container">
-    <h2>Контакты</h2>
-    <!--Search Form -->
-    <form action="/contacts" method="get" id="seachContactForm" address="form">
-        <input type="hidden" id="searchAction" name="searchAction" value="searchInFirstLastMobile">
-        <div class="form-group col-xs-5">
-            <input type="text" name="searchRequest" id="searchRequest" class="form-control" required="true"
-                   placeholder="Напишите Имя или Фамилию"/>
-        </div>
-        <button type="submit" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Поиск
-        </button>
-        <br>
-        <br>
-    </form>
+</c:if>
 
-    <!--Contacts List-->
-    <c:if test="${not empty message}">
-        <div class="alert alert-success">
-                ${message}
-        </div>
-    </c:if>
-    <form action="/contacts" method="post" id="contactForm" address="form">
-        <input type="hidden" id="idContact" name="idContact">
-        <input type="hidden" id="action" name="action">
-        <c:choose>
-            <c:when test="${not empty contactList}">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Имя</td>
-                        <td>Фамилия</td>
-                        <td>Отчество</td>
-                        <td>Адрес</td>
-                        <td>Моб. телефон</td>
-                        <td>Телефон</td>
-                        <td>E-mail</td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <c:forEach var="contact" items="${contactList}">
-                        <c:set var="classSucess" value=""/>
-                        <c:if test="${idContact == contact.id}">
-                            <c:set var="classSucess" value="info"/>
-                        </c:if>
-                        <tr class="${classSucess}">
-                            <td>
-                                <a href="/contacts?idContact=${contact.id}&searchAction=searchById">${contact.id}</a>
-                            </td>
-                            <td>${contact.firstName}</td>
-                            <td>${contact.lastName}</td>
-                            <td>${contact.middleName}</td>
-                            <td>${contact.address}</td>
-                            <td>${contact.mobilePhone}</td>
-                            <td>${contact.homePhone}</td>
-                            <td>${contact.email}</td>
-                            <td><a href="#" id="remove"
-                                   onclick="document.getElementById('action').value = 'remove';document.getElementById('idContact').value = '${contact.id}';
-
-                                           document.getElementById('contactForm').submit();">
-                                <input type="hidden" name="${_csrf.parameterName}"
-                                       value="${_csrf.token}"/>
-                                <span class="glyphicon glyphicon-trash"/>
-                            </a>
-
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </c:when>
-            <c:otherwise>
-                <br>
-                <div class="alert alert-info">
-                    По заданым словам совпадений не найдено. <a href="contact">Назад</a>
+<div class="jumbotron">
+    <div class="container">
+        <div class="shadow">
+            <h3><spring:message code="contacts.title"/> ${currentUser}</h3>
+            <div class="view-box">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="panel panel-default">
+                            <div class="panel-footer text-right">
+                                <form action="/contacts" method="get" id="seachContactForm" address="form">
+                                    <input type="hidden" id="searchAction" name="searchAction"
+                                           value="searchInFirstLastMobile">
+                                    <div class="form-group col-xs-7">
+                                        <input type="text" name="searchRequest" id="searchRequest" class="form-control"
+                                               required="true"
+                                               placeholder="<spring:message code="contacts.search"/>"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                    <a class="btn btn-danger" type="button" href="contacts">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </a>
+                                    <br>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </c:otherwise>
-        </c:choose>
-    </form>
-    <form action="new-contact">
-        <br>
-        <button type="submit" class="btn btn-primary  btn-md">Создать контакт</button>
-    </form>
+                <a class="btn btn-info" href="new-contact">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </a>
+
+                <form action="/contacts" method="post" id="contactForm" address="form">
+                    <input type="hidden" id="idContact" name="idContact">
+                    <input type="hidden" id="action" name="action">
+
+                    <table class="table table-striped display" id="datatable">
+                        <thead>
+                        <tr>
+                            <th><spring:message code="contacts.lastName"/></th>
+                            <th><spring:message code="contacts.firstName"/></th>
+                            <th><spring:message code="contacts.middleName"/></th>
+                            <th><spring:message code="contacts.mobilePhone"/></th>
+                            <th><spring:message code="contacts.homePhone"/></th>
+                            <th><spring:message code="contacts.address"/></th>
+                            <th><spring:message code="contacts.email"/></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <c:forEach var="contact" items="${contactList}">
+                            <c:set var="classSucess" value=""/>
+                            <c:if test="${idContact == contact.id}">
+                                <c:set var="classSucess" value="info"/>
+                            </c:if>
+                            <tr class="${classSucess}">
+                                <td>${contact.lastName}</td>
+                                <td>${contact.firstName}</td>
+                                <td>${contact.middleName}</td>
+                                <td>${contact.mobilePhone}</td>
+                                <td>${contact.homePhone}</td>
+                                <td>${contact.address}</td>
+                                <td>${contact.email}</td>
+                                <td><a class="btn btn-primary" href="/contacts?idContact=${contact.id}&searchAction=searchById" id="edit">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <span class="glyphicon glyphicon-pencil"/></a>
+                                </td>
+                                <td><a class="btn btn-danger" href="<c:url value='/delete-${contact.id}-contact' />">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <span class="glyphicon glyphicon-remove"/></a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<jsp:include page="fragments/footer.jsp"/>
 </div>
 </body>
 </html>

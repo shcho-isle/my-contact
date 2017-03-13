@@ -56,7 +56,7 @@
             </c:if>
             <c:if test="${action == 'add'}">
                 <button type="submit" class="btn btn-primary  btn-md">Создать</button>
-            </c:if> <a class="btn btn-danger btn-md" role="button" onclick="window.location.href='contact'">Отмена</a>
+            </c:if> <a class="btn btn-danger btn-md" role="button" onclick="window.location.href='contacts'">Отмена</a>
         </div>
     </form>
 </div>
