@@ -22,7 +22,7 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
         List<Role> roleList = getAllRolesAndUsers();
         if (roleList == null)
             roleList = new ArrayList<>();
-        role.setId(roleList.size() + 100);
+        role.setId(roleList.size() + 1);
         roleList.add(role);
         transactionWrite(roleList);
     }

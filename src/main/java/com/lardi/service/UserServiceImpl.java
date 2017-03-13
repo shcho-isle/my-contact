@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import static com.lardi.util.ValidationUtil.checkNotFoundWithId;
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -29,20 +31,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Assert.notNull(user, "user must not be null");
         user.setPassword(PasswordUtil.encode(user.getPassword()));
         User savedUser = repository.save(user);
-
         Role role = new Role(savedUser.getId());
         roleRepository.save(role);
-
-        return repository.save(user);
+        return user;
     }
 
     @Override
     public User get(Integer id) throws NotFoundException {
-        User user = repository.get(id);
-        if (user == null) {
-            throw new NotFoundException("Not found entity with id=" + id);
-        }
-        return user;
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lardi.model.User;
 import com.lardi.repository.UserRepository;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -21,11 +22,11 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
     @Override
     public User save(User user) {
         List<User> userList = getAllUsers();
-        if (!checkRegisteredUsers(user.getId(), user.getFullName()))
-            return null;
+        if (get(user.getId()) != null || getByLogin(user.getLogin()) != null)
+            throw new DataIntegrityViolationException("User " + user.getLogin() + " already exists.");
         if (userList == null)
             userList = new ArrayList<>();
-        user.setId(userList.size() + 101);
+        user.setId(userList.size() + 1);
         userList.add(user);
         transactionWrite(userList);
         return user;
@@ -53,20 +54,12 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         return match.orElse(null);
     }
 
-    private boolean checkRegisteredUsers(Integer id, String fullName) {
-        return get(id) == null & getUserFullName(fullName) == null;
-    }
-
     public List<User> getAllUsers() {
         File f = getFilePath(className);
         checkIfExists(f, className);
-
         Gson gson = new Gson();
-
         String jsonOutput = readJson(className);
-
         java.lang.reflect.Type listType = new TypeToken<List<User>>() {}.getType();
-
         return (List<User>) gson.fromJson(jsonOutput, listType);
     }
 

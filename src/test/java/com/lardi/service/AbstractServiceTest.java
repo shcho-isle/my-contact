@@ -5,28 +5,19 @@ import com.lardi.util.ValidationUtil;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 abstract public class AbstractServiceTest extends ApplicationAbstractTest{
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {

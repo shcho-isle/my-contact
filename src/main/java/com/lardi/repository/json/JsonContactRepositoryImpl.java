@@ -46,7 +46,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
             contactList = new ArrayList<>();
         User user = userRepository.get(userId);
         contact.setUserLogin(user.getLogin());
-        contact.setId(contactList.size() + 101);
+        contact.setId(contactList.size() + 1);
         contactList.add(contact);
         transactionWrite(contactList);
         return contact;

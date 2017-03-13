@@ -34,7 +34,7 @@ public class RegisterController {
                 status.setComplete();
                 return "redirect:login?message=app.registered&fullname=" + user.getFullName();
             } catch (DataIntegrityViolationException ex) {
-                result.rejectValue("email", "exception.users.duplicate_email");
+                result.rejectValue("login", "exception.users.duplicate_login");
             } catch (Exception e) {
                 e.printStackTrace();
             }
