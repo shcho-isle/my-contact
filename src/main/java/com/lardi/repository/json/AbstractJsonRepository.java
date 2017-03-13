@@ -1,13 +1,18 @@
 package com.lardi.repository.json;
 
 import com.lardi.util.ServiceUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import java.io.*;
 import java.util.Properties;
 
 public abstract class AbstractJsonRepository {
+    @Autowired
+    private Environment env;
+
     void writeJson(String json, String fileName) {
-        String fullFileName = ServiceUtils.getProperties().getProperty("pathToFileFolder") + fileName + ".json";
+        String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
 
         try(FileWriter writer = new FileWriter(new File(fullFileName))) {
             writer.write(json);
@@ -20,7 +25,7 @@ public abstract class AbstractJsonRepository {
     String readJson(String fileName) {
         String json = "";
         int c;
-        String fullFileName = ServiceUtils.getProperties().getProperty("pathToFileFolder") + fileName + ".json";
+        String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
 
         try(FileReader reader = new FileReader(new File(fullFileName))) {
             while ((c = reader.read()) != -1) {
@@ -46,7 +51,7 @@ public abstract class AbstractJsonRepository {
     }
 
     File getFilePath(String className) {
-        Properties properties = ServiceUtils.getProperties();
-        return new File(properties.getProperty("pathToFileFolder") + className + ".json");
+//        Properties properties = ServiceUtils.getProperties();
+        return new File(env.getProperty("pathToFileFolder") + className + ".json");
     }
 }

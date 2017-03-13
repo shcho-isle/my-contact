@@ -27,7 +27,7 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
         transactionWrite(roleList);
     }
 
-    public List<Role> getAllRolesAndUsers() {
+    private List<Role> getAllRolesAndUsers() {
         File f = getFilePath(className);
         checkIfExists(f, className);
 
@@ -40,7 +40,7 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
         return (List<Role>) gson.fromJson(jsonOutput, listType);
     }
 
-    public void transactionWrite(List<Role> roleList) {
+    private void transactionWrite(List<Role> roleList) {
         Gson gson = new Gson();
         java.lang.reflect.Type listType = new TypeToken<List<Role>>() {
         }.getType();

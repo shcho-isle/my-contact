@@ -54,7 +54,7 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         return match.orElse(null);
     }
 
-    public List<User> getAllUsers() {
+    private List<User> getAllUsers() {
         File f = getFilePath(className);
         checkIfExists(f, className);
         Gson gson = new Gson();
@@ -74,7 +74,7 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         return match.orElse(null);
     }
 
-    public void transactionWrite(List<User> userList) {
+    private void transactionWrite(List<User> userList) {
         Gson gson = new Gson();
         java.lang.reflect.Type listType = new TypeToken<List<User>>() {
         }.getType();

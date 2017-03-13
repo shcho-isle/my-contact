@@ -112,7 +112,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         return contact != null && Objects.equals(contact.getUserLogin(), user.getLogin()) ? contact : null;
     }
 
-    public List<Contact> getAllBaseContacts() {
+    private List<Contact> getAllBaseContacts() {
         File f = getFilePath(className);
         checkIfExists(f, className);
 
@@ -125,7 +125,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         return (List<Contact>) gson.fromJson(jsonOutput, listType);
     }
 
-    public void transactionWrite(List<Contact> contactList) {
+    private void transactionWrite(List<Contact> contactList) {
         Gson gson = new Gson();
         java.lang.reflect.Type listType = new TypeToken<List<Contact>>() {
         }.getType();
