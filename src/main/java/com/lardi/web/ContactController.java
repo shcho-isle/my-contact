@@ -4,25 +4,27 @@ import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
 import com.lardi.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
-@RequestMapping
 public class ContactController {
 
     @Autowired
     private ContactService service;
 
-    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    @Autowired
+    private MessageSource messageSource;
+
+    @GetMapping(value = "/contacts")
     public ModelAndView getContacts(@RequestParam Map<String, String> allRequestParams) throws Exception {
         ModelAndView model = null;
         if (allRequestParams.containsKey("searchAction")) {
@@ -39,14 +41,14 @@ public class ContactController {
         } else {
             Integer userId = AuthorizedUser.id();
             List<Contact> contactList = service.getAll(userId);
-            model = new ModelAndView("list-contacts");
+            model = new ModelAndView("contacts");
             model.addObject("contactList", contactList);
             model.addObject("currentUser", SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase());
             return model;
         }
     }
 
-    @RequestMapping(value = "/new-contact", method = RequestMethod.GET)
+    @GetMapping(value = "/new-contact")
     public ModelAndView getContacts() throws Exception {
         return new ModelAndView("new-contact");
     }
@@ -59,10 +61,9 @@ public class ContactController {
     }
 
     private ModelAndView forwardListContacts(List<Contact> result) {
-        ModelAndView model = new ModelAndView("list-contacts");
+        ModelAndView model = new ModelAndView("contacts");
         return model.addObject("contactList", result);
     }
-
 
     private ModelAndView searchContactById(Map<String, String> allRequestParams) throws Exception {
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
@@ -74,7 +75,7 @@ public class ContactController {
         return model;
     }
 
-    @RequestMapping(value = "/contact", method = RequestMethod.POST)
+    @PostMapping(value = "/contacts")
     public ModelAndView postContacts(@RequestParam Map<String, String> allRequestParams) throws Exception {
         ModelAndView model = null;
         String action = allRequestParams.get("action");
@@ -99,7 +100,7 @@ public class ContactController {
             modelAndView.addObject("error", error);
             return modelAndView;
         }
-        ModelAndView model = new ModelAndView("list-contacts");
+        ModelAndView model = new ModelAndView("contacts");
         String name = allRequestParams.get("firstName");
         String lastName = allRequestParams.get("lastName");
         String middleName = allRequestParams.get("middleName");
@@ -112,7 +113,7 @@ public class ContactController {
         Contact savedContact = service.save(contact, userId);
         List<Contact> contactList = service.getAll(userId);
         model.addObject("idContact", savedContact.getId());
-        String message = "Новый контакт успешно создан";
+        String message = messageSource.getMessage("contact.created", new String[]{savedContact.getLastName()}, Locale.ENGLISH);
         model.addObject("message", message);
         model.addObject("contactList", contactList);
         return model;
@@ -130,7 +131,7 @@ public class ContactController {
             model.addObject("error", error);
             return model;
         }
-        ModelAndView model = new ModelAndView("list-contacts");
+        ModelAndView model = new ModelAndView("contacts");
         String name = allRequestParams.get("firstName");
         String lastName = allRequestParams.get("lastName");
         String middleName = allRequestParams.get("middleName");
@@ -143,7 +144,7 @@ public class ContactController {
         contact.setId(idContact);
         Integer userId = AuthorizedUser.id();
         service.update(contact, userId);
-        String message = "Контакт успешно обновлён!";
+        String message = messageSource.getMessage("contact.updated", new String[]{contact.getLastName()}, Locale.ENGLISH);
         List<Contact> contactList = service.getAll(userId);
         model.addObject("idContact", idContact);
         model.addObject("message", message);
@@ -152,11 +153,11 @@ public class ContactController {
     }
 
     private ModelAndView removeContactByName(Map<String, String> allRequestParams) throws IOException {
-        ModelAndView model = new ModelAndView("list-contacts");
+        ModelAndView model = new ModelAndView("contacts");
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
         int userId = AuthorizedUser.id();
         service.delete(idContact, userId);
-        String message = "Контакт успешно удалён!";
+        String message = messageSource.getMessage("contact.deleted", new String[]{}, Locale.ENGLISH);
         model.addObject("message", message);
         List<Contact> contactList = service.getAll(userId);
         model.addObject("contactList", contactList);

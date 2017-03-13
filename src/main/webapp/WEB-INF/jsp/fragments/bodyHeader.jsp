@@ -5,7 +5,7 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <a href="meals" class="navbar-brand"><spring:message code="app.title"/></a>
+        <a href="contact" class="navbar-brand"><spring:message code="app.title"/></a>
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">

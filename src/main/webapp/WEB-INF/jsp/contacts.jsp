@@ -24,7 +24,7 @@
 <div class="container">
     <h2>Контакты</h2>
     <!--Search Form -->
-    <form action="/contact" method="get" id="seachContactForm" address="form">
+    <form action="/contacts" method="get" id="seachContactForm" address="form">
         <input type="hidden" id="searchAction" name="searchAction" value="searchInFirstLastMobile">
         <div class="form-group col-xs-5">
             <input type="text" name="searchRequest" id="searchRequest" class="form-control" required="true"
@@ -43,7 +43,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/contact" method="post" id="contactForm" address="form">
+    <form action="/contacts" method="post" id="contactForm" address="form">
         <input type="hidden" id="idContact" name="idContact">
         <input type="hidden" id="action" name="action">
         <c:choose>
@@ -69,7 +69,7 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="/contact?idContact=${contact.id}&searchAction=searchById">${contact.id}</a>
+                                <a href="/contacts?idContact=${contact.id}&searchAction=searchById">${contact.id}</a>
                             </td>
                             <td>${contact.firstName}</td>
                             <td>${contact.lastName}</td>

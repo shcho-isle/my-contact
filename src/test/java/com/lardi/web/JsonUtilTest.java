@@ -1,6 +1,7 @@
-package com.lardi.web.json;
+package com.lardi.web;
 
 import com.lardi.model.Contact;
+import com.lardi.web.json.JsonUtil;
 import org.junit.Test;
 import com.lardi.ContactTestData;
 
@@ -20,7 +21,7 @@ public class JsonUtilTest {
     public void testReadWriteValues() throws Exception {
         String json = JsonUtil.writeValue(ContactTestData.CONTACTS);
         System.out.println(json);
-        List<Contact> meals = JsonUtil.readValues(json, Contact.class);
-        ContactTestData.MATCHER.assertCollectionEquals(ContactTestData.CONTACTS, meals);
+        List<Contact> contact = JsonUtil.readValues(json, Contact.class);
+        ContactTestData.MATCHER.assertCollectionEquals(ContactTestData.CONTACTS, contact);
     }
 }

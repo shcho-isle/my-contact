@@ -12,7 +12,7 @@
     <title><spring:message code="app.title"/></title>
     <base href="${pageContext.request.contextPath}/"/>
 
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.13/css/dataTables.bootstrap.min.css">
     <link rel="shortcut icon" href="resources/images/icon-phone.png">

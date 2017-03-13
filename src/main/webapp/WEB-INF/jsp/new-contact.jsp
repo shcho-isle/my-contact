@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/contact" method="post" address="form" data-toggle="validator" commandName="newContact">
+    <form action="/contacts" method="post" address="form" data-toggle="validator" commandName="newContact">
         <c:if test="${empty action}">
             <c:set var="action" value="add"/>
         </c:if>
