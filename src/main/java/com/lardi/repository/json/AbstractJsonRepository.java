@@ -1,11 +1,9 @@
 package com.lardi.repository.json;
 
-import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
 import java.io.*;
-import java.util.Properties;
 
 public abstract class AbstractJsonRepository {
     @Autowired
@@ -51,7 +49,6 @@ public abstract class AbstractJsonRepository {
     }
 
     File getFilePath(String className) {
-//        Properties properties = ServiceUtils.getProperties();
         return new File(env.getProperty("pathToFileFolder") + className + ".json");
     }
 }

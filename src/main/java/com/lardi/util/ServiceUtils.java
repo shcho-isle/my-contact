@@ -1,33 +1,10 @@
 package com.lardi.util;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ServiceUtils {
-//    public static final Properties PROPERTIES;
-//
-//    static {
-//        FileInputStream fis;
-//        PROPERTIES = new Properties();
-//
-//        String config = System.getProperty("lardi.conf");
-//
-//        try {
-//            if (config == null) {
-//                fis = new FileInputStream("config/application.properties");
-//            } else {
-//                fis = new FileInputStream(System.getProperty("lardi.conf"));
-//            }
-//            PROPERTIES.load(fis);
-//        } catch (IOException e) {
-//            System.err.println("ERROR: Properties file is absent!");
-//        }
-//    }
-
     public static String validateNewContact(Map<String, String> allRequestParams) {
         String dot = "&#9658; ";
         String message = "";
@@ -56,8 +33,4 @@ public class ServiceUtils {
         }
         return message;
     }
-
-//    public static Properties getProperties() {
-//        return PROPERTIES;
-//    }
 }
