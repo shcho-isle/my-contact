@@ -9,16 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static com.lardi.UserTestData.VANO;
 
 public class UserControllerTest extends AbstractControllerTest {
-
-    @Test
-    public void testContact() throws Exception {
-        mockMvc.perform(get("/contacts")
-                .with(userAuth(VANO)))
-                .andDo(print())
-                .andExpect(view().name("contacts"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/contacts.jsp"));
-    }
-
     @Test
     public void testLogin() throws Exception {
         mockMvc.perform(get("/login"))

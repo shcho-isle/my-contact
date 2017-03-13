@@ -149,18 +149,6 @@ public class ContactController {
         return model;
     }
 
-    private ModelAndView removeContactByName(Map<String, String> allRequestParams) throws IOException {
-        ModelAndView model = new ModelAndView("contacts");
-        Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-        int userId = AuthorizedUser.id();
-        service.delete(idContact, userId);
-        String message = messageSource.getMessage("contact.deleted", new String[]{}, Locale.ENGLISH);
-        model.addObject("message", message);
-        List<Contact> contactList = service.getAll(userId);
-        model.addObject("contactList", contactList);
-        return model;
-    }
-
     @GetMapping("/delete-{id}-contact")
     public String deleteUser(@PathVariable int id) {
         int userId = AuthorizedUser.id();

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "contacts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_login", "mobile_phone"}, name = "contacts_unique_userlogin_mobilephone_idx")})
@@ -26,9 +27,11 @@ public class Contact extends BaseEntity {
 
     @NotBlank
     @Column(name = "mobile_phone", nullable = false, unique = true)
+    @Pattern(regexp = "^(\\+)380[(]\\d{2}[)][0-9]{7}$")
     private String mobilePhone;
 
     @Column(name = "home_phone")
+    @Pattern(regexp = "(^(\\+)380[(]\\d{2}[)][0-9]{7}$)?")
     private String homePhone;
 
     @Column(name = "address")

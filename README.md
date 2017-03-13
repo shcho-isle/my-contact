@@ -1,14 +1,14 @@
-Настройки хранилица: `config/phonebook.properties`. Путь к нему должен передаваться в `VM options: -Dlardi.conf=config/phonebook.properties`.
+##### Настройки хранилица: `config/phonebook.properties`. Путь к нему должен передаваться в `VM options` например: `-Dlardi.conf=config/phonebook.properties`.
 
-Для тестов существует отдельный файл с настройками: `src/test/resources/test.properties`
+##### Для тестов существует отдельный файл с настройками: `src/test/resources/test.properties`
 
-Скрипты для создания таблиц, и наполнения демонстрационными данными:
+##### Скрипты для создания таблиц, и наполнения демонстрационными данными:
 - `src\main\resources\db\initDB.sql`
 - `src\main\resources\db\populateDB.slq`
 
-После запуска приложение доступно по: [http://localhost:8080/](http://localhost:8080/)
+##### После запуска приложение доступно по: [http://localhost:8080/](http://localhost:8080/)
 
-SQL запрос для создания таблиц в mySQL:
+##### SQL запрос для создания таблиц в mySQL:
 
     DROP TABLE IF EXISTS user_roles;
     DROP TABLE IF EXISTS contacts;
@@ -57,7 +57,7 @@ SQL запрос для создания таблиц в mySQL:
 
 
 
-Наполнение демонстрационным данными:
+##### Наполнение демонстрационным данными:
     
     DELETE FROM user_roles;
     DELETE FROM contacts;
