@@ -30,11 +30,10 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         List<Contact> contactList = getAllBaseContacts();
         if (contactList == null)
             return Collections.emptyList();
-        User user = userRepository.get(userId);
         Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
         return contactList
                 .stream()
-                .filter(e -> e.getUserLogin().equalsIgnoreCase(user.getLogin()))
+                .filter(e -> e.getUserId().equals(userId))
                 .sorted(groupByComparator)
                 .collect(Collectors.toList());
     }
@@ -44,8 +43,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         List<Contact> contactList = getAllBaseContacts();
         if (contactList == null)
             contactList = new ArrayList<>();
-        User user = userRepository.get(userId);
-        contact.setUserLogin(user.getLogin());
+        contact.setUserId(userId);
         contact.setId(contactList.size() + 1);
         contactList.add(contact);
         transactionWrite(contactList);
@@ -57,9 +55,9 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         List<Contact> contactList = getAllBaseContacts();
         int matchIdx;
         User user = userRepository.get(userId);
-        contact.setUserLogin(user.getLogin());
+        contact.setUserId(user.getId());
         Optional<Contact> match = contactList.stream()
-                .filter(c -> c.getId().equals(contact.getId()) && c.getUserLogin().equalsIgnoreCase(user.getLogin()))
+                .filter(c -> c.getId().equals(contact.getId()) && c.getUserId().equals(userId))
                 .findFirst();
         if (match.isPresent()) {
             matchIdx = contactList.indexOf(match.get());
@@ -74,8 +72,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     @Override
     public boolean delete(Integer id, Integer userId) {
         List<Contact> contactList = getAllBaseContacts();
-        User user = userRepository.get(userId);
-        Predicate<Contact> contact = e -> (e.getId().equals(id) && e.getUserLogin().equalsIgnoreCase(user.getLogin()));
+        Predicate<Contact> contact = e -> (e.getId().equals(id) && e.getUserId().equals(userId));
         if (contactList.removeIf(contact)) {
             transactionWrite(contactList);
             return true;
@@ -89,11 +86,10 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         List<Contact> contactList = getAllBaseContacts();
         if (contactList == null)
             return Collections.emptyList();
-        User user = userRepository.get(userId);
         Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
         return contactList
                 .stream()
-                .filter(e -> e.getUserLogin().equalsIgnoreCase(user.getLogin())
+                .filter(e -> e.getUserId().equals(userId)
                         && (e.getFirstName().contains(filterRequest) || e.getLastName().contains(filterRequest) || e.getMobilePhone().contains(filterRequest)))
                 .sorted(groupByComparator)
                 .collect(Collectors.toList());
@@ -108,8 +104,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
                 .stream()
                 .filter(e -> e.getId().equals(id))
                 .findFirst().orElse(null);
-        User user = userRepository.get(userId);
-        return contact != null && Objects.equals(contact.getUserLogin(), user.getLogin()) ? contact : null;
+        return contact != null && Objects.equals(contact.getUserId(), userId) ? contact : null;
     }
 
     private List<Contact> getAllBaseContacts() {

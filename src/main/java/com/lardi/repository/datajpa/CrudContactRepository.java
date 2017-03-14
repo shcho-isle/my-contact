@@ -15,15 +15,15 @@ public interface CrudContactRepository extends CrudRepository<Contact, Integer> 
     @Override
     Contact save(Contact item);
 
-    @Query("SELECT c FROM Contact c WHERE c.userLogin=:userLogin ORDER BY c.lastName ASC")
-    List<Contact> getAll(@Param("userLogin") String userLogin);
+    @Query("SELECT c FROM Contact c WHERE c.userId=:userId ORDER BY c.lastName ASC")
+    List<Contact> getAll(@Param("userId") Integer userId);
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Contact c WHERE c.id=:id AND c.userLogin=:userLogin")
-    int delete(@Param("id") int id, @Param("userLogin") String userLogin);
+    @Query("DELETE FROM Contact c WHERE c.id=:id AND c.userId=:userId")
+    int delete(@Param("id") int id, @Param("userId") Integer userId);
 
     @SuppressWarnings("JpaQlInspection")
-    @Query("SELECT c from Contact c WHERE c.userLogin=:userLogin AND (c.firstName LIKE :filterRequest OR c.lastName LIKE :filterRequest OR c.mobilePhone LIKE :filterRequest) ORDER BY c.lastName ASC")
-    List<Contact> getFiltered(@Param("filterRequest") String filterRequest, @Param("userLogin") String userLogin);
+    @Query("SELECT c from Contact c WHERE c.userId=:userId AND (c.firstName LIKE :filterRequest OR c.lastName LIKE :filterRequest OR c.mobilePhone LIKE :filterRequest) ORDER BY c.lastName ASC")
+    List<Contact> getFiltered(@Param("filterRequest") String filterRequest, @Param("userId") Integer userId);
 }

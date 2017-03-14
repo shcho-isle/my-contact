@@ -14,12 +14,12 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_ADMIN', 1),
   ('ROLE_ADMIN', 2);
 
-INSERT INTO contacts (last_name, first_name, middle_name, mobile_phone, home_phone, address, email, user_login) VALUES
-  ('Dovbash', 'Sveta', 'Andriivna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 'Vano'),
-  ('Kushnir', 'Lena', 'Viktorivna', '+380(50)1234123', '+380(47)2661181', 'Cherkasy, Taraskova str. 16', 'lena@gmail.com', 'Vano'),
-  ('Parasiuk', 'Sasha', 'Igorevych', '+380(97)9876543', '+380(44)0909098', 'Kyiv, Pushkinska str. 10', 'sasha@gmail.com', 'Vano'),
-  ('Tiagnybok', 'Yulia', 'Volodymyrivna', '+380(67)8555855', '+380(47)2234567', 'Cherkasy, Rustavi str. 8', 'yulia@gmail.com', 'Vano'),
-  ('Tsymbal', 'Vitia', 'Fedorovych', '+380(98)9234567', '+380(44)9234567', 'Kyiv, Sosninykh str. 38', 'vitia@gmail.com', 'Vano'),
-  ('Tymoshenko', 'Grysha', 'Petrovych', '+380(93)1234555', '+380(47)2234555', 'Cherkasy, Gaidara str. 8', 'grysha@gmail.com', 'Vano'),
-  ('Kukushkina', 'Dima', 'Grygorovych', '+380(63)3334567', '+380(44)3334567', 'Kyiv, Zhylanska str. 99', 'dima@gmail.com', 'Serg'),
-  ('Kukushkina', 'Sveta', 'Andreevna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 'Serg');
+INSERT INTO contacts (last_name, first_name, middle_name, mobile_phone, home_phone, address, email, user_id) VALUES
+  ('Dovbash', 'Sveta', 'Andriivna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 1),
+  ('Kushnir', 'Lena', 'Viktorivna', '+380(50)1234123', '+380(47)2661181', 'Cherkasy, Taraskova str. 16', 'lena@gmail.com', 1),
+  ('Parasiuk', 'Sasha', 'Igorevych', '+380(97)9876543', '+380(44)0909098', 'Kyiv, Pushkinska str. 10', 'sasha@gmail.com', 1),
+  ('Tiagnybok', 'Yulia', 'Volodymyrivna', '+380(67)8555855', '+380(47)2234567', 'Cherkasy, Rustavi str. 8', 'yulia@gmail.com', 1),
+  ('Tsymbal', 'Vitia', 'Fedorovych', '+380(98)9234567', '+380(44)9234567', 'Kyiv, Sosninykh str. 38', 'vitia@gmail.com', 1),
+  ('Tymoshenko', 'Grysha', 'Petrovych', '+380(93)1234555', '+380(47)2234555', 'Cherkasy, Gaidara str. 8', 'grysha@gmail.com', 1),
+  ('Kukushkina', 'Dima', 'Grygorovych', '+380(63)3334567', '+380(44)3334567', 'Kyiv, Zhylanska str. 99', 'dima@gmail.com', 2),
+  ('Kukushkina', 'Sveta', 'Andreevna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 2);

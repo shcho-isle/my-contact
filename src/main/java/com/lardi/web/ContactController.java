@@ -60,12 +60,6 @@ public class ContactController {
         return new ModelAndView("new-contact");
     }
 
-    private ModelAndView forwardListContacts(List<Contact> result) {
-        ModelAndView model = new ModelAndView("contacts");
-        model.addObject("currentUser", AuthorizedUser.getFullName());
-        return model.addObject("contactList", result);
-    }
-
     private ModelAndView searchContactById(Map<String, String> allRequestParams) throws Exception {
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
         Integer userId = AuthorizedUser.id();

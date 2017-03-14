@@ -24,14 +24,13 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
     @Override
     public List<Contact> getAll(Integer userId) {
         User user = crudUserRepository.findOne(userId);
-        return crudRepository.getAll(user.getLogin());
+        return crudRepository.getAll(user.getId());
     }
 
     @Override
     @Transactional
     public Contact save(Contact contact, Integer userId) {
-        User user = crudUserRepository.findOne(userId);
-        contact.setUserLogin(user.getLogin());
+        contact.setUserId(userId);
         return crudRepository.save(contact);
     }
 
@@ -42,26 +41,25 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
             return null;
         }
         User user = crudUserRepository.findOne(userId);
-        contact.setUserLogin(user.getLogin());
+        contact.setUserId(user.getId());
         return crudRepository.save(contact);
     }
 
     @Override
     public boolean delete(Integer id, Integer userId) {
         User user = crudUserRepository.findOne(userId);
-        return crudRepository.delete(id, user.getLogin()) != 0;
+        return crudRepository.delete(id, user.getId()) != 0;
     }
 
     @Override
     public List<Contact> getFiltered(String filterRequest, Integer userId) {
         User user = crudUserRepository.findOne(userId);
-        return crudRepository.getFiltered("%" + filterRequest + "%", user.getLogin());
+        return crudRepository.getFiltered("%" + filterRequest + "%", user.getId());
     }
 
     @Override
     public Contact get(Integer id, Integer userId) {
         Contact contact = crudRepository.findOne(id);
-        User user = crudUserRepository.findOne(userId);
-        return contact != null && Objects.equals(contact.getUserLogin(), user.getLogin()) ? contact : null;
+        return contact != null && Objects.equals(contact.getUserId(), userId) ? contact : null;
     }
 }

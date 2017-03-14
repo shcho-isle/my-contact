@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "contacts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_login", "mobile_phone"}, name = "contacts_unique_userlogin_mobilephone_idx")})
+@Table(name = "contacts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "mobile_phone"}, name = "contacts_unique_userid_mobilephone_idx")})
 public class Contact extends BaseEntity {
     @NotBlank
     @Length(min = 4)
@@ -41,8 +41,8 @@ public class Contact extends BaseEntity {
     @Email
     private String email;
 
-    @Column(name = "user_login")
-    private String userLogin;
+    @Column(name = "user_id")
+    private Integer userId;
 
     public Contact() {
     }
@@ -118,12 +118,12 @@ public class Contact extends BaseEntity {
         this.email = email;
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override
