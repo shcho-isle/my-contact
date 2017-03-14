@@ -5,8 +5,8 @@ import com.lardi.service.ContactService;
 import com.lardi.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,19 +24,27 @@ public class ContactController {
     @Autowired
     private MessageSource messageSource;
 
+    @GetMapping("/delete-{id}-contact")
+    public String deleteUser(@PathVariable int id) {
+        int userId = AuthorizedUser.id();
+        service.delete(id, userId);
+        return "redirect:contacts";
+    }
+
+    @RequestMapping("searchContact")
+    public String searchUser(ModelMap model, @RequestParam("searchRequest") String searchRequest) {
+        Integer userId = AuthorizedUser.id();
+        List<Contact> contactsList = service.getFiltered(searchRequest, userId);
+        model.addAttribute("contactList", contactsList);
+        model.addAttribute("currentUser", AuthorizedUser.getFullName());
+        return "contacts";
+    }
+
     @GetMapping(value = "/contacts")
     public ModelAndView getContacts(@RequestParam Map<String, String> allRequestParams) throws Exception {
-        ModelAndView model = null;
+        ModelAndView model;
         if (allRequestParams.containsKey("searchAction")) {
-            String action = allRequestParams.get("searchAction");
-            switch (action) {
-                case "searchById":
-                    model = searchContactById(allRequestParams);
-                    break;
-                case "searchInFirstLastMobile":
-                    model = searchContactByName(allRequestParams);
-                    break;
-            }
+            model = searchContactById(allRequestParams);
             return model;
         } else {
             Integer userId = AuthorizedUser.id();
@@ -51,13 +59,6 @@ public class ContactController {
     @GetMapping(value = "/new-contact")
     public ModelAndView getContacts() throws Exception {
         return new ModelAndView("new-contact");
-    }
-
-    private ModelAndView searchContactByName(Map<String, String> allRequestParams) throws IOException {
-        String searchRequest = allRequestParams.get("searchRequest");
-        Integer userId = AuthorizedUser.id();
-        List<Contact> result = service.getFiltered(searchRequest, userId);
-        return forwardListContacts(result);
     }
 
     private ModelAndView forwardListContacts(List<Contact> result) {
@@ -149,12 +150,5 @@ public class ContactController {
         model.addObject("message", message);
         model.addObject("contactList", contactList);
         return model;
-    }
-
-    @GetMapping("/delete-{id}-contact")
-    public String deleteUser(@PathVariable int id) {
-        int userId = AuthorizedUser.id();
-        service.delete(id, userId);
-        return "redirect:contacts";
     }
 }

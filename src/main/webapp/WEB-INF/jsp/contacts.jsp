@@ -22,9 +22,7 @@
                     <div class="col-sm-5">
                         <div class="panel panel-default">
                             <div class="panel-footer text-right">
-                                <form action="/contacts" method="get" id="seachContactForm" address="form">
-                                    <input type="hidden" id="searchAction" name="searchAction"
-                                           value="searchInFirstLastMobile">
+                                <form action="searchContact">
                                     <div class="form-group col-xs-7">
                                         <input type="text" name="searchRequest" id="searchRequest" class="form-control"
                                                required="true"
@@ -39,6 +37,15 @@
                                     <br>
                                     <br>
                                 </form>
+
+
+                                <%--<form action="searchContact">--%>
+                                    <%--<spring:message code="contacts.search"/>--%>
+                                    <%--<input type="text" name="searchRequest" maxlength='25' title="Search by name:">--%>
+                                    <%--<input class="btn btn-xs" type='submit' value='<spring:message code="contacts.search"/>'/>--%>
+                                <%--</form>--%>
+
+
                             </div>
                         </div>
                     </div>
