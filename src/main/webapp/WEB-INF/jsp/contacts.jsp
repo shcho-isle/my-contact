@@ -16,7 +16,7 @@
             </div>
         </c:if>
         <div class="shadow">
-            <h3><spring:message code="contacts.title"/> ${currentUser}</h3>
+            <h3><spring:message code="contacts.title"/> ${user.fullName}</h3>
             <div class="view-box">
                 <div class="row">
                     <div class="col-sm-5">

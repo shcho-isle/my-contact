@@ -37,7 +37,6 @@ public class ContactController {
         Integer userId = AuthorizedUser.id();
         List<Contact> contactsList = service.getFiltered(searchRequest, userId);
         model.addAttribute("contactList", contactsList);
-        model.addAttribute("currentUser", AuthorizedUser.getFullName());
         return "contacts";
     }
 
@@ -52,7 +51,6 @@ public class ContactController {
             List<Contact> contactList = service.getAll(userId);
             model = new ModelAndView("contacts");
             model.addObject("contactList", contactList);
-            model.addObject("currentUser", AuthorizedUser.getFullName());
             return model;
         }
     }
@@ -90,7 +88,6 @@ public class ContactController {
                 model = editContactAction(allRequestParams);
                 break;
         }
-        model.addObject("currentUser", AuthorizedUser.getFullName());
         return model;
     }
 

@@ -3,9 +3,7 @@ package com.lardi.web;
 import com.lardi.model.User;
 import com.lardi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -23,7 +21,6 @@ public class UserController {
     @GetMapping(value = "/register")
     public String viewRegistration(ModelMap model) {
         model.addAttribute("user", new User());
-        model.addAttribute("register", true);
         return "register";
     }
 
