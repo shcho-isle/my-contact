@@ -3,6 +3,7 @@ package com.lardi.web;
 import com.lardi.model.Contact;
 import com.lardi.service.ContactService;
 import com.lardi.AuthorizedUser;
+import com.lardi.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -94,7 +95,7 @@ public class ContactController {
     }
 
     private ModelAndView addContactAction(Map<String, String> allRequestParams) throws IOException {
-        String error = service.validateNewContact(allRequestParams);
+        String error = ValidationUtil.validateNewContact(allRequestParams);
         if (error.length() > 0) {
             ModelAndView modelAndView = new ModelAndView("new-contact");
             modelAndView.addObject("error", error);
@@ -120,7 +121,7 @@ public class ContactController {
     }
 
     private ModelAndView editContactAction(Map<String, String> allRequestParams) throws Exception {
-        String error = service.validateNewContact(allRequestParams);
+        String error = ValidationUtil.validateNewContact(allRequestParams);
         if (error.length() > 0) {
             Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
             Integer userId = AuthorizedUser.id();

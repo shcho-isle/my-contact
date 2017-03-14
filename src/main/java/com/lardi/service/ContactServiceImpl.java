@@ -2,7 +2,6 @@ package com.lardi.service;
 
 import com.lardi.model.Contact;
 import com.lardi.repository.ContactRepository;
-import com.lardi.util.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -48,11 +47,5 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void delete(int id, Integer userId) {
         checkNotFoundWithId(repository.delete(id, userId), id);
-    }
-
-
-    @Override
-    public String validateNewContact(Map<String, String> allRequestParams) {
-        return ServiceUtils.validateNewContact(allRequestParams);
     }
 }
