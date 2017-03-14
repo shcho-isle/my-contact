@@ -8,14 +8,13 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<c:if test="${not empty message}">
-    <div class="alert alert-success">
-            ${message}
-    </div>
-</c:if>
-
 <div class="jumbotron">
     <div class="container">
+        <c:if test="${not empty message}">
+            <div class="alert alert-success">
+                    ${message}
+            </div>
+        </c:if>
         <div class="shadow">
             <h3><spring:message code="contacts.title"/> ${currentUser}</h3>
             <div class="view-box">
@@ -79,11 +78,13 @@
                                 <td>${contact.homePhone}</td>
                                 <td>${contact.address}</td>
                                 <td>${contact.email}</td>
-                                <td><a class="btn btn-xs btn-primary" href="/contacts?idContact=${contact.id}&searchAction=searchById" id="edit">
+                                <td><a class="btn btn-xs btn-primary"
+                                       href="/contacts?idContact=${contact.id}&searchAction=searchById" id="edit">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     <span class="glyphicon glyphicon-pencil"/></a>
                                 </td>
-                                <td><a class="btn btn-xs btn-danger" href="<c:url value='/delete-${contact.id}-contact' />">
+                                <td><a class="btn btn-xs btn-danger"
+                                       href="<c:url value='/delete-${contact.id}-contact' />">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     <span class="glyphicon glyphicon-remove"/></a>
                                 </td>

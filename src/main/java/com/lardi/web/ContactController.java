@@ -62,6 +62,7 @@ public class ContactController {
 
     private ModelAndView forwardListContacts(List<Contact> result) {
         ModelAndView model = new ModelAndView("contacts");
+        model.addObject("currentUser", AuthorizedUser.getFullName());
         return model.addObject("contactList", result);
     }
 
@@ -87,6 +88,7 @@ public class ContactController {
                 model = editContactAction(allRequestParams);
                 break;
         }
+        model.addObject("currentUser", AuthorizedUser.getFullName());
         return model;
     }
 

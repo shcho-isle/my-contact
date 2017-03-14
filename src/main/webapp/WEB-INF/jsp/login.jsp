@@ -35,7 +35,7 @@
     <div class="container">
         <c:if test="${param.error ne null}">
             <div class="error">
-                <spring:message code="app.badCredentials"/>
+                <spring:message code="login.badCredentials"/>
             </div>
         </c:if>
         <c:if test="${not empty param.message}">
