@@ -120,7 +120,8 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
         String jsonOutput = readJson(className);
 
-        java.lang.reflect.Type listType = new TypeToken<List<Contact>>() {}.getType();
+        java.lang.reflect.Type listType = new TypeToken<List<Contact>>() {
+        }.getType();
 
         return (List<Contact>) gson.fromJson(jsonOutput, listType);
     }

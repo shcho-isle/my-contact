@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Profile("mysql")
 @Repository("dataJpaRoleRepository")
-public class DataJpaRoleRepositoryImpl implements RoleRepository{
+public class DataJpaRoleRepositoryImpl implements RoleRepository {
 
     @Autowired
     private CrudRoleRepository crudRepository;

@@ -13,9 +13,9 @@ import java.nio.file.Paths;
 import static com.lardi.ContactTestData.*;
 import static com.lardi.UserTestData.*;
 
-
 @ActiveProfiles("json")
-public class JsonContactServiceTest extends AbstractContactServiceTest{
+public class JsonContactServiceTest extends AbstractContactServiceTest {
+
     @Autowired
     private Environment env;
 

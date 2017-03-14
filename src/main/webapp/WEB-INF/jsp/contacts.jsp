@@ -37,15 +37,6 @@
                                     <br>
                                     <br>
                                 </form>
-
-
-                                <%--<form action="searchContact">--%>
-                                    <%--<spring:message code="contacts.search"/>--%>
-                                    <%--<input type="text" name="searchRequest" maxlength='25' title="Search by name:">--%>
-                                    <%--<input class="btn btn-xs" type='submit' value='<spring:message code="contacts.search"/>'/>--%>
-                                <%--</form>--%>
-
-
                             </div>
                         </div>
                     </div>

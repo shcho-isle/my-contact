@@ -1,19 +1,13 @@
 package com.lardi.service;
 
 import com.lardi.model.Contact;
-import org.junit.Assume;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lardi.util.exception.NotFoundException;
 
-import javax.validation.ConstraintViolationException;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Arrays;
 
-import static java.time.LocalDateTime.of;
 import static com.lardi.ContactTestData.*;
-import static com.lardi.UserTestData.SERG_ID;
 import static com.lardi.UserTestData.VANO_ID;
 
 public abstract class AbstractContactServiceTest extends AbstractServiceTest {

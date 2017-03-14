@@ -59,7 +59,8 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         checkIfExists(f, className);
         Gson gson = new Gson();
         String jsonOutput = readJson(className);
-        java.lang.reflect.Type listType = new TypeToken<List<User>>() {}.getType();
+        java.lang.reflect.Type listType = new TypeToken<List<User>>() {
+        }.getType();
         return (List<User>) gson.fromJson(jsonOutput, listType);
     }
 

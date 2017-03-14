@@ -35,7 +35,8 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
 
         String jsonOutput = readJson(className);
 
-        java.lang.reflect.Type listType = new TypeToken<List<Role>>() {}.getType();
+        java.lang.reflect.Type listType = new TypeToken<List<Role>>() {
+        }.getType();
 
         return (List<Role>) gson.fromJson(jsonOutput, listType);
     }

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 
-abstract public class AbstractServiceTest extends ApplicationAbstractTest{
+abstract public class AbstractServiceTest extends ApplicationAbstractTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();

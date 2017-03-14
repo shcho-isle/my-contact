@@ -12,7 +12,7 @@ public abstract class AbstractJsonRepository {
     void writeJson(String json, String fileName) {
         String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
 
-        try(FileWriter writer = new FileWriter(new File(fullFileName))) {
+        try (FileWriter writer = new FileWriter(new File(fullFileName))) {
             writer.write(json);
         } catch (IOException e) {
             System.err.println("ERROR: cannot write to: " + fullFileName);
@@ -25,7 +25,7 @@ public abstract class AbstractJsonRepository {
         int c;
         String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
 
-        try(FileReader reader = new FileReader(new File(fullFileName))) {
+        try (FileReader reader = new FileReader(new File(fullFileName))) {
             while ((c = reader.read()) != -1) {
                 json += (char) c;
             }

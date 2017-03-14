@@ -16,10 +16,12 @@
                 <li>
                     <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
                         <div class="form-group">
-                            <input type="text" placeholder="<spring:message code="users.login"/>" class="form-control" name="login">
+                            <input type="text" placeholder="<spring:message code="users.login"/>" class="form-control"
+                                   name="login">
                         </div>
                         <div class="form-group">
-                            <input type="password" placeholder="<spring:message code="users.password"/>" class="form-control" name="password">
+                            <input type="password" placeholder="<spring:message code="users.password"/>"
+                                   class="form-control" name="password">
                         </div>
                         <button type="submit" class="btn btn-success">
                             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
@@ -54,7 +56,8 @@
             </button>
         </p>
         <br/>
-        <p><spring:message code="login.powered"/> <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
+        <p><spring:message code="login.powered"/> <a href="http://projects.spring.io/spring-security/">Spring
+            Security</a>,
             <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
             <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
