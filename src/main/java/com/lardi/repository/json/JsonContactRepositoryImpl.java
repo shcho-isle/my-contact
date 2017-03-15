@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Profile("json")
-@Repository("jsonContactRepository")
+@Repository
 public class JsonContactRepositoryImpl extends AbstractJsonRepository implements ContactRepository {
 
     @Autowired

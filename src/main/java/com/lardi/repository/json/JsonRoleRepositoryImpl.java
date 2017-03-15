@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Profile("json")
-@Repository("jsonRoleRepository")
+@Repository
 public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements RoleRepository {
     private final String className = Role.class.getName();
 

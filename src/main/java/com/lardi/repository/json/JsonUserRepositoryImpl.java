@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Profile("json")
-@Repository("jsonUserRepository")
+@Repository
 public class JsonUserRepositoryImpl extends AbstractJsonRepository implements UserRepository {
     private final String className = User.class.getName();
 
