@@ -16,17 +16,17 @@ public class User extends BaseEntity implements Serializable {
     @NotBlank
     @Length(min = 3, max = 25)
     @Pattern(regexp = "^[a-zA-Z]*$")
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, unique=true)
     private String login;
 
     @NotBlank
     @Length(min = 5, max = 64)
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @NotBlank
     @Length(min = 5, max = 50)
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     public User() {
