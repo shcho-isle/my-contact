@@ -1,7 +1,6 @@
 package com.lardi.repository.datajpa;
 
 import com.lardi.model.Contact;
-import com.lardi.model.User;
 import com.lardi.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -18,18 +17,17 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
     @Autowired
     private CrudContactRepository crudRepository;
 
-    @Autowired
-    private CrudUserRepository crudUserRepository;
-
     @Override
     public List<Contact> getAll(Integer userId) {
-        User user = crudUserRepository.findOne(userId);
-        return crudRepository.getAll(user.getId());
+        return crudRepository.getAll(userId);
     }
 
     @Override
     @Transactional
     public Contact save(Contact contact, Integer userId) {
+        if (!contact.isNew() && get(contact.getId(), userId) == null) {
+            return null;
+        }
         contact.setUserId(userId);
         return crudRepository.save(contact);
     }
@@ -37,24 +35,17 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
     @Override
     @Transactional
     public Contact update(Contact contact, Integer userId) {
-        if (get(contact.getId(), userId) == null) {
-            return null;
-        }
-        User user = crudUserRepository.findOne(userId);
-        contact.setUserId(user.getId());
-        return crudRepository.save(contact);
+        return save(contact, userId);
     }
 
     @Override
     public boolean delete(Integer id, Integer userId) {
-        User user = crudUserRepository.findOne(userId);
-        return crudRepository.delete(id, user.getId()) != 0;
+        return crudRepository.delete(id, userId) != 0;
     }
 
     @Override
     public List<Contact> getFiltered(String filterRequest, Integer userId) {
-        User user = crudUserRepository.findOne(userId);
-        return crudRepository.getFiltered("%" + filterRequest + "%", user.getId());
+        return crudRepository.getFiltered("%" + filterRequest + "%", userId);
     }
 
     @Override

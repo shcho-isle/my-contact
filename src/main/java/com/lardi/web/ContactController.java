@@ -135,7 +135,6 @@ public class ContactController {
         String email = allRequestParams.get("email");
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
         Contact contact = new Contact(idContact, lastName, name, middleName, mobilePhone, homePhone, address, email);
-        contact.setId(idContact);
 
         Integer userId = AuthorizedUser.id();
         String error = ValidationUtil.validateNewContact(allRequestParams);
