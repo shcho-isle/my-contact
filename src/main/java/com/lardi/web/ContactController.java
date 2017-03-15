@@ -6,11 +6,13 @@ import com.lardi.AuthorizedUser;
 import com.lardi.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -86,12 +88,6 @@ public class ContactController {
     }
 
     private ModelAndView addContactAction(Map<String, String> allRequestParams) throws IOException {
-        String error = ValidationUtil.validateNewContact(allRequestParams);
-        if (error.length() > 0) {
-            ModelAndView modelAndView = new ModelAndView("new-contact");
-            modelAndView.addObject("error", error);
-            return modelAndView;
-        }
         ModelAndView model = new ModelAndView("contacts");
         String name = allRequestParams.get("firstName");
         String lastName = allRequestParams.get("lastName");
@@ -101,8 +97,25 @@ public class ContactController {
         String homePhone = allRequestParams.get("homePhone");
         String email = allRequestParams.get("email");
         Contact contact = new Contact(lastName, name, middleName, mobilePhone, homePhone, address, email);
+
         Integer userId = AuthorizedUser.id();
-        Contact savedContact = service.save(contact, userId);
+        Contact savedContact = null;
+        String error = ValidationUtil.validateNewContact(allRequestParams);
+        try {
+            savedContact = service.save(contact, userId);
+        } catch (DataIntegrityViolationException ex) {
+            error += "&#9658; " + messageSource.getMessage("exception.contacts.duplicate_mobilephone", new String[]{}, Locale.ENGLISH);
+        } catch (ConstraintViolationException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (error.length() > 0) {
+            ModelAndView errorModel = new ModelAndView("new-contact");
+            errorModel.addObject("error", error);
+            return errorModel;
+        }
+
         List<Contact> contactList = service.getAll(userId);
         model.addObject("idContact", savedContact.getId());
         String message = messageSource.getMessage("contact.created", new String[]{savedContact.getLastName()}, Locale.ENGLISH);
@@ -112,17 +125,6 @@ public class ContactController {
     }
 
     private ModelAndView editContactAction(Map<String, String> allRequestParams) throws Exception {
-        String error = ValidationUtil.validateNewContact(allRequestParams);
-        if (error.length() > 0) {
-            Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-            Integer userId = AuthorizedUser.id();
-            Contact contact = service.get(idContact, userId);
-            ModelAndView model = new ModelAndView("new-contact");
-            model.addObject("contact", contact);
-            model.addObject("action", "edit");
-            model.addObject("error", error);
-            return model;
-        }
         ModelAndView model = new ModelAndView("contacts");
         String name = allRequestParams.get("firstName");
         String lastName = allRequestParams.get("lastName");
@@ -134,11 +136,29 @@ public class ContactController {
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
         Contact contact = new Contact(idContact, lastName, name, middleName, mobilePhone, homePhone, address, email);
         contact.setId(idContact);
+
         Integer userId = AuthorizedUser.id();
-        service.update(contact, userId);
-        String message = messageSource.getMessage("contact.updated", new String[]{contact.getLastName()}, Locale.ENGLISH);
+        String error = ValidationUtil.validateNewContact(allRequestParams);
+        try {
+            service.update(contact, userId);
+        } catch (DataIntegrityViolationException ex) {
+            error += "&#9658; " + messageSource.getMessage("exception.contacts.duplicate_mobilephone", new String[]{}, Locale.ENGLISH);
+        } catch (ConstraintViolationException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (error.length() > 0) {
+            ModelAndView errorModel = new ModelAndView("new-contact");
+            errorModel.addObject("contact", contact);
+            errorModel.addObject("action", "edit");
+            errorModel.addObject("error", error);
+            return errorModel;
+        }
+
         List<Contact> contactList = service.getAll(userId);
         model.addObject("idContact", idContact);
+        String message = messageSource.getMessage("contact.updated", new String[]{contact.getLastName()}, Locale.ENGLISH);
         model.addObject("message", message);
         model.addObject("contactList", contactList);
         return model;
