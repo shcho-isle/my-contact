@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * This interceptor adds the user to the model of every requests managed
+ * This interceptor adds the user's Full Name to the model of every requests managed
  */
 public class ModelInterceptor extends HandlerInterceptorAdapter {
 
@@ -17,7 +17,7 @@ public class ModelInterceptor extends HandlerInterceptorAdapter {
         if (modelAndView != null && !modelAndView.isEmpty()) {
             AuthorizedUser authorizedUser = AuthorizedUser.safeGet();
             if (authorizedUser != null) {
-                modelAndView.getModelMap().addAttribute("user", authorizedUser.getUser());
+                modelAndView.getModelMap().addAttribute("fullName", authorizedUser.getUser().getFullName());
             }
         }
     }
