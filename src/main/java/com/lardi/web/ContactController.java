@@ -39,6 +39,7 @@ public class ContactController {
         Integer userId = AuthorizedUser.id();
         List<Contact> contactsList = service.getFiltered(searchRequest, userId);
         model.addAttribute("contactList", contactsList);
+        model.addAttribute("searchRequest", searchRequest);
         return "contacts";
     }
 

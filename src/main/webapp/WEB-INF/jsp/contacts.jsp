@@ -19,14 +19,16 @@
             <h3><spring:message code="contacts.title"/> ${fullName}</h3>
             <div class="view-box">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-5 col-sm-offset-7">
                         <div class="panel panel-default">
                             <div class="panel-footer text-right">
                                 <form action="searchContact">
                                     <div class="form-group col-xs-7">
                                         <input type="text" name="searchRequest" id="searchRequest" class="form-control"
                                                required="true"
-                                               placeholder="<spring:message code="contacts.search"/>"/>
+                                               placeholder="<spring:message code="contacts.search"/>"
+                                               value="${searchRequest}"
+                                        />
                                     </div>
                                     <button type="submit" class="btn btn-primary">
                                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
