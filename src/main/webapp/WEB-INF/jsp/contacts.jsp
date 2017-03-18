@@ -16,28 +16,29 @@
             </div>
         </c:if>
         <div class="shadow">
-            <h3><spring:message code="contacts.title"/> ${fullName}</h3>
+            <h3><spring:message code="contacts.title"/> ${user.fullName}</h3>
             <div class="view-box">
                 <div class="row">
-                    <div class="col-sm-5 col-sm-offset-7">
+                    <div class="col-sm-3 col-sm-offset-9">
                         <div class="panel panel-default">
                             <div class="panel-footer text-right">
                                 <form action="searchContact">
-                                    <div class="form-group col-xs-7">
+                                    <div class="form-group">
                                         <input type="text" name="searchRequest" id="searchRequest" class="form-control"
-                                               required="true"
+                                               required
                                                placeholder="<spring:message code="contacts.search"/>"
                                                value="${searchRequest}"
                                         />
                                     </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                    </button>
-                                    <a class="btn btn-danger" type="button" href="contacts">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </a>
-                                    <br>
-                                    <br>
+                                    <div class="panel-footer text-right">
+                                        <button type="submit" class="btn btn-primary">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                        <a class="btn btn-danger" type="button"
+                                           onclick="window.location.href='contacts'">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </a>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -47,7 +48,7 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 
-                <form action="/contacts" method="post" id="contactForm" address="form">
+                <form action="contacts" method="post" id="contactForm">
                     <input type="hidden" id="idContact" name="idContact">
                     <input type="hidden" id="action" name="action">
 
@@ -78,15 +79,19 @@
                                 <td>${contact.homePhone}</td>
                                 <td>${contact.address}</td>
                                 <td>${contact.email}</td>
-                                <td><a class="btn btn-xs btn-primary"
-                                       href="/contacts?idContact=${contact.id}&searchAction=searchById" id="edit">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <span class="glyphicon glyphicon-pencil"/></a>
+                                <td>
+                                    <a class="btn btn-xs btn-primary" role="button" id="edit"
+                                       onclick="window.location.href='/contacts?idContact=${contact.id}&searchAction=searchById'">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
                                 </td>
-                                <td><a class="btn btn-xs btn-danger"
-                                       href="<c:url value='/delete-${contact.id}-contact' />">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    <span class="glyphicon glyphicon-remove"/></a>
+                                <td>
+                                    <a class="btn btn-xs btn-danger" role="button"
+                                       onclick="window.location.href='/delete-${contact.id}-contact'">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -97,6 +102,5 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
-</div>
 </body>
 </html>
