@@ -3,6 +3,7 @@ package com.lardi.repository.json;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.lardi.model.BaseEntity;
 import com.lardi.model.Contact;
 import com.lardi.model.User;
 import com.lardi.repository.ContactRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -25,9 +27,23 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     private final String className = Contact.class.getName();
 
+    private AtomicInteger counter;
+
+    private AtomicInteger getCounter() {
+        if (counter == null) {
+            List<Contact> userList = getAllContacts();
+            if (userList == null) {
+                this.counter = new AtomicInteger(0);
+            } else {
+                this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
+            }
+        }
+        return this.counter;
+    }
+
     @Override
     public List<Contact> getAll(Integer userId) {
-        List<Contact> contactList = getAllBaseContacts();
+        List<Contact> contactList = getAllContacts();
         if (contactList == null)
             return Collections.emptyList();
         Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
@@ -40,11 +56,18 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     @Override
     public Contact save(Contact contact, Integer userId) {
-        List<Contact> contactList = getAllBaseContacts();
-        if (contactList == null)
+        List<Contact> contactList = getAllContacts();
+
+        if (contactList == null) {
             contactList = new ArrayList<>();
+        }
+
         contact.setUserId(userId);
-        contact.setId(contactList.size() + 1);
+
+        if (contact.isNew()) {
+            contact.setId(getCounter().incrementAndGet());
+        }
+
         contactList.add(contact);
         transactionWrite(contactList);
         return contact;
@@ -52,7 +75,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     @Override
     public Contact update(Contact contact, Integer userId) {
-        List<Contact> contactList = getAllBaseContacts();
+        List<Contact> contactList = getAllContacts();
         int matchIdx;
         User user = userRepository.get(userId);
         contact.setUserId(user.getId());
@@ -71,7 +94,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     @Override
     public boolean delete(Integer id, Integer userId) {
-        List<Contact> contactList = getAllBaseContacts();
+        List<Contact> contactList = getAllContacts();
         Predicate<Contact> contact = e -> (e.getId().equals(id) && e.getUserId().equals(userId));
         if (contactList.removeIf(contact)) {
             transactionWrite(contactList);
@@ -83,7 +106,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     @Override
     public List<Contact> getFiltered(String filterRequest, Integer userId) {
-        List<Contact> contactList = getAllBaseContacts();
+        List<Contact> contactList = getAllContacts();
         if (contactList == null)
             return Collections.emptyList();
         Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
@@ -97,7 +120,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     @Override
     public Contact get(Integer id, Integer userId) {
-        List<Contact> contactList = getAllBaseContacts();
+        List<Contact> contactList = getAllContacts();
         if (contactList == null)
             return null;
         Contact contact = contactList
@@ -107,7 +130,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         return contact != null && Objects.equals(contact.getUserId(), userId) ? contact : null;
     }
 
-    private List<Contact> getAllBaseContacts() {
+    private List<Contact> getAllContacts() {
         File f = getFilePath(className);
         checkIfExists(f, className);
 

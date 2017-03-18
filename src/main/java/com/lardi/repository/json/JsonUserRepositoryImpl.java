@@ -3,6 +3,7 @@ package com.lardi.repository.json;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.lardi.model.BaseEntity;
 import com.lardi.model.User;
 import com.lardi.repository.UserRepository;
 import org.springframework.context.annotation.Profile;
@@ -11,22 +12,46 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Profile("json")
 @Repository
 public class JsonUserRepositoryImpl extends AbstractJsonRepository implements UserRepository {
     private final String className = User.class.getName();
 
+    private AtomicInteger counter;
+
+    private AtomicInteger getCounter() {
+        if (counter == null) {
+            List<User> userList = getAllUsers();
+            if (userList == null) {
+                this.counter = new AtomicInteger(0);
+            } else {
+                this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
+            }
+        }
+        return this.counter;
+    }
+
     @Override
     public User save(User user) {
         List<User> userList = getAllUsers();
-        if (get(user.getId()) != null || getByLogin(user.getLogin()) != null)
+
+        if (get(user.getId()) != null || getByLogin(user.getLogin()) != null) {
             throw new DataIntegrityViolationException("User " + user.getLogin() + " already exists.");
-        if (userList == null)
+        }
+
+        if (userList == null) {
             userList = new ArrayList<>();
-        user.setId(userList.size() + 1);
+        }
+
+        if (user.isNew()) {
+            user.setId(getCounter().incrementAndGet());
+        }
+
         userList.add(user);
         transactionWrite(userList);
         return user;
@@ -62,17 +87,6 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         java.lang.reflect.Type listType = new TypeToken<List<User>>() {
         }.getType();
         return (List<User>) gson.fromJson(jsonOutput, listType);
-    }
-
-    public User getUserFullName(String fullName) {
-        List<User> userList = getAllUsers();
-        if (userList == null)
-            return null;
-        Optional<User> match
-                = userList.stream()
-                .filter(u -> u.getFullName().equals(fullName))
-                .findFirst();
-        return match.orElse(null);
     }
 
     private void transactionWrite(List<User> userList) {

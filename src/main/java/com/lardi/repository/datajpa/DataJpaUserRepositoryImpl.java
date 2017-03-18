@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Profile("mysql")
-@Repository("dataJpaUserRepository")
+@Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
     private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
 

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Profile("mysql")
-@Repository("dataJpaRoleRepository")
+@Repository
 public class DataJpaRoleRepositoryImpl implements RoleRepository {
 
     @Autowired
