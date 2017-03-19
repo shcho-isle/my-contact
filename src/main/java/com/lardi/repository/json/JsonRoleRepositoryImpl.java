@@ -38,8 +38,11 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
     public void save(Role role) {
         List<Role> roleList = getAllRoles();
 
-        if (roleList == null) {
-            roleList = new ArrayList<>();
+        boolean roleExists = roleList.stream()
+                .anyMatch(r -> r.getName().equals(role.getName()) && r.getUserId().equals(role.getUserId()));
+
+        if (roleExists) {
+            return;
         }
 
         if (role.isNew()) {

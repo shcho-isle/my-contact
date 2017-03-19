@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_idx")})
 public class Role extends BaseEntity {
     @Column(name = "role")
-    private String role;
+    private String name;
 
     @Column(name = "user_id")
     private Integer userId;
@@ -20,16 +20,16 @@ public class Role extends BaseEntity {
 
     public Role(Integer id, Integer userId) {
         super(id);
-        this.role = "ROLE_ADMIN";
+        this.name = "ROLE_ADMIN";
         this.userId = userId;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole() {
-        this.role = "ROLE_ADMIN";
+    public void setName() {
+        this.name = "ROLE_ADMIN";
     }
 
     public Integer getUserId() {
@@ -44,7 +44,7 @@ public class Role extends BaseEntity {
     public String toString() {
         return "Role{" +
                 "id=" + getId() +
-                ", role='" + role + '\'' +
+                ", role='" + name + '\'' +
                 '}';
     }
 }
