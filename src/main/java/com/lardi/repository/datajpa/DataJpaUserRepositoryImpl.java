@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 @Profile("mysql")
 @Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
-    private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
-
     @Autowired
     private CrudUserRepository crudRepository;
 

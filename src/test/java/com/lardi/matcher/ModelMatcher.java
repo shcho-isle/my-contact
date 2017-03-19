@@ -17,27 +17,25 @@ public class ModelMatcher<T> {
             (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
     private Comparator<T> comparator;
-    private Class<T> entityClass;
 
     public interface Comparator<T> {
         boolean compare(T expected, T actual);
     }
 
-    private ModelMatcher(Class<T> entityClass) {
-        this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
+    private ModelMatcher() {
+        this((Comparator<T>) DEFAULT_COMPARATOR);
     }
 
-    private ModelMatcher(Class<T> entityClass, Comparator<T> comparator) {
-        this.entityClass = entityClass;
+    private ModelMatcher(Comparator<T> comparator) {
         this.comparator = comparator;
     }
 
-    public static <T> ModelMatcher<T> of(Class<T> entityClass) {
-        return new ModelMatcher<>(entityClass);
+    public static <T> ModelMatcher<T> of() {
+        return new ModelMatcher<>();
     }
 
-    public static <T> ModelMatcher<T> of(Class<T> entityClass, Comparator<T> comparator) {
-        return new ModelMatcher<>(entityClass, comparator);
+    public static <T> ModelMatcher<T> of(Comparator<T> comparator) {
+        return new ModelMatcher<>(comparator);
     }
 
     private class Wrapper {

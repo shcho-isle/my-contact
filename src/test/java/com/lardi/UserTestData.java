@@ -17,9 +17,9 @@ public class UserTestData {
     public static final User VANO = new User(VANO_ID, "Vano", "password", "Yakovenko Ivan Venediktovich");
     public static final User SERG = new User(SERG_ID, "Serg", "password", "Rubinov Sergey Nikolaevich");
 
-    public static final ModelMatcher<User> MATCHER = ModelMatcher.of(User.class,
-            (expected, actual) -> expected == actual ||
-                    (comparePassword(expected.getPassword(), actual.getPassword())
+    public static final ModelMatcher<User> MATCHER = ModelMatcher.of(
+            (expected, actual) -> expected == actual || (
+                    comparePassword(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getFullName(), actual.getFullName())
                             && Objects.equals(expected.getLogin(), actual.getLogin())

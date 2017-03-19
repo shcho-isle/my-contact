@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ContactTestData {
 
-    public static final ModelMatcher<Contact> MATCHER = ModelMatcher.of(Contact.class);
+    public static final ModelMatcher<Contact> MATCHER = ModelMatcher.of();
 
     public static final int VANO_CONTACT_ID = 1;
     public static final int SERG_CONTACT_ID = VANO_CONTACT_ID + 6;
