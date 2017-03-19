@@ -1,6 +1,6 @@
 Web проект “Телефонная книга”
 =============================
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/304687845f0e4946ab63a2ce17d93b98)](https://www.codacy.com/app/pavlo-plynko/phonebook?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/CaloriesManagement&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/45931d4db48746589d18c10b0f0be742)](https://www.codacy.com/app/pavlo-plynko/phonebook?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/phonebook&amp;utm_campaign=Badge_Grade)
 [![Dependency Status](https://dependencyci.com/github/shcho-isle/phonebook/badge)](https://dependencyci.com/github/shcho-isle/phonebook)
 [![Build Status](https://travis-ci.org/shcho-isle/phonebook.svg?branch=master)](https://travis-ci.org/shcho-isle/phonebook)
 ##### Настройки хранилица: `config/phonebook.properties`. Путь к нему должен передаваться в `VM options` например: `-Dlardi.conf=config/phonebook.properties`.
