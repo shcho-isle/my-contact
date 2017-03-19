@@ -42,16 +42,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getByLogin(String login) throws NotFoundException {
-        Assert.notNull(login, "login must not be null");
-        User user = repository.getByLogin(login);
-        if (user == null) {
-            throw new NotFoundException("Not found entity with login=" + login);
-        }
-        return user;
-    }
-
-    @Override
     public AuthorizedUser loadUserByUsername(String login) throws UsernameNotFoundException {
         User u = repository.getByLogin(login.toLowerCase());
         if (u == null) {

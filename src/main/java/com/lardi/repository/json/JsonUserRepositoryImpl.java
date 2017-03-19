@@ -11,10 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Profile("json")
@@ -27,7 +24,7 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
     private AtomicInteger getCounter() {
         if (counter == null) {
             List<User> userList = getAllUsers();
-            if (userList == null) {
+            if (userList.isEmpty()) {
                 this.counter = new AtomicInteger(0);
             } else {
                 this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
@@ -44,10 +41,6 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
             throw new DataIntegrityViolationException("User " + user.getLogin() + " already exists.");
         }
 
-        if (userList == null) {
-            userList = new ArrayList<>();
-        }
-
         if (user.isNew()) {
             user.setId(getCounter().incrementAndGet());
         }
@@ -60,23 +53,17 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
     @Override
     public User get(Integer id) {
         List<User> userList = getAllUsers();
-        if (userList == null)
-            return null;
-        Optional<User> match = userList.stream()
+        return userList.stream()
                 .filter(u -> u.getId().equals(id))
-                .findFirst();
-        return match.orElse(null);
+                .findFirst().orElse(null);
     }
 
     @Override
     public User getByLogin(String login) {
         List<User> userList = getAllUsers();
-        if (userList == null)
-            return null;
-        Optional<User> match = userList.stream()
+        return userList.stream()
                 .filter(u -> u.getLogin().equals(login))
-                .findFirst();
-        return match.orElse(null);
+                .findFirst().orElse(null);
     }
 
     private List<User> getAllUsers() {
@@ -86,7 +73,8 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         String jsonOutput = readJson(className);
         java.lang.reflect.Type listType = new TypeToken<List<User>>() {
         }.getType();
-        return (List<User>) gson.fromJson(jsonOutput, listType);
+        List<User> allUsers = gson.fromJson(jsonOutput, listType);
+        return allUsers == null ? new ArrayList<>() : allUsers;
     }
 
     private void transactionWrite(List<User> userList) {

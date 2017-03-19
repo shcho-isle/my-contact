@@ -18,7 +18,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         User newUser = new User(null, "new", "newPass", "new Full Name");
         User created = service.save(newUser);
         newUser.setId(created.getId());
-        MATCHER.assertEquals(newUser, service.getByLogin("new"));
+        MATCHER.assertEquals(newUser, service.get(VANO_ID + 2));
     }
 
     @Test(expected = DataAccessException.class)
@@ -35,11 +35,5 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Test(expected = NotFoundException.class)
     public void testGetNotFound() throws Exception {
         service.get(10);
-    }
-
-    @Test
-    public void testGetByLogin() throws Exception {
-        User user = service.getByLogin("Vano");
-        MATCHER.assertEquals(VANO, user);
     }
 }

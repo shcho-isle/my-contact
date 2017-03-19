@@ -56,10 +56,11 @@
             </button>
         </p>
         <br/>
-        <p><spring:message code="login.powered"/> <a href="http://projects.spring.io/spring-security/">Spring
-            Security</a>,
+        <p><spring:message code="login.powered"/>
+            <a href="https://projects.spring.io/spring-boot/">Spring Boot</a>,
             <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
+            <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
             <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
             <a href="http://ru.wikipedia.org/wiki/JSP">JSP</a>,

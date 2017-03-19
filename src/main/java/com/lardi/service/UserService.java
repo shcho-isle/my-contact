@@ -8,6 +8,4 @@ public interface UserService {
     User save(User user);
 
     User get(Integer id) throws NotFoundException;
-
-    User getByLogin(String login) throws NotFoundException;
 }

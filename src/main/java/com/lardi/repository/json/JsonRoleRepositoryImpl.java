@@ -25,7 +25,7 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
     private AtomicInteger getCounter() {
         if (counter == null) {
             List<Role> userList = getAllRoles();
-            if (userList == null) {
+            if (userList.isEmpty()) {
                 this.counter = new AtomicInteger(0);
             } else {
                 this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
@@ -61,7 +61,9 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
         java.lang.reflect.Type listType = new TypeToken<List<Role>>() {
         }.getType();
 
-        return (List<Role>) gson.fromJson(jsonOutput, listType);
+        List<Role> allRoles = gson.fromJson(jsonOutput, listType);
+
+        return allRoles == null ? new ArrayList<>() : allRoles;
     }
 
     private void transactionWrite(List<Role> roleList) {

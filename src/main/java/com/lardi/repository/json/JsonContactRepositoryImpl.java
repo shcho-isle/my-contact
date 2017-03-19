@@ -32,7 +32,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     private AtomicInteger getCounter() {
         if (counter == null) {
             List<Contact> userList = getAllContacts();
-            if (userList == null) {
+            if (userList.isEmpty()) {
                 this.counter = new AtomicInteger(0);
             } else {
                 this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
@@ -44,8 +44,6 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     @Override
     public List<Contact> getAll(Integer userId) {
         List<Contact> contactList = getAllContacts();
-        if (contactList == null)
-            return Collections.emptyList();
         Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
         return contactList
                 .stream()
@@ -57,10 +55,6 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     @Override
     public Contact save(Contact contact, Integer userId) {
         List<Contact> contactList = getAllContacts();
-
-        if (contactList == null) {
-            contactList = new ArrayList<>();
-        }
 
         contact.setUserId(userId);
 
@@ -107,41 +101,32 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     @Override
     public List<Contact> getFiltered(String filterRequest, Integer userId) {
         List<Contact> contactList = getAllContacts();
-        if (contactList == null)
-            return Collections.emptyList();
-        Comparator<Contact> groupByComparator = Comparator.comparing(Contact::getLastName);
         return contactList
                 .stream()
                 .filter(e -> e.getUserId().equals(userId)
                         && (e.getFirstName().contains(filterRequest) || e.getLastName().contains(filterRequest) || e.getMobilePhone().contains(filterRequest)))
-                .sorted(groupByComparator)
+                .sorted(Comparator.comparing(Contact::getLastName))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Contact get(Integer id, Integer userId) {
         List<Contact> contactList = getAllContacts();
-        if (contactList == null)
-            return null;
-        Contact contact = contactList
+        return contactList
                 .stream()
-                .filter(e -> e.getId().equals(id))
+                .filter(e -> e.getId().equals(id) && e.getUserId().equals(userId))
                 .findFirst().orElse(null);
-        return contact != null && Objects.equals(contact.getUserId(), userId) ? contact : null;
     }
 
     private List<Contact> getAllContacts() {
         File f = getFilePath(className);
         checkIfExists(f, className);
-
         Gson gson = new Gson();
-
         String jsonOutput = readJson(className);
-
         java.lang.reflect.Type listType = new TypeToken<List<Contact>>() {
         }.getType();
-
-        return (List<Contact>) gson.fromJson(jsonOutput, listType);
+        List<Contact> allContacts = gson.fromJson(jsonOutput, listType);
+        return allContacts == null ? new ArrayList<>() : allContacts;
     }
 
     private void transactionWrite(List<Contact> contactList) {
