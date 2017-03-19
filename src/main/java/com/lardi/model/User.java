@@ -2,6 +2,7 @@ package com.lardi.model;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -27,6 +28,7 @@ public class User extends BaseEntity implements Serializable {
     @NotBlank
     @Length(min = 5, max = 50)
     @Column(name = "full_name", nullable = false)
+    @SafeHtml
     private String fullName;
 
     public User() {

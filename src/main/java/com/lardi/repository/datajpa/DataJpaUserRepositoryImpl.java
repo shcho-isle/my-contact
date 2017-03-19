@@ -4,7 +4,6 @@ import com.lardi.model.User;
 import com.lardi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Profile("mysql")

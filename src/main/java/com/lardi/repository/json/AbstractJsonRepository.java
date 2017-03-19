@@ -9,7 +9,7 @@ public abstract class AbstractJsonRepository {
     @Autowired
     private Environment env;
 
-    void writeJson(String json, String fileName) {
+    protected void writeJson(String json, String fileName) {
         String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
 
         try (FileWriter writer = new FileWriter(new File(fullFileName))) {
@@ -20,7 +20,7 @@ public abstract class AbstractJsonRepository {
         }
     }
 
-    String readJson(String fileName) {
+    protected String readJson(String fileName) {
         String json = "";
         int c;
         String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
@@ -37,7 +37,7 @@ public abstract class AbstractJsonRepository {
         return json;
     }
 
-    void checkIfExists(File f, String className) {
+    protected void checkIfExists(File f, String className) {
         if (!f.exists()) {
             try {
                 f.createNewFile();
@@ -48,7 +48,7 @@ public abstract class AbstractJsonRepository {
         }
     }
 
-    File getFilePath(String className) {
+    protected File getFilePath(String className) {
         return new File(env.getProperty("pathToFileFolder") + className + ".json");
     }
 }
