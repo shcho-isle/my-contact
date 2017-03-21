@@ -7,6 +7,7 @@ cache:
 
 before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS phonebook;'
+  - mysql -e 'grant all privileges on database phonebook to "root@localhost"'
 
 notifications:
   email: false
