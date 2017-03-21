@@ -12,7 +12,7 @@ import javax.validation.ConstraintViolationException;
 import static com.telecom.UserTestData.VANO_ID;
 
 @ActiveProfiles("mysql")
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:data.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class DataJpaContactServiceTest extends AbstractContactServiceTest {
     @Test
     public void testValidation() throws Exception {

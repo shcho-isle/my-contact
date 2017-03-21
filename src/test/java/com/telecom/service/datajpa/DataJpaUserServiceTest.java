@@ -10,7 +10,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import javax.validation.ConstraintViolationException;
 
 @ActiveProfiles("mysql")
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:data.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
     public void testValidation() throws Exception {

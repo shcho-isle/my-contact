@@ -11,8 +11,8 @@ Web проект “Телефонная книга”
 Настройки для тестов берутся из отдельного файла: `src/test/resources/test.properties`. Никакого дополнительного конфигурирования тестов не требуется.
 
 Скрипты для создания таблиц, и наполнения демонстрационными данными:
-- `src\main\resources\db\initDB.sql`
-- `src\main\resources\db\populateDB.slq`
+- `src\main\resources\schema.sql`
+- `src\main\resources\data.slq`
 
 После запуска приложение доступно по: [http://localhost:8080/](http://localhost:8080/)
 
