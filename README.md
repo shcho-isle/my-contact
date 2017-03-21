@@ -3,13 +3,20 @@ Web проект “Телефонная книга”
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/45931d4db48746589d18c10b0f0be742)](https://www.codacy.com/app/pavlo-plynko/phonebook?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/phonebook&amp;utm_campaign=Badge_Grade)
 [![Dependency Status](https://dependencyci.com/github/shcho-isle/phonebook/badge)](https://dependencyci.com/github/shcho-isle/phonebook)
 [![Build Status](https://travis-ci.org/shcho-isle/phonebook.svg?branch=master)](https://travis-ci.org/shcho-isle/phonebook)
-##### Настройки хранилица: `config/phonebook.properties`. Путь к нему должен передаваться в `VM options` например: `-Dlardi.conf=config/phonebook.properties`.
-##### Для тестов существует отдельный файл с настройками: `src/test/resources/test.properties`
-##### Скрипты для создания таблиц, и наполнения демонстрационными данными:
+
+Настройки хранилица: `config/phonebook.properties`.
+Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=config/phonebook.properties`.
+Если это не сделано - настройки по умолчанию берутся из файла `config/application.properties`
+
+Настройки для тестов берутся из отдельного файла: `src/test/resources/test.properties`. Никакого дополнительного конфигурирования тестов не требуется.
+
+Скрипты для создания таблиц, и наполнения демонстрационными данными:
 - `src\main\resources\db\initDB.sql`
 - `src\main\resources\db\populateDB.slq`
-##### После запуска приложение доступно по: [http://localhost:8080/](http://localhost:8080/)
-##### SQL запрос для создания таблиц в mySQL:
+
+После запуска приложение доступно по: [http://localhost:8080/](http://localhost:8080/)
+
+SQL запрос для создания таблиц в mySQL:
     DROP TABLE IF EXISTS user_roles;
     DROP TABLE IF EXISTS contacts;
     DROP TABLE IF EXISTS users;
@@ -53,7 +60,9 @@ Web проект “Телефонная книга”
     );
     CREATE UNIQUE INDEX contacts_unique_userid_mobilephone_idx
       ON contacts (user_id, mobile_phone);
-##### Наполнение демонстрационным данными:
+      
+Наполнение демонстрационным данными:
+
     DELETE FROM user_roles;
     DELETE FROM contacts;
     DELETE FROM users;
