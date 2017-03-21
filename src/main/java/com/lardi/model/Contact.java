@@ -2,7 +2,6 @@ package com.lardi.model;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -10,22 +9,18 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Table(name = "contacts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "mobile_phone"}, name = "contacts_unique_userid_mobilephone_idx")})
 public class Contact extends BaseEntity {
-    @NotBlank
-    @Length(min = 4)
+    @Length(min = 4, max = 25)
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @NotBlank
-    @Length(min = 4)
+    @Length(min = 4, max = 25)
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @NotBlank
-    @Length(min = 4)
+    @Length(min = 4, max = 25)
     @Column(name = "middle_name", nullable = false)
     private String middleName;
 
-    @NotBlank
     @Column(name = "mobile_phone", nullable = false, unique = true)
     @Pattern(regexp = "^(\\+)380[(]\\d{2}[)][0-9]{7}$")
     private String mobilePhone;

@@ -18,14 +18,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/register")
-    public String viewRegistration(ModelMap model) {
+    @GetMapping("/register")
+    public String register(ModelMap model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @PostMapping(value = "/register")
-    public String processRegistration(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
+    @PostMapping("/register")
+    public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
         if (!result.hasErrors()) {
             try {
                 userService.save(user);
@@ -37,7 +37,6 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        model.addAttribute("register", true);
         return "register";
     }
 }

@@ -6,9 +6,7 @@ cache:
   - $HOME/.m2
 
 before_script:
-  - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS phonebook;'
-  - mysql -u root -e "CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';"
-  - mysql -u root -e "GRANT ALL ON phonebook.* TO 'user'@'localhost';"
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS phonebook;'
 
 notifications:
   email: false

@@ -85,8 +85,6 @@
     </div>
 </div>
 
-<jsp:include page="fragments/footer.jsp"/>
-
 <script type="text/javascript">
     <c:if test="${not empty param.login}">
     setCredentials("${param.login}", "");

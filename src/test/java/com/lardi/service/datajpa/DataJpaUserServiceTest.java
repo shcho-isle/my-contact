@@ -14,9 +14,15 @@ import javax.validation.ConstraintViolationException;
 public class DataJpaUserServiceTest extends AbstractUserServiceTest {
     @Test
     public void testValidation() throws Exception {
-        validateRootCause(() -> service.save(new User(null, "", "Password", "Full Name")), ConstraintViolationException.class);
+        //login validation
+        validateRootCause(() -> service.save(new User(null, "логин", "Password", "Full Name")), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new User(null, "ab", "Password", "Full Name")), ConstraintViolationException.class);
+        validateRootCause(() -> service.save(new User(null, "<login>", "Password", "Full Name")), ConstraintViolationException.class);
+
+        //password validation
         validateRootCause(() -> service.save(new User(null, "Login", "", "Full Name")), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new User(null, "Login", "Password", "")), ConstraintViolationException.class);
-        validateRootCause(() -> service.save(new User(null, "Login123", "Password", "Full Name")), ConstraintViolationException.class);
+
+        //fullName validation
+        validateRootCause(() -> service.save(new User(null, "Login", "Password", "1234")), ConstraintViolationException.class);
     }
 }

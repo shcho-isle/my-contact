@@ -14,7 +14,6 @@ public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @NotBlank
     @Length(min = 3, max = 25)
     @Pattern(regexp = "^[a-zA-Z]*$")
     @Column(name = "login", nullable = false, unique=true)
@@ -25,7 +24,6 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @NotBlank
     @Length(min = 5, max = 50)
     @Column(name = "full_name", nullable = false)
     @SafeHtml

@@ -10,9 +10,9 @@
 
 <div class="jumbotron">
     <div class="container">
-        <c:if test="${not empty message}">
-            <div class="alert alert-success">
-                    ${message}
+        <c:if test="${not empty param.message}">
+            <div class="message">
+                <spring:message code="${param.message}" arguments="${param.lastname}"/>
             </div>
         </c:if>
         <div class="shadow">
@@ -81,7 +81,7 @@
                                 <td>${contact.email}</td>
                                 <td>
                                     <a class="btn btn-xs btn-primary" role="button" id="edit"
-                                       onclick="window.location.href='/contacts?idContact=${contact.id}&searchAction=searchById'">
+                                       onclick="window.location.href='/update-${contact.id}-contact'">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
@@ -101,6 +101,5 @@
         </div>
     </div>
 </div>
-<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
