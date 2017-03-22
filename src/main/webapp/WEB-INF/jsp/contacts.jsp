@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-info" href="new-contact">
+                <a class="btn btn-info" href="new">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 

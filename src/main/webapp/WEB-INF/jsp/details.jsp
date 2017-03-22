@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="phonebook" tagdir="/WEB-INF/tags" %>
 
 <html>
@@ -15,7 +16,7 @@
             <h2><spring:message code="contact.edit"/></h2>
 
             <div class="view-box">
-                <form:form modelAttribute="contact" class="form-horizontal" method="post" action="contacts"
+                <form:form modelAttribute="contact" class="form-horizontal" method="post"
                            charset="utf-8" accept-charset="UTF-8">
 
                     <form:input type="hidden" path="id" id="id"/>

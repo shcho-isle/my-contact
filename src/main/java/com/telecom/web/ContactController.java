@@ -53,46 +53,58 @@ public class ContactController {
         }
     }
 
-    @GetMapping("/new-contact")
-    public String get(ModelMap model) {
+    @GetMapping("/new")
+    public String newContact(ModelMap model) {
         model.addAttribute("contact", new Contact());
-        return "new-contact";
+        model.addAttribute("isNew", true);
+        return "details";
     }
 
-    @GetMapping("/update-{id}-contact")
-    public String edit(@PathVariable Integer id, ModelMap model) {
-        Contact contact = service.get(id, AuthorizedUser.id());
-        model.addAttribute("contact", contact);
-        return "new-contact";
-    }
-
-    @PostMapping("/contacts")
-    public String updateOrCreate(@Valid Contact contact, BindingResult result, SessionStatus status, ModelMap model) {
+    @PostMapping("/new")
+    public String saveNew(@Valid Contact contact, BindingResult result, SessionStatus status, ModelMap model) {
         if (!result.hasErrors()) {
             try {
-                if (contact.isNew()) {
-                    service.save(contact, AuthorizedUser.id());
-                    status.setComplete();
-                    return "redirect:contacts?message=contact.created&lastname=" + contact.getLastName();
-                } else {
-                    service.update(contact, AuthorizedUser.id());
-                    status.setComplete();
-                    return "redirect:contacts?message=contact.updated&lastname=" + contact.getLastName();
-                }
+                service.save(contact, AuthorizedUser.id());
+                status.setComplete();
+                return "redirect:contacts?message=contact.created&lastname=" + contact.getLastName();
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contacts.duplicate_mobilephone");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return "new-contact";
+        model.addAttribute("isNew", true);
+        return "details";
+    }
+
+    @GetMapping("/update-{id}-contact")
+    public String details(@PathVariable Integer id, ModelMap model) {
+        Contact contact = service.get(id, AuthorizedUser.id());
+        model.addAttribute("contact", contact);
+        return "details";
+    }
+
+    @PostMapping("/update-{id}-contact")
+    public String updateDetails(@Valid Contact contact, BindingResult result, SessionStatus status, @PathVariable Integer id) {
+        if (!result.hasErrors()) {
+            try {
+                service.update(contact, AuthorizedUser.id());
+                status.setComplete();
+                return "redirect:contacts?message=contact.updated&lastname=" + contact.getLastName();
+            } catch (DataIntegrityViolationException ex) {
+                result.rejectValue("mobilePhone", "exception.contacts.duplicate_mobilephone");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "details";
     }
 
     private ModelAndView searchById(Map<String, String> allRequestParams) throws Exception {
         Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
         Integer userId = AuthorizedUser.id();
         Contact contact = service.get(idContact, userId);
-        ModelAndView model = new ModelAndView("new-contact");
+        ModelAndView model = new ModelAndView("details");
         model.addObject("contact", contact);
         model.addObject("action", "edit");
         return model;

@@ -19,7 +19,7 @@ public class UserControllerTest extends AbstractControllerTest {
     public void testRegister() throws Exception {
         mockMvc.perform(get("/register"))
                 .andDo(print())
-                .andExpect(view().name("register"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/register.jsp"));
+                .andExpect(view().name("profile"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/profile.jsp"));
     }
 }

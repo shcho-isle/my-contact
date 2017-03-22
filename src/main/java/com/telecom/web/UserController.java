@@ -21,11 +21,11 @@ public class UserController {
     @GetMapping("/register")
     public String register(ModelMap model) {
         model.addAttribute("user", new User());
-        return "register";
+        return "profile";
     }
 
     @PostMapping("/register")
-    public String saveRegister(@Valid User user, BindingResult result, SessionStatus status, ModelMap model) {
+    public String saveRegister(@Valid User user, BindingResult result, SessionStatus status) {
         if (!result.hasErrors()) {
             try {
                 userService.save(user);
@@ -37,6 +37,6 @@ public class UserController {
                 e.printStackTrace();
             }
         }
-        return "register";
+        return "profile";
     }
 }
