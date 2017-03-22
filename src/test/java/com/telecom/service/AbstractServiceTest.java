@@ -5,6 +5,7 @@ import com.telecom.util.ValidationUtil;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
@@ -18,6 +19,9 @@ abstract public class AbstractServiceTest extends ApplicationAbstractTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
     private static StringBuilder results = new StringBuilder();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {

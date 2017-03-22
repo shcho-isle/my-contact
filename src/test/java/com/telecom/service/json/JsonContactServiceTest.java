@@ -4,7 +4,7 @@ import com.telecom.service.AbstractContactServiceTest;
 import com.telecom.service.UserService;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.nio.file.Files;
@@ -16,17 +16,17 @@ import static com.telecom.UserTestData.*;
 @ActiveProfiles("json")
 public class JsonContactServiceTest extends AbstractContactServiceTest {
 
-    @Autowired
-    private Environment env;
+    @Value("${pathToFileFolder}")
+    private String pathToFileFolder;
 
     @Autowired
     protected UserService userService;
 
     @Before
     public void setUp() throws Exception {
-        Files.deleteIfExists(Paths.get(env.getProperty("pathToFileFolder") + "com.telecom.model.Rule.json"));
-        Files.deleteIfExists(Paths.get(env.getProperty("pathToFileFolder") + "com.telecom.model.User.json"));
-        Files.deleteIfExists(Paths.get(env.getProperty("pathToFileFolder") + "com.telecom.model.Contact.json"));
+        Files.deleteIfExists(Paths.get(pathToFileFolder + "com.telecom.model.Rule.json"));
+        Files.deleteIfExists(Paths.get(pathToFileFolder + "com.telecom.model.User.json"));
+        Files.deleteIfExists(Paths.get(pathToFileFolder + "com.telecom.model.Contact.json"));
 
         userService.save(VANO);
         userService.save(SERG);
