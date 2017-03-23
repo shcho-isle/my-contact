@@ -1,5 +1,6 @@
 package com.telecom.service.json;
 
+import com.telecom.model.Contact;
 import com.telecom.service.AbstractContactServiceTest;
 import com.telecom.service.UserService;
 import org.junit.Before;
@@ -31,13 +32,13 @@ public class JsonContactServiceTest extends AbstractContactServiceTest {
         userService.save(VANO);
         userService.save(SERG);
 
-        service.save(VANO_CONTACT1, VANO_ID);
-        service.save(VANO_CONTACT2, VANO_ID);
-        service.save(VANO_CONTACT3, VANO_ID);
-        service.save(VANO_CONTACT4, VANO_ID);
-        service.save(VANO_CONTACT5, VANO_ID);
-        service.save(VANO_CONTACT6, VANO_ID);
-        service.save(SERG_CONTACT1, SERG_ID);
-        service.save(SERG_CONTACT2, SERG_ID);
+        service.save(new Contact(VANO_CONTACT1), VANO_ID);
+        service.save(new Contact(VANO_CONTACT2), VANO_ID);
+        service.save(new Contact(VANO_CONTACT3), VANO_ID);
+        service.save(new Contact(VANO_CONTACT4), VANO_ID);
+        service.save(new Contact(VANO_CONTACT5), VANO_ID);
+        service.save(new Contact(VANO_CONTACT6), VANO_ID);
+        service.save(new Contact(SERG_CONTACT1), SERG_ID);
+        service.save(new Contact(SERG_CONTACT2), SERG_ID);
     }
 }

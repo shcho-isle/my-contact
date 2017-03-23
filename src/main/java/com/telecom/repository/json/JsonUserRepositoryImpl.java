@@ -22,14 +22,16 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
     private AtomicInteger counter;
 
     private AtomicInteger getCounter() {
-        if (counter == null) {
-            List<User> userList = getAllUsers();
-            if (userList.isEmpty()) {
-                this.counter = new AtomicInteger(0);
-            } else {
+        List<User> userList = getAllUsers();
+
+        if (userList.isEmpty()) {
+            this.counter = new AtomicInteger(0);
+        } else {
+            if (counter == null) {
                 this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
             }
         }
+
         return this.counter;
     }
 

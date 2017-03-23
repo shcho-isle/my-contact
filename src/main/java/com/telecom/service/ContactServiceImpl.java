@@ -41,7 +41,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact update(Contact contact, Integer userId) {
         Assert.notNull(contact, "contact must not be null");
-        return checkNotFoundWithId(repository.update(contact, userId), contact.getId());
+        return checkNotFoundWithId(repository.save(contact, userId), contact.getId());
     }
 
     @Override

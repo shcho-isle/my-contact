@@ -57,6 +57,10 @@ public class Contact extends BaseEntity {
         this(null, lastName, firstName, middleName, mobilePhone, homePhone, address, email);
     }
 
+    public Contact(Contact c) {
+        this(null, c.getLastName(), c.getFirstName(), c.getMiddleName(), c.getMobilePhone(), c.homePhone, c.address, c.email);
+    }
+
     public String getFirstName() {
         return firstName;
     }

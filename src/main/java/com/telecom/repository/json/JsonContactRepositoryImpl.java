@@ -5,11 +5,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.telecom.model.BaseEntity;
 import com.telecom.model.Contact;
-import com.telecom.model.User;
 import com.telecom.repository.ContactRepository;
 import com.telecom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -30,11 +30,11 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
     private AtomicInteger counter;
 
     private AtomicInteger getCounter() {
-        if (counter == null) {
-            List<Contact> userList = getAllContacts();
-            if (userList.isEmpty()) {
-                this.counter = new AtomicInteger(0);
-            } else {
+        List<Contact> userList = getAllContacts();
+        if (userList.isEmpty()) {
+            this.counter = new AtomicInteger(0);
+        } else {
+            if (counter == null) {
                 this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
             }
         }
@@ -54,36 +54,31 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
 
     @Override
     public Contact save(Contact contact, Integer userId) {
-        List<Contact> contactList = getAllContacts();
-
+        if (userRepository.get(userId) == null) {
+            throw new DataIntegrityViolationException("User with id=" + userId + " does not exist.");
+        }
         contact.setUserId(userId);
+
+        List<Contact> contactList = getAllContacts();
 
         if (contact.isNew()) {
             contact.setId(getCounter().incrementAndGet());
+            contactList.add(contact);
+        } else {
+            int matchIdx;
+            Optional<Contact> match = contactList.stream()
+                    .filter(c -> c.getId().equals(contact.getId()) && c.getUserId().equals(userId))
+                    .findFirst();
+            if (match.isPresent()) {
+                matchIdx = contactList.indexOf(match.get());
+                contactList.set(matchIdx, contact);
+            } else {
+                return null;
+            }
         }
 
-        contactList.add(contact);
         transactionWrite(contactList);
         return contact;
-    }
-
-    @Override
-    public Contact update(Contact contact, Integer userId) {
-        List<Contact> contactList = getAllContacts();
-        int matchIdx;
-        User user = userRepository.get(userId);
-        contact.setUserId(user.getId());
-        Optional<Contact> match = contactList.stream()
-                .filter(c -> c.getId().equals(contact.getId()) && c.getUserId().equals(userId))
-                .findFirst();
-        if (match.isPresent()) {
-            matchIdx = contactList.indexOf(match.get());
-            contactList.set(matchIdx, contact);
-            transactionWrite(contactList);
-            return contact;
-        } else {
-            return null;
-        }
     }
 
     @Override

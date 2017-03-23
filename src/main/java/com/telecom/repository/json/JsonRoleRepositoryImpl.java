@@ -23,14 +23,16 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
     private AtomicInteger counter;
 
     private AtomicInteger getCounter() {
-        if (counter == null) {
-            List<Role> userList = getAllRoles();
-            if (userList.isEmpty()) {
-                this.counter = new AtomicInteger(0);
-            } else {
+        List<Role> userList = getAllRoles();
+
+        if (userList.isEmpty()) {
+            this.counter = new AtomicInteger(0);
+        } else {
+            if (counter == null) {
                 this.counter = new AtomicInteger(userList.stream().max(Comparator.comparing(BaseEntity::getId)).get().getId());
             }
         }
+
         return this.counter;
     }
 

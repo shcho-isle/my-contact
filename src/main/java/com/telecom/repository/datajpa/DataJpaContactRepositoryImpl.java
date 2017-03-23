@@ -33,12 +33,6 @@ public class DataJpaContactRepositoryImpl implements ContactRepository {
     }
 
     @Override
-    @Transactional
-    public Contact update(Contact contact, Integer userId) {
-        return save(contact, userId);
-    }
-
-    @Override
     public boolean delete(Integer id, Integer userId) {
         return crudRepository.delete(id, userId) != 0;
     }

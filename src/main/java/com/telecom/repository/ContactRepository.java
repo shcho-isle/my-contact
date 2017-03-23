@@ -10,9 +10,6 @@ public interface ContactRepository {
 
     Contact save(Contact contact, Integer userId);
 
-    // null if updated contact do not belong to userId
-    Contact update(Contact contact, Integer userId);
-
     // false if contact do not belong to userId
     boolean delete(Integer id, Integer userId);
 
