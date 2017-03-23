@@ -30,9 +30,6 @@ abstract public class AbstractControllerTest extends ApplicationAbstractTest {
     protected MockMvc mockMvc;
 
     @Autowired
-    protected UserService userService;
-
-    @Autowired
     private WebApplicationContext webApplicationContext;
 
     @PostConstruct

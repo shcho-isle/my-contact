@@ -1,16 +1,16 @@
 package com.telecom.repository.json;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 
 public abstract class AbstractJsonRepository {
-    @Autowired
-    private Environment env;
+
+    @Value("${pathToFileFolder}")
+    private String pathToFileFolder;
 
     protected void writeJson(String json, String fileName) {
-        String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
+        String fullFileName = pathToFileFolder + fileName + ".json";
 
         try (FileWriter writer = new FileWriter(new File(fullFileName))) {
             writer.write(json);
@@ -21,20 +21,20 @@ public abstract class AbstractJsonRepository {
     }
 
     protected String readJson(String fileName) {
-        String json = "";
+        StringBuilder json = new StringBuilder();
         int c;
-        String fullFileName = env.getProperty("pathToFileFolder") + fileName + ".json";
+        String fullFileName = pathToFileFolder + fileName + ".json";
 
         try (FileReader reader = new FileReader(new File(fullFileName))) {
             while ((c = reader.read()) != -1) {
-                json += (char) c;
+                json.append((char) c);
             }
         } catch (IOException e) {
             System.err.println("ERROR: cannot read from: " + fullFileName);
             e.printStackTrace();
         }
 
-        return json;
+        return json.toString();
     }
 
     protected void checkIfExists(File f, String className) {
@@ -49,6 +49,6 @@ public abstract class AbstractJsonRepository {
     }
 
     protected File getFilePath(String className) {
-        return new File(env.getProperty("pathToFileFolder") + className + ".json");
+        return new File(pathToFileFolder + className + ".json");
     }
 }

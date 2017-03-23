@@ -9,8 +9,12 @@ import org.springframework.stereotype.Repository;
 @Profile("mysql")
 @Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
+    private final CrudUserRepository crudRepository;
+
     @Autowired
-    private CrudUserRepository crudRepository;
+    public DataJpaUserRepositoryImpl(CrudUserRepository crudRepository) {
+        this.crudRepository = crudRepository;
+    }
 
     @Override
     public User save(User user) {

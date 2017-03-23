@@ -19,11 +19,15 @@ import static com.telecom.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository) {
+        this.repository = repository;
+        this.roleRepository = roleRepository;
+    }
 
     @CacheEvict(value = "users", allEntries = true)
     @Override

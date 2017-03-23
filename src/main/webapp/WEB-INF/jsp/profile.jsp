@@ -32,7 +32,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
-                            <a class="btn btn-danger" role="button" onclick="window.location.href='login'">
+                            <a class="btn btn-danger" type="button" onclick="window.location.href='login'">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </a>
                         </div>

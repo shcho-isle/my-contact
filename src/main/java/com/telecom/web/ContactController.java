@@ -17,8 +17,12 @@ import java.util.List;
 @Controller
 public class ContactController {
 
+    private final ContactService service;
+
     @Autowired
-    private ContactService service;
+    public ContactController(ContactService service) {
+        this.service = service;
+    }
 
     @GetMapping("/delete-{id}-contact")
     public String delete(@PathVariable int id) {
@@ -27,12 +31,12 @@ public class ContactController {
         return "redirect:contacts";
     }
 
-    @RequestMapping("searchContact")
-    public String search(ModelMap model, @RequestParam("searchRequest") String searchRequest) {
+    @RequestMapping("search")
+    public String search(ModelMap model, @RequestParam("searchLine") String searchLine) {
         Integer userId = AuthorizedUser.id();
-        List<Contact> contactsList = service.getFiltered(searchRequest, userId);
+        List<Contact> contactsList = service.getFiltered(searchLine, userId);
         model.addAttribute("contactList", contactsList);
-        model.addAttribute("searchRequest", searchRequest);
+        model.addAttribute("searchLine", searchLine);
         return "contacts";
     }
 

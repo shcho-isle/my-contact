@@ -12,23 +12,19 @@
     <div class="container">
         <div class="navbar-header navbar-brand"><spring:message code="app.title"/></div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
-                        <div class="form-group">
-                            <input type="text" placeholder="<spring:message code="users.login"/>" class="form-control"
-                                   name="login">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="<spring:message code="users.password"/>"
-                                   class="form-control" name="password">
-                        </div>
-                        <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                        </button>
-                    </form:form>
-                </li>
-            </ul>
+            <form:form class="navbar-form navbar-right" role="form" action="spring_security_check" method="post">
+                <div class="form-group">
+                    <input type="text" placeholder="<spring:message code="users.login"/>" class="form-control"
+                           name="login">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="<spring:message code="users.password"/>"
+                           class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                </button>
+            </form:form>
         </div>
     </div>
 </div>

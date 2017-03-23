@@ -22,12 +22,12 @@
                     <div class="col-sm-3 col-sm-offset-9">
                         <div class="panel panel-default">
                             <div class="panel-footer text-right">
-                                <form action="searchContact">
+                                <form action="search">
                                     <div class="form-group">
-                                        <input type="text" name="searchRequest" id="searchRequest" class="form-control"
+                                        <input type="text" name="searchLine" id="searchLine" class="form-control"
                                                required
                                                placeholder="<spring:message code="contacts.search"/>"
-                                               value="${searchRequest}"
+                                               value="${searchLine}"
                                         />
                                     </div>
                                     <div class="panel-footer text-right">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-info" href="new">
+                <a class="btn btn-info" type="button" onclick="window.location.href='new'">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 
@@ -80,16 +80,14 @@
                                 <td>${contact.address}</td>
                                 <td>${contact.email}</td>
                                 <td>
-                                    <a class="btn btn-xs btn-primary" role="button" id="edit"
+                                    <a class="btn btn-xs btn-primary" type="button" id="edit"
                                        onclick="window.location.href='/update-${contact.id}-contact'">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                 </td>
                                 <td>
-                                    <a class="btn btn-xs btn-danger" role="button"
+                                    <a class="btn btn-xs btn-danger" type="button"
                                        onclick="window.location.href='/delete-${contact.id}-contact'">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>

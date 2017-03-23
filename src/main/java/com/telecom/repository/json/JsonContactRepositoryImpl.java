@@ -22,12 +22,16 @@ import java.util.stream.Collectors;
 @Repository
 public class JsonContactRepositoryImpl extends AbstractJsonRepository implements ContactRepository {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private final String className = Contact.class.getName();
 
     private AtomicInteger counter;
+
+    @Autowired
+    public JsonContactRepositoryImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     private AtomicInteger getCounter() {
         List<Contact> userList = getAllContacts();

@@ -10,8 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DataJpaRoleRepositoryImpl implements RoleRepository {
 
+    private final CrudRoleRepository crudRepository;
+
     @Autowired
-    private CrudRoleRepository crudRepository;
+    public DataJpaRoleRepositoryImpl(CrudRoleRepository crudRepository) {
+        this.crudRepository = crudRepository;
+    }
 
     @Override
     public void save(Role role) {

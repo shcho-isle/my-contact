@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -6,7 +5,6 @@
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
-
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
@@ -42,15 +40,12 @@
                     <spring:message code="contacts.email" var="email"/>
                     <phonebook:inputField label='${email}' name="email"/>
 
-                    <input type="hidden" name="${_csrf.parameterName}"
-                           value="${_csrf.token}"/>
-
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
                             <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
-                            <a class="btn btn-danger" role="button" onclick="window.location.href='contacts'">
+                            <a class="btn btn-danger" type="button" onclick="window.location.href='contacts'">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </a>
                         </div>

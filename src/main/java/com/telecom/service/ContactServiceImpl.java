@@ -13,8 +13,12 @@ import static com.telecom.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class ContactServiceImpl implements ContactService {
 
+    private final ContactRepository repository;
+
     @Autowired
-    private ContactRepository repository;
+    public ContactServiceImpl(ContactRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<Contact> getAll(Integer userId) {

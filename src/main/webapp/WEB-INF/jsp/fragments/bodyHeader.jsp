@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <form:form styleclass="navbar-form" action="logout" method="post">
+                    <form:form class="navbar-form" action="logout" method="post">
                         <sec:authorize access="isAuthenticated()">
                             <button class="btn btn-primary" type="submit">
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>

@@ -14,8 +14,12 @@ import java.util.Objects;
 @Repository
 public class DataJpaContactRepositoryImpl implements ContactRepository {
 
+    private final CrudContactRepository crudRepository;
+
     @Autowired
-    private CrudContactRepository crudRepository;
+    public DataJpaContactRepositoryImpl(CrudContactRepository crudRepository) {
+        this.crudRepository = crudRepository;
+    }
 
     @Override
     public List<Contact> getAll(Integer userId) {
