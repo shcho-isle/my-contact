@@ -10,11 +10,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ContactController {
@@ -39,18 +37,11 @@ public class ContactController {
     }
 
     @GetMapping("/contacts")
-    public ModelAndView getAll(@RequestParam Map<String, String> allRequestParams) throws Exception {
-        ModelAndView model;
-        if (allRequestParams.containsKey("searchAction")) {
-            model = searchById(allRequestParams);
-            return model;
-        } else {
-            Integer userId = AuthorizedUser.id();
-            List<Contact> contactList = service.getAll(userId);
-            model = new ModelAndView("contacts");
-            model.addObject("contactList", contactList);
-            return model;
-        }
+    public String getAll(ModelMap model) {
+        Integer userId = AuthorizedUser.id();
+        List<Contact> contacts = service.getAll(userId);
+        model.addAttribute("contactList", contacts);
+        return "contacts";
     }
 
     @GetMapping("/new")
@@ -98,15 +89,5 @@ public class ContactController {
             }
         }
         return "details";
-    }
-
-    private ModelAndView searchById(Map<String, String> allRequestParams) throws Exception {
-        Integer idContact = Integer.valueOf(allRequestParams.get("idContact"));
-        Integer userId = AuthorizedUser.id();
-        Contact contact = service.get(idContact, userId);
-        ModelAndView model = new ModelAndView("details");
-        model.addObject("contact", contact);
-        model.addObject("action", "edit");
-        return model;
     }
 }
