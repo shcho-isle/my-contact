@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -46,7 +47,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         messageSource.setCacheSeconds(60);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setBasenames("classpath:messages");
-        messageSource.setFallbackToSystemLocale(true);
+        messageSource.setFallbackToSystemLocale(false);
         return messageSource;
     }
 
@@ -57,8 +58,16 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         return localeResolver;
     }
 
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ModelInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new ModelInterceptor());
+        registry.addInterceptor(localeChangeInterceptor());
     }
 }
