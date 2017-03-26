@@ -37,8 +37,6 @@ public class UserController {
                 return "redirect:login?message=login.registered&fullname=" + user.getFullName();
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("login", "exception.users.duplicate_login");
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
         return "profile";

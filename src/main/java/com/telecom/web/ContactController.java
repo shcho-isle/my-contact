@@ -28,7 +28,7 @@ public class ContactController {
     public String delete(@PathVariable int id) {
         int userId = AuthorizedUser.id();
         service.delete(id, userId);
-        return "redirect:contacts";
+        return "redirect:contacts?message=contact.deleted";
     }
 
     @RequestMapping("search")
@@ -64,8 +64,6 @@ public class ContactController {
                 return "redirect:contacts?message=contact.created&lastname=" + contact.getLastName();
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contacts.duplicate_mobilephone");
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
         model.addAttribute("isNew", true);
@@ -88,8 +86,6 @@ public class ContactController {
                 return "redirect:contacts?message=contact.updated&lastname=" + contact.getLastName();
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contacts.duplicate_mobilephone");
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
         return "details";

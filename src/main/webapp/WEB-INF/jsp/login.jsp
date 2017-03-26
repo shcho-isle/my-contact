@@ -69,15 +69,7 @@
 </div>
 <div class="container">
     <div class="lead">
-        A <a href="https://en.wikipedia.org/wiki/Telephone_directory">telephone directory</a> ,
-        also known as a telephone book, telephone address book, phone book, or the white/yellow pages, is a listing
-        of telephone subscribers in a geographical area or subscribers to services provided by the organization
-        that publishes the directory. Its purpose is to allow the telephone number of a subscriber identified by name
-        and address to be found.
-        <br><br>
-        The advent of the Internet and smart phones in the 21st century greatly reduced the need for a paper phone book.
-        Some communities, such as Seattle and San Francisco, sought to ban their unsolicited distribution as wasteful,
-        unwanted and harmful to the environment.
+        <spring:message code="login.text"/>
     </div>
 </div>
 

@@ -9,8 +9,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.util.Locale;
 
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
@@ -43,8 +46,15 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         messageSource.setCacheSeconds(60);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setBasenames("classpath:messages");
-        messageSource.setFallbackToSystemLocale(false);
+        messageSource.setFallbackToSystemLocale(true);
         return messageSource;
+    }
+
+    @Bean
+    public CookieLocaleResolver localeResolver() {
+        CookieLocaleResolver localeResolver = new CookieLocaleResolver();
+        localeResolver.setDefaultLocale(Locale.forLanguageTag("ru"));
+        return localeResolver;
     }
 
     @Override
