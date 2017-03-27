@@ -8,7 +8,6 @@
     </ul>
 </li>
 <script type="text/javascript">
-    <%--var localeCode="${pageContext.response.locale}";--%>
     function show(lang) {
         window.location.href = window.location.href.split('?')[0] + '?lang=' + lang;
     }
