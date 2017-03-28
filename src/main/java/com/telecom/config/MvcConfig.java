@@ -55,6 +55,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public CookieLocaleResolver localeResolver() {
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
         localeResolver.setDefaultLocale(Locale.forLanguageTag("ru"));
+        localeResolver.setCookieName("cookieLocale");
         return localeResolver;
     }
 

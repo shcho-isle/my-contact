@@ -2,7 +2,7 @@ package com.telecom.util;
 
 import com.telecom.util.exception.NotFoundException;
 
-public class ValidationUtil {
+public final class ValidationUtil {
     private ValidationUtil() {
     }
 
@@ -27,10 +27,11 @@ public class ValidationUtil {
 
     public static Throwable getRootCause(Throwable t) {
         Throwable result = t;
-        Throwable cause;
+        Throwable cause = result.getCause();
 
-        while (null != (cause = result.getCause()) && (result != cause)) {
+        while (null != cause && !result.equals(cause)) {
             result = cause;
+            cause = result.getCause();
         }
         return result;
     }

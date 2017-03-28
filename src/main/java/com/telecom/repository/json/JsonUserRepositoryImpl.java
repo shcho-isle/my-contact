@@ -84,11 +84,6 @@ public class JsonUserRepositoryImpl extends AbstractJsonRepository implements Us
         java.lang.reflect.Type listType = new TypeToken<List<User>>() {
         }.getType();
         JsonElement users = gson.toJsonTree(userList, listType);
-        try {
-            writeJson(String.valueOf(users), className);
-        } catch (IndexOutOfBoundsException e) {
-            File file = getFilePath(className);
-            file.delete();
-        }
+        writeJson(String.valueOf(users), className);
     }
 }

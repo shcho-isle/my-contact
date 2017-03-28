@@ -11,10 +11,10 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h2><spring:message code="contact.edit"/></h2>
+            <h2><spring:message code="${isNew ? 'contact.add' : 'contact.edit'}"/></h2>
 
             <div class="view-box">
-                <form:form modelAttribute="contact" class="form-horizontal" method="post"
+                <form:form modelAttribute="contact" class="form-horizontal" method="post" action="${isNew ? 'new' : 'update'}"
                            charset="utf-8" accept-charset="UTF-8">
 
                     <form:input type="hidden" path="id" id="id"/>
