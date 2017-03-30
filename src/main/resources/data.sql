@@ -7,8 +7,8 @@ ALTER TABLE user_roles AUTO_INCREMENT = 1;
 ALTER TABLE contacts AUTO_INCREMENT = 1;
 
 INSERT INTO users (login, password, full_name) VALUES
-  ('Vano', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Yakovenko Ivan Venediktovich'),
-  ('Serg', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Rubinov Sergey Nikolaevich');
+  ('vano', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Yakovenko Ivan Venediktovich'),
+  ('serg', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Rubinov Sergey Nikolaevich');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_ADMIN', 1),

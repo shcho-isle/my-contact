@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
         user.setPassword(PasswordUtil.encode(user.getPassword()));
+        user.setLogin(user.getLogin().toLowerCase());
         User savedUser = repository.save(user);
         Role role = new Role(savedUser.getId());
         roleRepository.save(role);
