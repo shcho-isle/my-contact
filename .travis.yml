@@ -12,3 +12,6 @@ before_script:
 
 notifications:
   email: false
+
+env:
+  - PB_ROOT=$TRAVIS_BUILD_DIR

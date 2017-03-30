@@ -20,7 +20,7 @@ public class ContactTestData {
     public static final Contact VANO_CONTACT4 = new Contact(VANO_CONTACT_ID + 3, "Tiagnybok", "Yulia", "Volodymyrivna", "+380(67)8555855", "+380(47)2234567", "Cherkasy, Rustavi str. 8", "yulia@gmail.com");
     public static final Contact VANO_CONTACT5 = new Contact(VANO_CONTACT_ID + 4, "Tsymbal", "Vitia", "Fedorovych", "+380(98)9234567", "+380(44)9234567", "Kyiv, Sosninykh str. 38", "vitia@gmail.com");
     public static final Contact VANO_CONTACT6 = new Contact(VANO_CONTACT_ID + 5, "Tymoshenko", "Grysha", "Petrovych", "+380(93)1234555", "+380(47)2234555", "Cherkasy, Gaidara str. 8", "grysha@gmail.com");
-    public static final Contact SERG_CONTACT1 = new Contact(SERG_CONTACT_ID, "Kukushkina", "Dima", "Grygorovych", "+380(63)3334567", "+380(44)3334567", "Kyiv, Zhylanska str. 99", "dima@gmail.com");
+    public static final Contact SERG_CONTACT1 = new Contact(SERG_CONTACT_ID, "Kukushkin", "Dima", "Grygorovych", "+380(63)3334567", "+380(44)3334567", "Kyiv, Zhylanska str. 99", "dima@gmail.com");
     public static final Contact SERG_CONTACT2 = new Contact(SERG_CONTACT_ID + 1, "Kukushkina", "Sveta", "Andreevna", "+380(66)1234567", "+380(44)1234567", "Kyiv, Mechnikova str. 2", "sveta@gmail.com");
 
     public static final List<Contact> CONTACTS = Arrays.asList(VANO_CONTACT1, VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6);

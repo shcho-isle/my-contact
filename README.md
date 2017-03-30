@@ -5,8 +5,8 @@ Web проект “Телефонная книга”
 [![Build Status](https://travis-ci.org/shcho-isle/phonebook.svg?branch=master)](https://travis-ci.org/shcho-isle/phonebook)
 
 Настройки хранилица: `config/phonebook.properties`.
-Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=config/phonebook.properties`.
-Если это не сделано - настройки по умолчанию берутся из файла `config/application.properties`
+Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=${PB_ROOT}/config/phonebook.properties`.
+Если это не сделано - настройки по умолчанию берутся из файла `src/main/resources/application.properties`.
 
 Настройки для тестов берутся из отдельного файла: `src/test/resources/test.properties`. Никакого дополнительного конфигурирования тестов не требуется.
 

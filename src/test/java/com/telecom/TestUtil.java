@@ -15,6 +15,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class TestUtil {
+    public static ResultActions print(ResultActions action) throws UnsupportedEncodingException {
+        System.out.println(getContent(action));
+        return action;
+    }
+
+    public static String getContent(ResultActions action) throws UnsupportedEncodingException {
+        return action.andReturn().getResponse().getContentAsString();
+    }
+
+//    public static void mockAuthorize(User user) {
+//        SecurityContextHolder.getContext().setAuthentication(
+//                new UsernamePasswordAuthenticationToken(new AuthorizedUser(user), null, user.getRoles()));
+//    }
+
+    public static RequestPostProcessor userHttpBasic(User user) {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getLogin(), user.getPassword());
+    }
+
+    public static RequestPostProcessor userAuth(User user) {
+        return SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+    }
 
     public static void populateJsonDb(String pathToFileFolder) throws IOException {
         Path users = Paths.get(pathToFileFolder + "com.telecom.model.User.json");
@@ -40,7 +61,7 @@ public class TestUtil {
                         ",{\"lastName\":\"Tiagnybok\",\"firstName\":\"Yulia\",\"middleName\":\"Volodymyrivna\",\"mobilePhone\":\"+380(67)8555855\",\"homePhone\":\"+380(47)2234567\",\"address\":\"Cherkasy, Rustavi str. 8\",\"email\":\"yulia@gmail.com\",\"userId\":1,\"id\":4}" +
                         ",{\"lastName\":\"Tsymbal\",\"firstName\":\"Vitia\",\"middleName\":\"Fedorovych\",\"mobilePhone\":\"+380(98)9234567\",\"homePhone\":\"+380(44)9234567\",\"address\":\"Kyiv, Sosninykh str. 38\",\"email\":\"vitia@gmail.com\",\"userId\":1,\"id\":5}" +
                         ",{\"lastName\":\"Tymoshenko\",\"firstName\":\"Grysha\",\"middleName\":\"Petrovych\",\"mobilePhone\":\"+380(93)1234555\",\"homePhone\":\"+380(47)2234555\",\"address\":\"Cherkasy, Gaidara str. 8\",\"email\":\"grysha@gmail.com\",\"userId\":1,\"id\":6}" +
-                        ",{\"lastName\":\"Kukushkina\",\"firstName\":\"Dima\",\"middleName\":\"Grygorovych\",\"mobilePhone\":\"+380(63)3334567\",\"homePhone\":\"+380(44)3334567\",\"address\":\"Kyiv, Zhylanska str. 99\",\"email\":\"dima@gmail.com\",\"userId\":2,\"id\":7}" +
+                        ",{\"lastName\":\"Kukushkin\",\"firstName\":\"Dima\",\"middleName\":\"Grygorovych\",\"mobilePhone\":\"+380(63)3334567\",\"homePhone\":\"+380(44)3334567\",\"address\":\"Kyiv, Zhylanska str. 99\",\"email\":\"dima@gmail.com\",\"userId\":2,\"id\":7}" +
                         ",{\"lastName\":\"Kukushkina\",\"firstName\":\"Sveta\",\"middleName\":\"Andreevna\",\"mobilePhone\":\"+380(66)1234567\",\"homePhone\":\"+380(44)1234567\",\"address\":\"Kyiv, Mechnikova str. 2\",\"email\":\"sveta@gmail.com\",\"userId\":2,\"id\":8}]"
         );
 
@@ -51,27 +72,5 @@ public class TestUtil {
         usersWriter.close();
         rolesWriter.close();
         contactsWriter.close();
-    }
-
-    public static ResultActions print(ResultActions action) throws UnsupportedEncodingException {
-        System.out.println(getContent(action));
-        return action;
-    }
-
-    public static String getContent(ResultActions action) throws UnsupportedEncodingException {
-        return action.andReturn().getResponse().getContentAsString();
-    }
-
-//    public static void mockAuthorize(User user) {
-//        SecurityContextHolder.getContext().setAuthentication(
-//                new UsernamePasswordAuthenticationToken(new AuthorizedUser(user), null, user.getRoles()));
-//    }
-
-    public static RequestPostProcessor userHttpBasic(User user) {
-        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getLogin(), user.getPassword());
-    }
-
-    public static RequestPostProcessor userAuth(User user) {
-        return SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
     }
 }
