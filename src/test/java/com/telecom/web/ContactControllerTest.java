@@ -1,19 +1,26 @@
 package com.telecom.web;
 
+import com.telecom.model.Contact;
 import com.telecom.service.ContactService;
 import com.telecom.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
 import static com.telecom.ContactTestData.*;
 import static com.telecom.TestUtil.userAuth;
 import static com.telecom.UserTestData.SERG;
 import static com.telecom.UserTestData.VANO;
 import static com.telecom.UserTestData.VANO_ID;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -70,20 +77,31 @@ public class ContactControllerTest extends AbstractControllerTest {
         MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
     }
 
-//    @Test
-//    @Transactional
-//    public void testUpdate() throws Exception {
-//        Meal updated = getUpdated();
-//
-//        mockMvc.perform(put(REST_URL + MEAL1_ID)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(updated))
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk());
-//
-//        assertEquals(updated, service.get(MEAL1_ID, START_SEQ));
-//    }
-//
+    @Test
+    @Transactional
+    public void testUpdate() throws Exception {
+        Contact updated = getUpdated();
+
+        mockMvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", updated.getId().toString())
+                .param("lastName", updated.getLastName())
+                .param("firstName", updated.getFirstName())
+                .param("middleName", updated.getMiddleName())
+                .param("mobilePhone", updated.getMobilePhone())
+                .param("homePhone", updated.getHomePhone())
+                .param("address", updated.getAddress())
+                .param("email", updated.getEmail())
+                .sessionAttr("contact", updated)
+                .with(userAuth(VANO))
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andDo(print())
+                .andExpect(redirectedUrl("contacts?message=contact.updated&lastname=" + updated.getLastName()));
+
+        assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
+    }
+
 //    @Test
 //    public void testUpdateInvalid() throws Exception {
 //        Meal invalid = new Meal(MEAL1_ID, null, null, 6000);
