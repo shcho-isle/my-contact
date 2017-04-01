@@ -132,7 +132,7 @@ public class JsonContactRepositoryImpl extends AbstractJsonRepository implements
         Gson gson = new Gson();
         java.lang.reflect.Type listType = new TypeToken<List<Contact>>() {
         }.getType();
-        JsonElement contacts = gson.toJsonTree(contactList, listType);
-        writeJson(String.valueOf(contacts), className);
+        JsonElement jsonTree = gson.toJsonTree(contactList, listType);
+        writeJson(String.valueOf(jsonTree), className);
     }
 }

@@ -16,7 +16,7 @@
             </div>
         </c:if>
         <div class="shadow">
-            <h3><spring:message code="contacts.title"/> ${user.fullName}</h3>
+            <h3><spring:message code="contact.title"/> ${user.fullName}</h3>
             <div class="view-box">
                 <div class="row">
                     <div class="col-sm-3 col-sm-offset-9">
@@ -26,7 +26,7 @@
                                     <div class="form-group">
                                         <input type="text" name="searchLine" id="searchLine" class="form-control"
                                                required
-                                               placeholder="<spring:message code="contacts.search"/>"
+                                               placeholder="<spring:message code="contact.search"/>"
                                                value="${searchLine}"
                                         />
                                     </div>
@@ -55,13 +55,13 @@
                     <table class="table table-striped display" id="datatable">
                         <thead>
                         <tr>
-                            <th><spring:message code="contacts.lastName"/></th>
-                            <th><spring:message code="contacts.firstName"/></th>
-                            <th><spring:message code="contacts.middleName"/></th>
-                            <th><spring:message code="contacts.mobilePhone"/></th>
-                            <th><spring:message code="contacts.homePhone"/></th>
-                            <th><spring:message code="contacts.address"/></th>
-                            <th><spring:message code="contacts.email"/></th>
+                            <th><spring:message code="contact.lastName"/></th>
+                            <th><spring:message code="contact.firstName"/></th>
+                            <th><spring:message code="contact.middleName"/></th>
+                            <th><spring:message code="contact.mobilePhone"/></th>
+                            <th><spring:message code="contact.homePhone"/></th>
+                            <th><spring:message code="contact.address"/></th>
+                            <th><spring:message code="contact.email"/></th>
                             <th></th>
                             <th></th>
                         </tr>

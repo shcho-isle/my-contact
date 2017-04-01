@@ -2,14 +2,10 @@ package com.telecom.web;
 
 import com.telecom.model.Contact;
 import com.telecom.service.ContactService;
-import com.telecom.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.MultiValueMap;
 
 import java.util.Arrays;
 

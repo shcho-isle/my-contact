@@ -38,23 +38,23 @@ public class TestUtil {
     }
 
     public static void populateJsonDb(String pathToFileFolder) throws IOException {
-        Path users = Paths.get(pathToFileFolder + "com.telecom.model.User.json");
-        Path roles = Paths.get(pathToFileFolder + "com.telecom.model.Role.json");
-        Path contacts = Paths.get(pathToFileFolder + "com.telecom.model.Contact.json");
+        Path userPath = Paths.get(pathToFileFolder + "com.telecom.model.User.json");
+        Path rolePath = Paths.get(pathToFileFolder + "com.telecom.model.Role.json");
+        Path contactPath = Paths.get(pathToFileFolder + "com.telecom.model.Contact.json");
 
-        BufferedWriter usersWriter = Files.newBufferedWriter(users);
-        BufferedWriter rolesWriter = Files.newBufferedWriter(roles);
-        BufferedWriter contactsWriter = Files.newBufferedWriter(contacts);
+        BufferedWriter userWriter = Files.newBufferedWriter(userPath);
+        BufferedWriter roleWriter = Files.newBufferedWriter(rolePath);
+        BufferedWriter contactWriter = Files.newBufferedWriter(contactPath);
 
-        usersWriter.write(
+        userWriter.write(
                         "[{\"login\":\"vano\",\"password\":\"$2a$10$OQB5/ci7ajvO7r3FknsbGutElRAeMv7Pl.O.VBP0N/2mydO/Th4gC\",\"fullName\":\"Yakovenko Ivan Venediktovich\",\"id\":1}" +
                         ",{\"login\":\"serg\",\"password\":\"$2a$10$7LUptJ9VzHnViMx98rz.LuIrFJzzV.RXebw2xvvB.ESW6Hz6yrrqO\",\"fullName\":\"Rubinov Sergey Nikolaevich\",\"id\":2}]"
         );
-        rolesWriter.write(
+        roleWriter.write(
                         "[{\"name\":\"ROLE_ADMIN\",\"userId\":1,\"id\":1}" +
                         ",{\"name\":\"ROLE_ADMIN\",\"userId\":2,\"id\":2}]"
         );
-        contactsWriter.write(
+        contactWriter.write(
                         "[{\"lastName\":\"Dovbash\",\"firstName\":\"Sveta\",\"middleName\":\"Andriivna\",\"mobilePhone\":\"+380(66)1234567\",\"homePhone\":\"+380(44)1234567\",\"address\":\"Kyiv, Mechnikova str. 2\",\"email\":\"sveta@gmail.com\",\"userId\":1,\"id\":1}" +
                         ",{\"lastName\":\"Kushnir\",\"firstName\":\"Lena\",\"middleName\":\"Viktorivna\",\"mobilePhone\":\"+380(50)1234123\",\"homePhone\":\"+380(47)2661181\",\"address\":\"Cherkasy, Taraskova str. 16\",\"email\":\"lena@gmail.com\",\"userId\":1,\"id\":2}" +
                         ",{\"lastName\":\"Parasiuk\",\"firstName\":\"Sasha\",\"middleName\":\"Igorevych\",\"mobilePhone\":\"+380(97)9876543\",\"homePhone\":\"+380(44)0909098\",\"address\":\"Kyiv, Pushkinska str. 10\",\"email\":\"sasha@gmail.com\",\"userId\":1,\"id\":3}" +
@@ -65,12 +65,12 @@ public class TestUtil {
                         ",{\"lastName\":\"Kukushkina\",\"firstName\":\"Sveta\",\"middleName\":\"Andreevna\",\"mobilePhone\":\"+380(66)1234567\",\"homePhone\":\"+380(44)1234567\",\"address\":\"Kyiv, Mechnikova str. 2\",\"email\":\"sveta@gmail.com\",\"userId\":2,\"id\":8}]"
         );
 
-        usersWriter.flush();
-        rolesWriter.flush();
-        contactsWriter.flush();
+        userWriter.flush();
+        roleWriter.flush();
+        contactWriter.flush();
 
-        usersWriter.close();
-        rolesWriter.close();
-        contactsWriter.close();
+        userWriter.close();
+        roleWriter.close();
+        contactWriter.close();
     }
 }

@@ -1,22 +1,14 @@
-Web проект “Телефонная книга”
+Web приложение “Контакты”
 =============================
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/45931d4db48746589d18c10b0f0be742)](https://www.codacy.com/app/pavlo-plynko/phonebook?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/phonebook&amp;utm_campaign=Badge_Grade)
 [![Dependency Status](https://dependencyci.com/github/shcho-isle/phonebook/badge)](https://dependencyci.com/github/shcho-isle/phonebook)
 [![Build Status](https://travis-ci.org/shcho-isle/phonebook.svg?branch=master)](https://travis-ci.org/shcho-isle/phonebook)
 
-Настройки хранилица: `config/phonebook.properties`.
-Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=${PB_ROOT}/config/phonebook.properties`.
-Если это не сделано - настройки по умолчанию берутся из файла `src/main/resources/application.properties`.
-
-Настройки для тестов берутся из отдельного файла: `src/test/resources/test.properties`. Никакого дополнительного конфигурирования тестов не требуется.
-
-Скрипты для создания таблиц, и наполнения демонстрационными данными:
-- `src\main\resources\schema.sql`
-- `src\main\resources\data.slq`
-
-После запуска приложение доступно по: [http://localhost:8080/](http://localhost:8080/)
+Настройки хранилища: `config/contactManager.properties`.
+Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=${PB_ROOT}/config/contactManager.properties`.
 
 SQL запрос для создания таблиц в mySQL:
+
     DROP TABLE IF EXISTS user_roles;
     DROP TABLE IF EXISTS contacts;
     DROP TABLE IF EXISTS users;
@@ -60,31 +52,3 @@ SQL запрос для создания таблиц в mySQL:
     );
     CREATE UNIQUE INDEX contacts_unique_userid_mobilephone_idx
       ON contacts (user_id, mobile_phone);
-      
-Наполнение демонстрационным данными:
-
-    DELETE FROM user_roles;
-    DELETE FROM contacts;
-    DELETE FROM users;
-    
-    ALTER TABLE users AUTO_INCREMENT = 1;
-    ALTER TABLE user_roles AUTO_INCREMENT = 1;
-    ALTER TABLE contacts AUTO_INCREMENT = 1;
-    
-    INSERT INTO users (login, password, full_name) VALUES
-      ('Vano', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Yakovenko Ivan Venediktovich'),
-      ('Serg', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Rubinov Sergey Nikolaevich');
-    
-    INSERT INTO user_roles (role, user_id) VALUES
-      ('ROLE_ADMIN', 1),
-      ('ROLE_ADMIN', 2);
-    
-    INSERT INTO contacts (last_name, first_name, middle_name, mobile_phone, home_phone, address, email, user_id) VALUES
-      ('Dovbash', 'Sveta', 'Andriivna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 1),
-      ('Kushnir', 'Lena', 'Viktorivna', '+380(50)1234123', '+380(47)2661181', 'Cherkasy, Taraskova str. 16', 'lena@gmail.com', 1),
-      ('Parasiuk', 'Sasha', 'Igorevych', '+380(97)9876543', '+380(44)0909098', 'Kyiv, Pushkinska str. 10', 'sasha@gmail.com', 1),
-      ('Tiagnybok', 'Yulia', 'Volodymyrivna', '+380(67)8555855', '+380(47)2234567', 'Cherkasy, Rustavi str. 8', 'yulia@gmail.com', 1),
-      ('Tsymbal', 'Vitia', 'Fedorovych', '+380(98)9234567', '+380(44)9234567', 'Kyiv, Sosninykh str. 38', 'vitia@gmail.com', 1),
-      ('Tymoshenko', 'Grysha', 'Petrovych', '+380(93)1234555', '+380(47)2234555', 'Cherkasy, Gaidara str. 8', 'grysha@gmail.com', 1),
-      ('Kukushkina', 'Dima', 'Grygorovych', '+380(63)3334567', '+380(44)3334567', 'Kyiv, Zhylanska str. 99', 'dima@gmail.com', 2),
-      ('Kukushkina', 'Sveta', 'Andreevna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 2);

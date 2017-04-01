@@ -5,7 +5,7 @@
     <jmxConfigurator/>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>log/phonebook.log</file>
+        <file>log/ContactManager.log</file>
 
         <encoder>
             <charset>UTF-8</charset>

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="phonebook" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="ContactManager" tagdir="/WEB-INF/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -19,26 +19,26 @@
 
                     <form:input type="hidden" path="id" id="id"/>
 
-                    <spring:message code="contacts.lastName" var="lastName"/>
-                    <phonebook:inputField label='${lastName}' name="lastName"/>
+                    <spring:message code="contact.lastName" var="lastName"/>
+                    <ContactManager:inputField label='${lastName}' name="lastName"/>
 
-                    <spring:message code="contacts.firstName" var="firstName"/>
-                    <phonebook:inputField label='${firstName}' name="firstName"/>
+                    <spring:message code="contact.firstName" var="firstName"/>
+                    <ContactManager:inputField label='${firstName}' name="firstName"/>
 
-                    <spring:message code="contacts.middleName" var="middleName"/>
-                    <phonebook:inputField label='${middleName}' name="middleName"/>
+                    <spring:message code="contact.middleName" var="middleName"/>
+                    <ContactManager:inputField label='${middleName}' name="middleName"/>
 
-                    <spring:message code="contacts.mobilePhone" var="mobilePhone"/>
-                    <phonebook:inputField label='${mobilePhone}' name="mobilePhone"/>
+                    <spring:message code="contact.mobilePhone" var="mobilePhone"/>
+                    <ContactManager:inputField label='${mobilePhone}' name="mobilePhone"/>
 
-                    <spring:message code="contacts.homePhone" var="homePhone"/>
-                    <phonebook:inputField label='${homePhone}' name="homePhone"/>
+                    <spring:message code="contact.homePhone" var="homePhone"/>
+                    <ContactManager:inputField label='${homePhone}' name="homePhone"/>
 
-                    <spring:message code="contacts.address" var="address"/>
-                    <phonebook:inputField label='${address}' name="address"/>
+                    <spring:message code="contact.address" var="address"/>
+                    <ContactManager:inputField label='${address}' name="address"/>
 
-                    <spring:message code="contacts.email" var="email"/>
-                    <phonebook:inputField label='${email}' name="email"/>
+                    <spring:message code="contact.email" var="email"/>
+                    <ContactManager:inputField label='${email}' name="email"/>
 
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">

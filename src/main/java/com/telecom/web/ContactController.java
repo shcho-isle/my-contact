@@ -39,8 +39,8 @@ public class ContactController {
     public String search(ModelMap model, @RequestParam("searchLine") String searchLine) {
         Integer userId = AuthorizedUser.id();
         LOG.info("search by line: {}, for User {}", searchLine, userId);
-        List<Contact> contactsList = service.getFiltered(searchLine, userId);
-        model.addAttribute("contactList", contactsList);
+        List<Contact> contactList = service.getFiltered(searchLine, userId);
+        model.addAttribute("contactList", contactList);
         model.addAttribute("searchLine", searchLine);
         return "contacts";
     }
@@ -49,8 +49,8 @@ public class ContactController {
     public String getAll(ModelMap model) {
         Integer userId = AuthorizedUser.id();
         LOG.info("getAll for User {}", userId);
-        List<Contact> contacts = service.getAll(userId);
-        model.addAttribute("contactList", contacts);
+        List<Contact> contactList = service.getAll(userId);
+        model.addAttribute("contactList", contactList);
         return "contacts";
     }
 
@@ -71,7 +71,7 @@ public class ContactController {
                 status.setComplete();
                 return "redirect:contacts?message=contact.created&lastname=" + contact.getLastName();
             } catch (DataIntegrityViolationException ex) {
-                result.rejectValue("mobilePhone", "exception.contacts.duplicate_mobilephone");
+                result.rejectValue("mobilePhone", "exception.contact.duplicate_mobilephone");
             }
         }
         model.addAttribute("isNew", true);
@@ -97,7 +97,7 @@ public class ContactController {
                 status.setComplete();
                 return "redirect:contacts?message=contact.updated&lastname=" + contact.getLastName();
             } catch (DataIntegrityViolationException ex) {
-                result.rejectValue("mobilePhone", "exception.contacts.duplicate_mobilephone");
+                result.rejectValue("mobilePhone", "exception.contact.duplicate_mobilephone");
             }
         }
         return "details";
