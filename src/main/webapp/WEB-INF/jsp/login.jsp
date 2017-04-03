@@ -44,7 +44,7 @@
         </c:if>
         <c:if test="${not empty param.message}">
             <div class="message">
-                <spring:message code="${param.message}" arguments="${param.fullname}"/>
+                <spring:message code="${param.message}"/>
             </div>
         </c:if>
         <br/>

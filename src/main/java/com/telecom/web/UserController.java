@@ -34,7 +34,7 @@ public class UserController {
             try {
                 userService.save(user);
                 status.setComplete();
-                return "redirect:login?message=login.registered&fullname=" + user.getFullName();
+                return "redirect:login?message=login.registered";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("login", "exception.user.duplicate_login");
             }

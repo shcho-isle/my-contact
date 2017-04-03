@@ -69,7 +69,7 @@ public class ContactController {
                 LOG.info("create {} for User {}", contact, userId);
                 service.save(contact, userId);
                 status.setComplete();
-                return "redirect:contacts?message=contact.created&lastname=" + contact.getLastName();
+                return "redirect:contacts?message=contact.created";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contact.duplicate_mobilephone");
             }
@@ -95,7 +95,7 @@ public class ContactController {
                 LOG.info("update {} for User {}", contact, userId);
                 service.update(contact, userId);
                 status.setComplete();
-                return "redirect:contacts?message=contact.updated&lastname=" + contact.getLastName();
+                return "redirect:contacts?message=contact.updated";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contact.duplicate_mobilephone");
             }
