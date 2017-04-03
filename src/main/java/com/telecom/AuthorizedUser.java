@@ -1,11 +1,11 @@
 package com.telecom;
 
+import com.telecom.model.Role;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.telecom.model.User;
 
-import java.util.Arrays;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,8 +14,8 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
 
     private User user;
 
-    public AuthorizedUser(User user) {
-        super(user.getLogin(), user.getPassword(), true, true, true, true, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+    public AuthorizedUser(User user, Set<Role> roles) {
+        super(user.getLogin(), user.getPassword(), true, true, true, true, roles);
         this.user = user;
     }
 

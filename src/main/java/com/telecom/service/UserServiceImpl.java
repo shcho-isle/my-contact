@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.Set;
+
 import static com.telecom.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (u == null) {
             throw new UsernameNotFoundException("User " + login + " is not found");
         }
-        return new AuthorizedUser(u);
+        Set<Role> roles = roleRepository.getAll(u.getId());
+        return new AuthorizedUser(u, roles);
     }
 }

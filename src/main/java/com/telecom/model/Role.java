@@ -1,10 +1,12 @@
 package com.telecom.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_idx")})
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements GrantedAuthority {
     @Column(name = "role")
     private String name;
 
@@ -46,5 +48,10 @@ public class Role extends BaseEntity {
                 "id=" + getId() +
                 ", role='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }

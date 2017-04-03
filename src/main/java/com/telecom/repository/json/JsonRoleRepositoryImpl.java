@@ -13,7 +13,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Profile("json")
 @Repository
@@ -53,6 +55,15 @@ public class JsonRoleRepositoryImpl extends AbstractJsonRepository implements Ro
 
         roleList.add(role);
         transactionWrite(roleList);
+    }
+
+    @Override
+    public Set<Role> getAll(Integer userId) {
+        List<Role> contactList = getAllRoles();
+        return contactList
+                .stream()
+                .filter(e -> e.getUserId().equals(userId))
+                .collect(Collectors.toSet());
     }
 
     private List<Role> getAllRoles() {
