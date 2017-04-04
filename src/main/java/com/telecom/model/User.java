@@ -14,14 +14,16 @@ public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Length(min = 3, max = 25)
+    @Length(min = 3, max = 30)
     @Pattern(regexp = "^[a-zA-Z]*$")
     @Column(name = "login", nullable = false, unique=true)
+    @SafeHtml
     private String login;
 
     @NotBlank
     @Length(min = 5, max = 64)
     @Column(name = "password", nullable = false)
+    @SafeHtml
     private String password;
 
     @Length(min = 5, max = 50)

@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
   id        INT          NOT NULL AUTO_INCREMENT,
-  login     VARCHAR(25)  NOT NULL,
+  login     VARCHAR(30)  NOT NULL,
   password  VARCHAR(100) NOT NULL,
   full_name VARCHAR(50)  NOT NULL,
   PRIMARY KEY (id)
@@ -29,13 +29,13 @@ CREATE TABLE contacts
 (
   id            INT         NOT NULL AUTO_INCREMENT,
   user_id       INT         NOT NULL,
-  last_name     VARCHAR(25) NOT NULL,
-  first_name    VARCHAR(25) NOT NULL,
-  middle_name   VARCHAR(25) NOT NULL,
+  last_name     VARCHAR(30) NOT NULL,
+  first_name    VARCHAR(30) NOT NULL,
+  middle_name   VARCHAR(30) NOT NULL,
   mobile_phone  VARCHAR(15) NOT NULL,
   home_phone    VARCHAR(15),
   address       VARCHAR(50),
-  email         VARCHAR(25),
+  email         VARCHAR(30),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
   PRIMARY KEY (id)
 );

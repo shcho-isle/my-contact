@@ -2,6 +2,7 @@ package com.telecom.model;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -9,31 +10,38 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Table(name = "contacts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "mobile_phone"}, name = "contacts_unique_userid_mobilephone_idx")})
 public class Contact extends BaseEntity {
-    @Length(min = 4, max = 25)
+    @Length(min = 4, max = 30)
     @Column(name = "last_name", nullable = false)
+    @SafeHtml
     private String lastName;
 
-    @Length(min = 4, max = 25)
+    @Length(min = 4, max = 30)
     @Column(name = "first_name", nullable = false)
+    @SafeHtml
     private String firstName;
 
-    @Length(min = 4, max = 25)
+    @Length(min = 4, max = 30)
     @Column(name = "middle_name", nullable = false)
+    @SafeHtml
     private String middleName;
 
     @Column(name = "mobile_phone", nullable = false, unique = true)
     @Pattern(regexp = "^(\\+)380[(]\\d{2}[)][0-9]{7}$")
+    @SafeHtml
     private String mobilePhone;
 
     @Column(name = "home_phone")
     @Pattern(regexp = "(^(\\+)380[(]\\d{2}[)][0-9]{7}$)?")
+    @SafeHtml
     private String homePhone;
 
     @Column(name = "address")
+    @SafeHtml
     private String address;
 
     @Column(name = "email")
     @Email
+    @SafeHtml
     private String email;
 
     @Column(name = "user_id")

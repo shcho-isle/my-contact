@@ -88,27 +88,38 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .param("homePhone", updated.getHomePhone())
                 .param("address", updated.getAddress())
                 .param("email", updated.getEmail())
-                .sessionAttr("contact", updated)
                 .with(userAuth(VANO))
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
-                .andExpect(redirectedUrl("contacts?message=contact.updated&lastname=" + updated.getLastName()));
+                .andExpect(redirectedUrl("contacts?message=contact.updated"));
 
         assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
     }
 
-//    @Test
-//    public void testUpdateInvalid() throws Exception {
-//        Meal invalid = new Meal(MEAL1_ID, null, null, 6000);
-//        mockMvc.perform(put(REST_URL + MEAL1_ID)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(invalid))
-//                .with(userHttpBasic(USER)))
-//                .andDo(print())
-//                .andExpect(status().isUnprocessableEntity());
-//    }
-//
+    @Test
+    public void testUpdateInvalid() throws Exception {
+        Contact invalid = new Contact(VANO_CONTACT_ID, null, null, null, null, null, null, null);
+        mockMvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", invalid.getId().toString())
+                .param("lastName", invalid.getLastName())
+                .param("firstName", invalid.getFirstName())
+                .param("middleName", invalid.getMiddleName())
+                .param("mobilePhone", invalid.getMobilePhone())
+                .param("homePhone", invalid.getHomePhone())
+                .param("address", invalid.getAddress())
+                .param("email", invalid.getEmail())
+                .with(userAuth(VANO))
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(view().name("details"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
+
+        assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+    }
+
 //    @Test
 //    public void testUpdateHtmlUnsafe() throws Exception {
 //        Meal invalid = new Meal(MEAL1_ID, LocalDateTime.now(), "<script>alert(123)</script>", 200);
