@@ -11,8 +11,8 @@ import java.util.Objects;
 public class UserTestData {
     private static final Logger LOG = LoggerFactory.getLogger(UserTestData.class);
 
-    public static final int VANO_ID = 1;
-    public static final int SERG_ID = VANO_ID + 1;
+    public static final Integer VANO_ID = 1;
+    public static final Integer SERG_ID = VANO_ID + 1;
 
     public static final User VANO = new User(VANO_ID, "vano", "password", "Yakovenko Ivan Venediktovich");
     public static final User SERG = new User(SERG_ID, "serg", "password", "Rubinov Sergey Nikolaevich");

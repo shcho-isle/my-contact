@@ -35,7 +35,7 @@ public class ContactController {
         return "redirect:contacts?message=contact.deleted";
     }
 
-    @RequestMapping("search")
+    @GetMapping("search")
     public String search(ModelMap model, @RequestParam("searchLine") String searchLine) {
         Integer userId = AuthorizedUser.id();
         LOG.info("search by line: {}, for User {}", searchLine, userId);

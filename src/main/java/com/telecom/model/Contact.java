@@ -61,12 +61,12 @@ public class Contact extends BaseEntity {
         this.email = email;
     }
 
-    public Contact(String lastName, String firstName, String middleName, String mobilePhone, String homePhone, String address, String email) {
-        this(null, lastName, firstName, middleName, mobilePhone, homePhone, address, email);
+    public Contact(Integer id, String lastName, String firstName, String middleName, String mobilePhone) {
+        this(id, lastName, firstName, middleName, mobilePhone, null, null, null);
     }
 
     public Contact(Contact c) {
-        this(null, c.getLastName(), c.getFirstName(), c.getMiddleName(), c.getMobilePhone(), c.homePhone, c.address, c.email);
+        this(null, c.getLastName(), c.getFirstName(), c.getMiddleName(), c.getMobilePhone(), c.getHomePhone(), c.getAddress(), c.getEmail());
     }
 
     public String getFirstName() {

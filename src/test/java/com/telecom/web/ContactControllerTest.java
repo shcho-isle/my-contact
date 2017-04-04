@@ -9,16 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
+import static com.telecom.UserTestData.*;
 import static org.junit.Assert.assertEquals;
 import static com.telecom.ContactTestData.*;
+import static com.telecom.ContactTestData.MATCHER;
 import static com.telecom.TestUtil.userAuth;
-import static com.telecom.UserTestData.SERG;
-import static com.telecom.UserTestData.VANO;
-import static com.telecom.UserTestData.VANO_ID;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 
 public class ContactControllerTest extends AbstractControllerTest {
 
@@ -32,7 +32,8 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"))
+                .andExpect(model().attribute("contact", is(SERG_CONTACT1)));
     }
 
     @Test
@@ -85,9 +86,6 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .param("firstName", updated.getFirstName())
                 .param("middleName", updated.getMiddleName())
                 .param("mobilePhone", updated.getMobilePhone())
-                .param("homePhone", updated.getHomePhone())
-                .param("address", updated.getAddress())
-                .param("email", updated.getEmail())
                 .with(userAuth(VANO))
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -99,17 +97,9 @@ public class ContactControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdateInvalid() throws Exception {
-        Contact invalid = new Contact(VANO_CONTACT_ID, null, null, null, null, null, null, null);
         mockMvc.perform(post("/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", invalid.getId().toString())
-                .param("lastName", invalid.getLastName())
-                .param("firstName", invalid.getFirstName())
-                .param("middleName", invalid.getMiddleName())
-                .param("mobilePhone", invalid.getMobilePhone())
-                .param("homePhone", invalid.getHomePhone())
-                .param("address", invalid.getAddress())
-                .param("email", invalid.getEmail())
+                .param("id", VANO_CONTACT_ID.toString())
                 .with(userAuth(VANO))
                 .with(csrf()))
                 .andExpect(status().isOk())
@@ -120,65 +110,87 @@ public class ContactControllerTest extends AbstractControllerTest {
         assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
     }
 
-//    @Test
-//    public void testUpdateHtmlUnsafe() throws Exception {
-//        Meal invalid = new Meal(MEAL1_ID, LocalDateTime.now(), "<script>alert(123)</script>", 200);
-//        mockMvc.perform(put(REST_URL + MEAL1_ID)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(invalid))
-//                .with(userHttpBasic(USER)))
-//                .andDo(print())
-//                .andExpect(status().isUnprocessableEntity());
-//    }
-//
-//    @Test
-//    @Transactional
-//    public void testCreate() throws Exception {
-//        Meal created = getCreated();
-//        ResultActions action = mockMvc.perform(post(REST_URL)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(created))
-//                .with(userHttpBasic(ADMIN)));
-//
-//        Meal returned = MATCHER.fromJsonAction(action);
-//        created.setId(returned.getId());
-//
-//        MATCHER.assertEquals(created, returned);
-//        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_MEAL2, created, ADMIN_MEAL1), service.getAll(ADMIN_ID));
-//    }
-//
-//    @Test
-//    public void testCreateInvalid() throws Exception {
-//        Meal invalid = new Meal(null, null, "Dummy", 200);
-//        mockMvc.perform(post(REST_URL)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(invalid))
-//                .with(userHttpBasic(ADMIN)))
-//                .andDo(print())
-//                .andExpect(status().isUnprocessableEntity());
-//    }
-//
-//    @Test
-//    public void testGetAll() throws Exception {
-//        mockMvc.perform(get(REST_URL)
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(MealsUtil.getWithExceeded(MEALS, USER.getCaloriesPerDay())));
-//    }
+    @Test
+    public void testUpdateHtmlUnsafe() throws Exception {
+        mockMvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", VANO_CONTACT_ID.toString())
+                .param("lastName", "LastName")
+                .param("firstName", "FirstName")
+                .param("middleName", "<script>alert(123)</script>")
+                .param("mobilePhone", "+380(66)1234567")
+                .with(userAuth(VANO))
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(view().name("details"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
+
+        assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+    }
+
+    @Test
+    @Transactional
+    public void testCreate() throws Exception {
+        Contact created = getCreated();
+        mockMvc.perform(post("/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "")
+                .param("lastName", created.getLastName())
+                .param("firstName", created.getFirstName())
+                .param("middleName", created.getMiddleName())
+                .param("mobilePhone", created.getMobilePhone())
+                .param("homePhone", "")
+                .param("address", "")
+                .param("email", "")
+                .with(userAuth(SERG))
+                .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andDo(print())
+                .andExpect(redirectedUrl("contacts?message=contact.created"));
+
+        created.setId(9);
+        MATCHER.assertCollectionEquals(Arrays.asList(created, SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
+    }
+
+    @Test
+    public void testCreateInvalid() throws Exception {
+        Contact invalid = new Contact(null, null, "Dummy", null, null);
+
+        mockMvc.perform(post("/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "")
+                .param("firstName", "Dummy")
+                .with(userAuth(SERG))
+                .with(csrf()))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(view().name("details"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"))
+                .andExpect(model().attribute("isNew", is(true)));
+
+        MATCHER.assertCollectionEquals(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
+    }
+
+    @Test
+    public void testGetAll() throws Exception {
+        mockMvc.perform(get("/contacts")
+                .with(userAuth(SERG)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(model().attribute("contactList", is(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2))));
+    }
 //
 //    @Test
 //    public void testGetBetween() throws Exception {
-//        mockMvc.perform(get(REST_URL + "between?startDateTime=2015-05-30T07:00&endDateTime=2015-05-31T11:00:00")
-//                .with(userHttpBasic(USER)))
+//        mockMvc.perform(get("search?searchLine=55")
+//                .with(userAuth(VANO)))
 //                .andExpect(status().isOk())
 //                .andDo(print())
-//                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(
-//                        MealsUtil.createWithExceed(MEAL4, true),
-//                        MealsUtil.createWithExceed(MEAL1, false)));
+//                .andExpect(model().attribute("contactList", is(Arrays.asList(VANO_CONTACT4, VANO_CONTACT6))));
 //    }
-//
+
 //    @Test
 //    public void testFilter() throws Exception {
 //        mockMvc.perform(get(REST_URL + "filter")

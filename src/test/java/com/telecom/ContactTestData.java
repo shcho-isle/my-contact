@@ -11,8 +11,8 @@ public class ContactTestData {
 
     public static final ModelMatcher<Contact> MATCHER = ModelMatcher.of();
 
-    public static final int VANO_CONTACT_ID = 1;
-    public static final int SERG_CONTACT_ID = VANO_CONTACT_ID + 6;
+    public static final Integer VANO_CONTACT_ID = 1;
+    public static final Integer SERG_CONTACT_ID = VANO_CONTACT_ID + 6;
 
     public static final Contact VANO_CONTACT1 = new Contact(VANO_CONTACT_ID, "Dovbash", "Sveta", "Andriivna", "+380(66)1234567", "+380(44)1234567", "Kyiv, Mechnikova str. 2", "sveta@gmail.com");
     public static final Contact VANO_CONTACT2 = new Contact(VANO_CONTACT_ID + 1, "Kushnir", "Lena", "Viktorivna", "+380(50)1234123", "+380(47)2661181", "Cherkasy, Taraskova str. 16", "lena@gmail.com");
@@ -26,10 +26,10 @@ public class ContactTestData {
     public static final List<Contact> CONTACTS = Arrays.asList(VANO_CONTACT1, VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6);
 
     public static Contact getCreated() {
-        return new Contact(null, "A new_last", "new_first", "new_middle", "+380(00)0000000", "", "", "");
+        return new Contact(null, "A_new_last", "new_first", "new_middle", "+380(00)0000000", "", "", "");
     }
 
     public static Contact getUpdated() {
-        return new Contact(VANO_CONTACT_ID, "updated_last", "updated_first", "updated_middle", VANO_CONTACT1.getMobilePhone(), VANO_CONTACT1.getHomePhone(), "updated_address", "updated@gmail.com");
+        return new Contact(VANO_CONTACT_ID, "updated_last", "updated_first", "updated_middle", VANO_CONTACT1.getMobilePhone());
     }
 }
