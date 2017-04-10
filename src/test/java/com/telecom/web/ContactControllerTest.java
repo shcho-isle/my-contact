@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 
 import static com.telecom.UserTestData.*;
-import static org.junit.Assert.assertEquals;
 import static com.telecom.ContactTestData.*;
 import static com.telecom.ContactTestData.MATCHER;
 import static com.telecom.TestUtil.userAuth;
@@ -92,7 +91,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(redirectedUrl("contacts?message=contact.updated"));
 
-        assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
     }
 
     @Test
@@ -107,7 +106,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(view().name("details"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
 
-        assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
     }
 
     @Test
@@ -126,7 +125,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(view().name("details"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
 
-        assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
     }
 
     @Test
@@ -148,15 +147,12 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andExpect(redirectedUrl("contacts?message=contact.created"));
-
         created.setId(9);
         MATCHER.assertCollectionEquals(Arrays.asList(created, SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
     }
 
     @Test
     public void testCreateInvalid() throws Exception {
-        Contact invalid = new Contact(null, null, "Dummy", null, null);
-
         mockMvc.perform(post("/new")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
@@ -169,7 +165,6 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(view().name("details"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"))
                 .andExpect(model().attribute("isNew", is(true)));
-
         MATCHER.assertCollectionEquals(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
     }
 
@@ -181,58 +176,54 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(model().attribute("contactList", is(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2))));
     }
-//
-//    @Test
-//    public void testGetBetween() throws Exception {
-//        mockMvc.perform(get("search?searchLine=55")
-//                .with(userAuth(VANO)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(model().attribute("contactList", is(Arrays.asList(VANO_CONTACT4, VANO_CONTACT6))));
-//    }
+
+    @Test
+    public void testSearch() throws Exception {
+        mockMvc.perform(get("/search?searchLine=55")
+                .with(userAuth(VANO)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(model().attribute("contactList", is(Arrays.asList(VANO_CONTACT4, VANO_CONTACT6))));
+    }
+
+    @Test
+    public void testUpdateDuplicate() throws Exception {
+        Contact invalid = new Contact(VANO_CONTACT_ID, "Dummy", "Dummy", "Dummy", VANO_CONTACT2.getMobilePhone());
+        mockMvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", invalid.getId().toString())
+                .param("lastName", invalid.getLastName())
+                .param("firstName", invalid.getFirstName())
+                .param("middleName", invalid.getMiddleName())
+                .param("mobilePhone", invalid.getMobilePhone())
+                .with(userAuth(VANO))
+                .with(csrf()))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(model().hasErrors())
+                .andExpect(view().name("details"));
+        MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+    }
 
 //    @Test
-//    public void testFilter() throws Exception {
-//        mockMvc.perform(get(REST_URL + "filter")
-//                .param("startDate", "2015-05-30").param("startTime", "07:00")
-//                .param("endDate", "2015-05-31").param("endTime", "11:00")
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(
-//                        MealsUtil.createWithExceed(MEAL4, true),
-//                        MealsUtil.createWithExceed(MEAL1, false)));
-//    }
-//
-//    @Test
-//    public void testFilterAll() throws Exception {
-//        mockMvc.perform(get(REST_URL + "filter?startDate=&endTime=")
-//                .with(userHttpBasic(USER)))
-//                .andExpect(status().isOk())
-//                .andDo(print())
-//                .andExpect(MATCHER_WITH_EXCEED.contentListMatcher(
-//                        MealsUtil.getWithExceeded(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), USER.getCaloriesPerDay())));
-//    }
-//
-//    @Test
-//    public void testUpdateDuplicate() throws Exception {
-//        Meal invalid = new Meal(MEAL1_ID, MEAL2.getDateTime(), "Dummy", 200);
-//        mockMvc.perform(put(REST_URL + MEAL1_ID)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(invalid))
-//                .with(userHttpBasic(USER)))
-//                .andDo(print())
-//                .andExpect(status().isConflict());
-//    }
-//
-//    @Test
 //    public void testCreateDuplicate() throws Exception {
-//        Meal invalid = new Meal(null, ADMIN_MEAL1.getDateTime(), "Dummy", 200);
-//        mockMvc.perform(post(REST_URL)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JsonUtil.writeValue(invalid))
-//                .with(userHttpBasic(ADMIN)))
+//        Contact invalid = new Contact(null, "Dummy", "Dummy", "Dummy", SERG_CONTACT1.getMobilePhone());
+//        mockMvc.perform(post("/new")
+//                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+//                .param("id", "")
+//                .param("lastName", invalid.getLastName())
+//                .param("firstName", invalid.getFirstName())
+//                .param("middleName", invalid.getMiddleName())
+//                .param("mobilePhone", invalid.getMobilePhone())
+//                .param("homePhone", "")
+//                .param("address", "")
+//                .param("email", "")
+//                .with(userAuth(SERG))
+//                .with(csrf()))
+//                .andExpect(status().isOk())
 //                .andDo(print())
-//                .andExpect(status().isConflict());
+//                .andExpect(model().hasErrors())
+//                .andExpect(view().name("details"));
+//        MATCHER.assertCollectionEquals(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
 //    }
 }
