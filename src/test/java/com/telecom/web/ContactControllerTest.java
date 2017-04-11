@@ -5,7 +5,6 @@ import com.telecom.service.ContactService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
@@ -134,7 +133,7 @@ public class ContactControllerTest extends AbstractControllerTest {
     @Transactional
     public void testCreate() throws Exception {
         Contact created = getCreated();
-        ResultActions action = mockMvc.perform(post("/new")
+        mockMvc.perform(post("/new")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("lastName", created.getLastName())

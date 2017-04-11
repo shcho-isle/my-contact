@@ -9,6 +9,7 @@ Web приложение “Контакты”
 
 SQL запрос для создания таблиц в mySQL:
 
+```sql
     DROP TABLE IF EXISTS user_roles;
     DROP TABLE IF EXISTS contacts;
     DROP TABLE IF EXISTS users;
@@ -52,3 +53,4 @@ SQL запрос для создания таблиц в mySQL:
     );
     CREATE UNIQUE INDEX contacts_unique_userid_mobilephone_idx
       ON contacts (user_id, mobile_phone);
+ ```
