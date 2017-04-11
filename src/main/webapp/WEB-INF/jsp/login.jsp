@@ -51,10 +51,10 @@
         <p>
             <a class="btn btn-lg btn-success" href="register"><spring:message code="app.register"/> &raquo;</a>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('Vano', 'password')">
-                <spring:message code="login.enter"/> user1
+                <spring:message code="login.enter" arguments="user1"/>
             </button>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('Serg', 'password')">
-                <spring:message code="login.enter"/> user2
+                <spring:message code="login.enter" arguments="user2"/>
             </button>
         </p>
         <br/>

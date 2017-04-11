@@ -1,6 +1,6 @@
 Web приложение “Контакты”
 =============================
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/45931d4db48746589d18c10b0f0be742)](https://www.codacy.com/app/pavlo-plynko/ContactManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/ContactManager&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/57d9f4d87c6c4c29bcb6363b47f950cd)](https://www.codacy.com/app/pavlo-plynko/ContactManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/ContactManager&amp;utm_campaign=Badge_Grade)
 [![Dependency Status](https://dependencyci.com/github/shcho-isle/ContactManager/badge)](https://dependencyci.com/github/shcho-isle/ContactManager)
 [![Build Status](https://travis-ci.org/shcho-isle/ContactManager.svg?branch=master)](https://travis-ci.org/shcho-isle/ContactManager)
 

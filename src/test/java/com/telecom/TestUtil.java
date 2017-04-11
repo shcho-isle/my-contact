@@ -1,37 +1,17 @@
 package com.telecom;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import com.telecom.model.User;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class TestUtil {
-    public static ResultActions print(ResultActions action) throws UnsupportedEncodingException {
-        System.out.println(getContent(action));
-        return action;
-    }
-
-    public static String getContent(ResultActions action) throws UnsupportedEncodingException {
-        return action.andReturn().getResponse().getContentAsString();
-    }
-
-//    public static void mockAuthorize(User user) {
-//        SecurityContextHolder.getContext().setAuthentication(
-//                new UsernamePasswordAuthenticationToken(new AuthorizedUser(user), null, user.getRoles()));
-//    }
-
-    public static RequestPostProcessor userHttpBasic(User user) {
-        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getLogin(), user.getPassword());
-    }
 
     public static RequestPostProcessor userAuth(User user) {
         return SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
