@@ -1,8 +1,8 @@
 Web приложение “Контакты”
 =============================
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/45931d4db48746589d18c10b0f0be742)](https://www.codacy.com/app/pavlo-plynko/phonebook?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/phonebook&amp;utm_campaign=Badge_Grade)
-[![Dependency Status](https://dependencyci.com/github/shcho-isle/phonebook/badge)](https://dependencyci.com/github/shcho-isle/phonebook)
-[![Build Status](https://travis-ci.org/shcho-isle/phonebook.svg?branch=master)](https://travis-ci.org/shcho-isle/phonebook)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/45931d4db48746589d18c10b0f0be742)](https://www.codacy.com/app/pavlo-plynko/ContactManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shcho-isle/ContactManager&amp;utm_campaign=Badge_Grade)
+[![Dependency Status](https://dependencyci.com/github/shcho-isle/ContactManager/badge)](https://dependencyci.com/github/shcho-isle/ContactManager)
+[![Build Status](https://travis-ci.org/shcho-isle/ContactManager.svg?branch=master)](https://travis-ci.org/shcho-isle/ContactManager)
 
 Настройки хранилища: `config/contactManager.properties`.
 Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=${PB_ROOT}/config/contactManager.properties`.
