@@ -12,9 +12,10 @@
 
         <div class="col-sm-3">
             <c:choose>
-                <c:when test="${inputType == 'password'}"><form:password path="${name}" class="form-control"/></c:when>
-                <c:when test="${inputType == 'number'}"><form:input path="${name}" type="number" class="form-control"/></c:when>
-                <c:otherwise><form:input path="${name}" class="form-control"/></c:otherwise>
+                <c:when test="${inputType == 'password'}">
+                    <form:password path="${name}" class="form-control"/></c:when>
+                <c:otherwise>
+                    <form:input path="${name}" class="form-control"/></c:otherwise>
             </c:choose>
         </div>
         <div class="col-sm-7">

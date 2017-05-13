@@ -20,7 +20,6 @@ public class User extends BaseEntity implements Serializable {
     @SafeHtml
     private String login;
 
-    @NotBlank
     @Length(min = 5, max = 64)
     @Column(name = "password", nullable = false)
     @SafeHtml
@@ -56,20 +55,20 @@ public class User extends BaseEntity implements Serializable {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getFullName() {
         return fullName;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setFullName(String fullName) {

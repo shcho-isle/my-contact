@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="headTag">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <meta name="_csrf" th:attr="content=${_csrf.token}"/>
+    <meta name="_csrf_header" th:attr="content=${_csrf.headerName}"/>
+
+    <title th:text="#{app.title}">title</title>
+    <link rel="stylesheet" href="static/css/style.css"/>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" media="screen"/>
+    <link rel="shortcut icon" href="static/images/icon-phone.png"/>
+
+    <script type="text/javascript" src="webjars/jquery/3.1.1-1/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" defer="defer"></script>
+</head>
+
+</html>

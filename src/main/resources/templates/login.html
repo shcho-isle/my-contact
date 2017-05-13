@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/headTag :: headTag"></head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header navbar-brand" th:text="#{app.title}">title</div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-right" role="form" th:action="spring_security_check" method="post">
+                        <div class="form-group">
+                            <input type="text" th:attr="placeholder=#{user.login}" class="form-control" name="login"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" th:attr="placeholder=#{user.password}" class="form-control" name="password"/>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </li>
+                <li th:include="fragments/lang :: lang">lang</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <div th:if="${param.error != null}">
+            <div class="error" th:text="#{login.badCredentials}">badCredentials</div>
+        </div>
+        <div th:if="${not #lists.isEmpty(param.message)}">
+            <div class="message" th:text="${#messages.msg(param.message)}">message</div>
+        </div>
+        <br/>
+        <p>
+            <a class="btn btn-lg btn-success" href="register" th:text="#{app.register}">register</a>
+            <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('Vano', 'password')"
+                    th:text="#{login.enter('user1')}">enter user1</button>
+            <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('Serg', 'password')"
+                    th:text="#{login.enter('user2')}">enter user2</button>
+        </p>
+        <br/>
+        <p><th th:text="#{login.powered}">powered</th>
+            <a href="https://projects.spring.io/spring-boot/">Spring Boot</a>,
+            <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
+            <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
+            <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
+            <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
+            <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
+            <a href="http://ru.wikipedia.org/wiki/JSP">JSP</a>,
+            <a href="http://en.wikipedia.org/wiki/JavaServer_Pages_Standard_Tag_Library">JSTL</a>,
+            <a href="http://tomcat.apache.org/">Apache Tomcat</a>,
+            <a href="http://www.webjars.org/">WebJars</a>,
+            <a href="http://junit.org/">JUnit</a>,
+            <a href="http://getbootstrap.com/">Bootstrap</a>.</p>
+    </div>
+</div>
+<div class="container">
+    <div class="lead" th:text="#{login.text}">text</div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    setCredentials([[${param.username}]], "");
+
+    function setCredentials(login, password) {
+        $('input[name="login"]').val(login);
+        $('input[name="password"]').val(password);
+    }
+</script>
+
+</body>
+</html>
