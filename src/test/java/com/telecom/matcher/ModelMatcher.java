@@ -6,36 +6,28 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * This class wrap every entity by Wrapper before assertEquals in order to compare them by comparator
- * Default comparator compare by String.valueOf(entity)
- *
- * @param <T> : Entity
- */
 public class ModelMatcher<T> {
-    private static final Comparator DEFAULT_COMPARATOR =
-            (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
-    private Comparator<T> comparator;
+    private Equality<T> equality;
 
-    public interface Comparator<T> {
-        boolean compare(T expected, T actual);
+    public interface Equality<T> {
+        boolean areEqual(T expected, T actual);
     }
 
     private ModelMatcher() {
-        this((Comparator<T>) DEFAULT_COMPARATOR);
+        this((T expected, T actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual)));
     }
 
-    private ModelMatcher(Comparator<T> comparator) {
-        this.comparator = comparator;
+    private ModelMatcher(Equality<T> equality) {
+        this.equality = equality;
     }
 
     public static <T> ModelMatcher<T> of() {
         return new ModelMatcher<>();
     }
 
-    public static <T> ModelMatcher<T> of(Comparator<T> comparator) {
-        return new ModelMatcher<>(comparator);
+    public static <T> ModelMatcher<T> of(Equality<T> equality) {
+        return new ModelMatcher<>(equality);
     }
 
     private class Wrapper {
@@ -50,7 +42,7 @@ public class ModelMatcher<T> {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Wrapper that = (Wrapper) o;
-            return entity != null ? comparator.compare(entity, that.entity) : that.entity == null;
+            return entity != null ? equality.areEqual(entity, that.entity) : that.entity == null;
         }
 
         @Override

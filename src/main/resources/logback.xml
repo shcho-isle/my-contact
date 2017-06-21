@@ -20,6 +20,7 @@
         </encoder>
     </appender>
 
+    <logger name="org.thymeleaf" level="warn"/>
     <!--<logger name="com.telecom" level="debug"/>-->
     <!--<logger name="org.springframework.web" level="DEBUG"/>-->
     <!--<logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug"/>-->

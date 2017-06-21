@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/headTag :: headTag"></head>
+
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader">bodyHeader</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <div th:if="${not #lists.isEmpty(param.message)}">
+            <div class="message" th:text="${#messages.msg(param.message)}">message</div>
+        </div>
+        <div class="shadow">
+            <h3 th:text="#{contact.title(${user.fullName})}">title</h3>
+            <div class="view-box">
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-9">
+                        <div class="panel panel-default">
+                            <div class="panel-footer text-right">
+                                <form action="search">
+                                    <div class="form-group">
+                                        <input type="text" name="searchLine" id="searchLine" class="form-control"
+                                               th:attr="placeholder=#{contact.search}" th:value="${searchLine}" required="true"/>
+                                    </div>
+                                    <div class="panel-footer text-right">
+                                        <button type="submit" class="btn btn-primary">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                        <a class="btn btn-danger" type="button"
+                                           onclick="window.location.href='contacts'">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-info" type="button" onclick="window.location.href='new'">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </a>
+
+                <form action="contacts" method="post" id="contactForm">
+                    <input type="hidden" id="idContact" name="idContact"/>
+                    <input type="hidden" id="action" name="action"/>
+
+                    <table class="table table-striped display" id="datatable">
+                        <thead>
+                        <tr>
+                            <th th:text="#{contact.lastName}">lastName</th>
+                            <th th:text="#{contact.firstName}">firstName</th>
+                            <th th:text="#{contact.middleName}">middleName</th>
+                            <th th:text="#{contact.mobilePhone}">mobilePhone</th>
+                            <th th:text="#{contact.homePhone}">homePhone</th>
+                            <th th:text="#{contact.address}">address</th>
+                            <th th:text="#{contact.email}">email</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <!--<c:forEach var="contact" items="${contactList}">-->
+                            <!--<c:set var="classSucess" value=""/>-->
+                            <!--<c:if test="${idContact == contact.id}">-->
+                                <!--<c:set var="classSucess" value="info"/>-->
+                            <!--</c:if>-->
+                            <tr class="${classSucess}">
+                                <td>${contact.lastName}</td>
+                                <td>${contact.firstName}</td>
+                                <td>${contact.middleName}</td>
+                                <td>${contact.mobilePhone}</td>
+                                <td>${contact.homePhone}</td>
+                                <td>${contact.address}</td>
+                                <td>${contact.email}</td>
+                                <td>
+                                    <a class="btn btn-xs btn-primary" type="button" id="edit"
+                                       onclick="window.location.href='/update-${contact.id}-contact'">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-xs btn-danger" type="button"
+                                       onclick="window.location.href='/delete-${contact.id}-contact'">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        <!--</c:forEach>-->
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

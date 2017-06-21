@@ -5,7 +5,7 @@ Web приложение “Контакты”
 [![Build Status](https://travis-ci.org/shcho-isle/contact-manager.svg?branch=master)](https://travis-ci.org/shcho-isle/contact-manager)
 
 Настройки хранилища: `config/contactManager.properties`.
-Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=${PB_ROOT}/config/contactManager.properties`.
+Путь к нему должен передаваться в `VM options` например: `-Dtelecom.conf=config/contactManager.properties`.
 
 SQL запрос для создания таблиц в mySQL:
 
