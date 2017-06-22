@@ -32,7 +32,6 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"))
                 .andExpect(model().attribute("contact", is(SERG_CONTACT1)));
     }
 
@@ -49,8 +48,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(userAuth(VANO)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(view().name("exception/exception"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/exception/exception.jsp"));
+                .andExpect(view().name("exception/exception"));
     }
 
     @Test
@@ -59,8 +57,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(userAuth(VANO)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(view().name("exception/exception"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/exception/exception.jsp"));
+                .andExpect(view().name("exception/exception"));
     }
 
     @Test
@@ -104,8 +101,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(view().name("details"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
+                .andExpect(view().name("details"));
 
         MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
     }
@@ -123,8 +119,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(view().name("details"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"));
+                .andExpect(view().name("details"));
 
         MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
     }
@@ -163,7 +158,6 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/details.jsp"))
                 .andExpect(model().attribute("isNew", is(true)));
         MATCHER.assertCollectionEquals(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
     }

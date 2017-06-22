@@ -59,33 +59,27 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <!--<c:forEach var="contact" items="${contactList}">-->
-                            <!--<c:set var="classSucess" value=""/>-->
-                            <!--<c:if test="${idContact == contact.id}">-->
-                                <!--<c:set var="classSucess" value="info"/>-->
-                            <!--</c:if>-->
-                            <tr class="${classSucess}">
-                                <td>${contact.lastName}</td>
-                                <td>${contact.firstName}</td>
-                                <td>${contact.middleName}</td>
-                                <td>${contact.mobilePhone}</td>
-                                <td>${contact.homePhone}</td>
-                                <td>${contact.address}</td>
-                                <td>${contact.email}</td>
-                                <td>
-                                    <a class="btn btn-xs btn-primary" type="button" id="edit"
-                                       onclick="window.location.href='/update-${contact.id}-contact'">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-xs btn-danger" type="button"
-                                       onclick="window.location.href='/delete-${contact.id}-contact'">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        <!--</c:forEach>-->
+                        <tr th:each="contact : ${contactList}" class="${classSucess}">
+                            <td th:text="${contact.lastName}">Last Name</td>
+                            <td th:text="${contact.firstName}">First Name</td>
+                            <td th:text="${contact.middleName}">Middle Name</td>
+                            <td th:text="${contact.mobilePhone}">Mobile Phone</td>
+                            <td th:text="${contact.homePhone}">Home Phone</td>
+                            <td th:text="${contact.address}">Address</td>
+                            <td th:text="${contact.email}">Email</td>
+                            <td>
+                                <a class="btn btn-xs btn-primary" type="button" id="edit"
+                                   th:onclick="'window.location.href=\'/update-' + ${contact.id} + '-contact\''">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-xs btn-danger" type="button"
+                                   th:onclick="'window.location.href=\'/delete-' + ${contact.id} + '-contact\''">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                        </tr>
                     </table>
                 </form>
             </div>

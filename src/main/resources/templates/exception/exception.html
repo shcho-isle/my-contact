@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/headTag :: headTag"></head>
+
+<body>
+<div th:replace="fragments/bodyHeader :: bodyHeader">bodyHeader</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <br></br>
+        <!--<h4 th:text="${#app.exception(requestedURL)}">Exception</h4>-->
+        <h2>${exception.message}</h2>
+    </div>
+</div>
+
+</body>
+</html>

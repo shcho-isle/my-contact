@@ -12,14 +12,17 @@ import javax.validation.constraints.Pattern;
 public class Contact extends BaseEntity {
     @Length(min = 4, max = 30)
     @Column(name = "last_name", nullable = false)
+    @SafeHtml
     private String lastName;
 
     @Length(min = 4, max = 30)
     @Column(name = "first_name", nullable = false)
+    @SafeHtml
     private String firstName;
 
     @Length(min = 4, max = 30)
     @Column(name = "middle_name", nullable = false)
+    @SafeHtml
     private String middleName;
 
     @Column(name = "mobile_phone", nullable = false, unique = true)
@@ -28,16 +31,15 @@ public class Contact extends BaseEntity {
 
     @Column(name = "home_phone")
     @Pattern(regexp = "(^(\\+)380[(]\\d{2}[)][0-9]{7}$)?")
-//    @SafeHtml
     private String homePhone;
 
     @Column(name = "address")
-//    @SafeHtml
+    @SafeHtml
     private String address;
 
     @Column(name = "email")
     @Email
-//    @SafeHtml
+    @SafeHtml
     private String email;
 
     @Column(name = "user_id")
