@@ -8,9 +8,9 @@
 
 <div class="jumbotron">
     <div class="container">
-        <br></br>
-        <!--<h4 th:text="${#app.exception(requestedURL)}">Exception</h4>-->
-        <h2>${exception.message}</h2>
+        <br/>
+        <h4 th:text="#{app.exception(${requestedURL})}">Exception</h4>
+        <h2 th:text="${exception.message}">Exception's message</h2>
     </div>
 </div>
 
