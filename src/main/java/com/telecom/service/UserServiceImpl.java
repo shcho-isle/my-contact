@@ -3,7 +3,6 @@ package com.telecom.service;
 import com.telecom.AuthorizedUser;
 import com.telecom.model.User;
 import com.telecom.model.Role;
-import com.telecom.repository.RoleRepository;
 import com.telecom.repository.UserRepository;
 import com.telecom.util.PasswordUtil;
 import com.telecom.util.exception.NotFoundException;
@@ -14,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.Set;
+import java.util.Collections;
 
 import static com.telecom.util.ValidationUtil.checkNotFoundWithId;
 
@@ -23,12 +22,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository repository;
 
-    private final RoleRepository roleRepository;
-
     @Autowired
-    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
-        this.roleRepository = roleRepository;
     }
 
     @CacheEvict(value = "users", allEntries = true)
@@ -37,10 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Assert.notNull(user, "user must not be null");
         user.setPassword(PasswordUtil.encode(user.getPassword()));
         user.setLogin(user.getLogin().toLowerCase());
-        User savedUser = repository.save(user);
-        Role role = new Role(savedUser.getId());
-        roleRepository.save(role);
-        return user;
+        return repository.save(user);
     }
 
     @Override
@@ -54,7 +47,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (u == null) {
             throw new UsernameNotFoundException("User " + login + " is not found");
         }
-        Set<Role> roles = roleRepository.getAll(u.getId());
-        return new AuthorizedUser(u, roles);
+        return new AuthorizedUser(u, Collections.singletonList(Role.ROLE_ADMIN));
     }
 }

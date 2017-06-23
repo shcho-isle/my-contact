@@ -19,20 +19,14 @@ public class TestUtil {
 
     public static void populateJsonDb(String pathToFileFolder) throws IOException {
         Path userPath = Paths.get(pathToFileFolder + "com.telecom.model.User.json");
-        Path rolePath = Paths.get(pathToFileFolder + "com.telecom.model.Role.json");
         Path contactPath = Paths.get(pathToFileFolder + "com.telecom.model.Contact.json");
 
         BufferedWriter userWriter = Files.newBufferedWriter(userPath);
-        BufferedWriter roleWriter = Files.newBufferedWriter(rolePath);
         BufferedWriter contactWriter = Files.newBufferedWriter(contactPath);
 
         userWriter.write(
                         "[{\"login\":\"vano\",\"password\":\"$2a$10$OQB5/ci7ajvO7r3FknsbGutElRAeMv7Pl.O.VBP0N/2mydO/Th4gC\",\"fullName\":\"Yakovenko Ivan Venediktovich\",\"id\":1}" +
                         ",{\"login\":\"serg\",\"password\":\"$2a$10$7LUptJ9VzHnViMx98rz.LuIrFJzzV.RXebw2xvvB.ESW6Hz6yrrqO\",\"fullName\":\"Rubinov Sergey Nikolaevich\",\"id\":2}]"
-        );
-        roleWriter.write(
-                        "[{\"name\":\"ROLE_ADMIN\",\"userId\":1,\"id\":1}" +
-                        ",{\"name\":\"ROLE_ADMIN\",\"userId\":2,\"id\":2}]"
         );
         contactWriter.write(
                         "[{\"lastName\":\"Dovbash\",\"firstName\":\"Sveta\",\"middleName\":\"Andriivna\",\"mobilePhone\":\"+380(66)1234567\",\"homePhone\":\"+380(44)1234567\",\"address\":\"Kyiv, Mechnikova str. 2\",\"email\":\"sveta@gmail.com\",\"userId\":1,\"id\":1}" +
@@ -46,11 +40,9 @@ public class TestUtil {
         );
 
         userWriter.flush();
-        roleWriter.flush();
         contactWriter.flush();
 
         userWriter.close();
-        roleWriter.close();
         contactWriter.close();
     }
 }

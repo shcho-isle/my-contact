@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.telecom.model.User;
 
-import java.util.Set;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,7 +14,7 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
 
     private User user;
 
-    public AuthorizedUser(User user, Set<Role> roles) {
+    public AuthorizedUser(User user, List<Role> roles) {
         super(user.getLogin(), user.getPassword(), true, true, true, true, roles);
         this.user = user;
     }
