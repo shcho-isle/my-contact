@@ -67,7 +67,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(userAuth(VANO)))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
-                .andExpect(redirectedUrl("contacts?message=contact.deleted"));
+                .andExpect(redirectedUrl("contacts?message=contacts.deleted"));
         MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
     }
 
@@ -87,7 +87,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
-                .andExpect(redirectedUrl("contacts?message=contact.updated"));
+                .andExpect(redirectedUrl("contacts?message=contacts.updated"));
 
         MATCHER.assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
     }
@@ -142,7 +142,7 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
-                .andExpect(redirectedUrl("contacts?message=contact.created"));
+                .andExpect(redirectedUrl("contacts?message=contacts.created"));
         assertEquals(3, service.getAll(SERG_ID).size());
     }
 

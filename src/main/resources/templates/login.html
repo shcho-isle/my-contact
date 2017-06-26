@@ -13,11 +13,11 @@
                 <li>
                     <form class="navbar-form navbar-right" role="form" th:action="spring_security_check" method="post">
                         <div class="form-group">
-                            <input type="text" th:attr="placeholder=#{user.login}" class="form-control" name="login"/>
+                            <input type="text" th:attr="placeholder=#{app.login}" class="form-control" name="login"/>
                         </div>
 
                         <div class="form-group">
-                            <input type="password" th:attr="placeholder=#{user.password}" class="form-control" name="password"/>
+                            <input type="password" th:attr="placeholder=#{app.password}" class="form-control" name="password"/>
                         </div>
 
                         <button type="submit" class="btn btn-success">
@@ -41,18 +41,18 @@
         </div>
         <br/>
         <p>
-            <a class="btn btn-lg btn-success" href="register" th:text="#{app.register}">register</a>
+            <a class="btn btn-lg btn-success" href="register" th:text="#{app.signUp}">register</a>
+
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('Vano', 'password')"
                     th:text="#{login.enter('user1')}">enter user1
             </button>
+
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('Serg', 'password')"
                     th:text="#{login.enter('user2')}">enter user2
             </button>
         </p>
         <br/>
-        <p>
-        <th th:text="#{login.powered}">powered</th>
-        Spring Boot/Data JPA/Security, Thymeleaf, Tomcat, SLF4J, JUnit, Bootstrap.</p>
+        <p th:text="#{login.powered}">powered</p>
     </div>
 </div>
 <div class="container">

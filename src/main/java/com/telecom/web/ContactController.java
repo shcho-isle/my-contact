@@ -32,7 +32,7 @@ public class ContactController {
         int userId = AuthorizedUser.id();
         LOG.info("delete contact {} for User {}", id, userId);
         service.delete(id, userId);
-        return "redirect:contacts?message=contact.deleted";
+        return "redirect:contacts?message=contacts.deleted";
     }
 
     @GetMapping("search")
@@ -69,7 +69,7 @@ public class ContactController {
                 LOG.info("create {} for User {}", contact, userId);
                 service.save(contact, userId);
                 status.setComplete();
-                return "redirect:contacts?message=contact.created";
+                return "redirect:contacts?message=contacts.created";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contact.duplicate_mobilephone");
             }
@@ -95,7 +95,7 @@ public class ContactController {
                 LOG.info("update {} for User {}", contact, userId);
                 service.update(contact, userId);
                 status.setComplete();
-                return "redirect:contacts?message=contact.updated";
+                return "redirect:contacts?message=contacts.updated";
             } catch (DataIntegrityViolationException ex) {
                 result.rejectValue("mobilePhone", "exception.contact.duplicate_mobilephone");
             }

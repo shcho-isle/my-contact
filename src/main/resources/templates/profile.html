@@ -9,24 +9,21 @@
 <div class="jumbotron">
     <div class="container">
         <div class="shadow">
-            <h2 th:text="#{app.register}">register</h2>
+            <h2 th:text="#{app.registration}">register</h2>
 
             <div class="view-box">
                 <form action="#" th:object="${user}" class="form-horizontal" method="post" th:action="@{/register}"
                       charset="utf-8" accept-charset="UTF-8">
 
-                    <div th:replace="fragments/inputField :: inputField(#{user.fullName}, 'fullName', *{fullName}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{user.login}, 'login', *{login}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{user.password}, 'password', *{password}, 'password')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.fullName}, 'fullName', *{fullName}, 'text')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.login}, 'login', *{login}, 'text')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.password}, 'password', *{password}, 'password')"></div>
 
                     <div class="form-group">
-                        <div class="col-xs-offset-2 col-xs-10">
-                            <button type="submit" class="btn btn-primary">
+                        <div class="col-xs-10">
+                            <button type="submit" class="btn btn-primary" th:text="#{app.signUp}">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
-                            <a class="btn btn-danger" type="button" onclick="window.location.href='login'">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                            </a>
                         </div>
                     </div>
                 </form>
