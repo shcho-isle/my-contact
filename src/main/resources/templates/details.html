@@ -17,17 +17,17 @@
 
                     <input type="hidden" name="id" id="id" th:value="*{id}"/>
 
-                    <div th:replace="fragments/inputField :: inputField(#{app.lastName}, 'lastName', *{lastName}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.firstName}, 'firstName', *{firstName}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.middleName}, 'middleName', *{middleName}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.mobilePhone}, 'mobilePhone', *{mobilePhone}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.homePhone}, 'homePhone', *{homePhone}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.address}, 'address', *{address}, 'text')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.email}, 'email', *{email}, 'text')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.lastName}, 'lastName', *{lastName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.firstName}, 'firstName', *{firstName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.middleName}, 'middleName', *{middleName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.mobilePhone}, 'mobilePhone', *{mobilePhone}, 'text', 'phone')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.homePhone}, 'homePhone', *{homePhone}, 'text', 'phone-alt')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.address}, 'address', *{address}, 'text', 'map-marker')"></div>
+                    <div th:replace="fragments/inputField :: inputField(#{app.email}, 'email', *{email}, 'text', 'envelope')"></div>
 
                     <div class="form-group">
                         <div class="col-xs-10">
-                            <button type="submit" class="btn btn-primary" th:text="#{details.save}">
+                            <button type="submit" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                             <a class="btn btn-danger" type="button" onclick="window.location.href='contacts'">
