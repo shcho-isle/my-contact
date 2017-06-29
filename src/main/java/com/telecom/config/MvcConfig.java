@@ -1,6 +1,5 @@
 package com.telecom.config;
 
-import com.telecom.web.interceptor.ModelInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +54,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ModelInterceptor());
         registry.addInterceptor(localeChangeInterceptor());
     }
 }
