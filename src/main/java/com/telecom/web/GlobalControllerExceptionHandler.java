@@ -5,7 +5,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
-import com.telecom.AuthorizedUser;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,11 +17,6 @@ public class GlobalControllerExceptionHandler {
         ModelAndView mav = new ModelAndView("exception/exception");
         mav.addObject("requestedURL", req.getRequestURL());
         mav.addObject("exception", e);
-
-        AuthorizedUser authorizedUser = AuthorizedUser.safeGet();
-        if (authorizedUser != null) {
-            mav.addObject("user", authorizedUser.getUser());
-        }
         return mav;
     }
 }

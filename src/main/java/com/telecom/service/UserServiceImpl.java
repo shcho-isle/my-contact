@@ -7,7 +7,6 @@ import com.telecom.repository.UserRepository;
 import com.telecom.util.PasswordUtil;
 import com.telecom.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.repository = repository;
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User save(User user) {
         Assert.notNull(user, "user must not be null");
