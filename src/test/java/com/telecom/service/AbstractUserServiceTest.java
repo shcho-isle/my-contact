@@ -1,7 +1,7 @@
 package com.telecom.service;
 
 import com.telecom.model.User;
-import com.telecom.util.exception.NotFoundException;
+import com.telecom.service.exception.NotFoundException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -23,7 +23,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateLoginSave() throws Exception {
-        service.save(new User(null, "UserX", "newPass", "Duplicate"));
+        service.save(new User(null, "UserY", "newPass", "Duplicate"));
     }
 
     @Test

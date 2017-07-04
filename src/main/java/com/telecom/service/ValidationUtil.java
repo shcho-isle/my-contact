@@ -1,6 +1,6 @@
-package com.telecom.util;
+package com.telecom.service;
 
-import com.telecom.util.exception.NotFoundException;
+import com.telecom.service.exception.NotFoundException;
 
 public final class ValidationUtil {
     private ValidationUtil() {

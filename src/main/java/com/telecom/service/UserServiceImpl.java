@@ -5,7 +5,7 @@ import com.telecom.model.User;
 import com.telecom.model.Role;
 import com.telecom.repository.UserRepository;
 import com.telecom.util.PasswordUtil;
-import com.telecom.util.exception.NotFoundException;
+import com.telecom.service.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 
 import java.util.Collections;
 
-import static com.telecom.util.ValidationUtil.checkNotFoundWithId;
+import static com.telecom.service.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {

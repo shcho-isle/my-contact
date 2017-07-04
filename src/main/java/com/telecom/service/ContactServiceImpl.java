@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 
 import java.util.*;
 
-import static com.telecom.util.ValidationUtil.checkNotFoundWithId;
+import static com.telecom.service.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class ContactServiceImpl implements ContactService {

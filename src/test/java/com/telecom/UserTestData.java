@@ -14,8 +14,8 @@ public class UserTestData {
     public static final Integer USERX_ID = 1;
     public static final Integer USERY_ID = USERX_ID + 1;
 
-    public static final User USERX = new User(USERX_ID, "USERX", "password", "Yakovenko Ivan Venediktovich");
-    public static final User USERY = new User(USERY_ID, "USERY", "password", "Rubinov Sergey Nikolaevich");
+    public static final User USERX = new User(USERX_ID, "userx", "password", "Yakovenko Ivan Venediktovich");
+    public static final User USERY = new User(USERY_ID, "usery", "password", "Rubinov Sergey Nikolaevich");
 
     public static final ModelMatcher<User> MATCHER = ModelMatcher.of(
             (expected, actual) -> expected == actual || (

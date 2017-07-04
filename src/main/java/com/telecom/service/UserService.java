@@ -1,7 +1,7 @@
 package com.telecom.service;
 
 import com.telecom.model.User;
-import com.telecom.util.exception.NotFoundException;
+import com.telecom.service.exception.NotFoundException;
 
 public interface UserService {
 

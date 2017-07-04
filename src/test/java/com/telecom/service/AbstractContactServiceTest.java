@@ -3,7 +3,7 @@ package com.telecom.service;
 import com.telecom.model.Contact;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.telecom.util.exception.NotFoundException;
+import com.telecom.service.exception.NotFoundException;
 
 import java.util.Arrays;
 

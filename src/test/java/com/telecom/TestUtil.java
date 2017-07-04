@@ -25,8 +25,8 @@ public class TestUtil {
         BufferedWriter contactWriter = Files.newBufferedWriter(contactPath);
 
         userWriter.write(
-                        "[{\"login\":\"userA\",\"password\":\"$2a$10$OQB5/ci7ajvO7r3FknsbGutElRAeMv7Pl.O.VBP0N/2mydO/Th4gC\",\"fullName\":\"Yakovenko Ivan Venediktovich\",\"id\":1}" +
-                        ",{\"login\":\"userY\",\"password\":\"$2a$10$7LUptJ9VzHnViMx98rz.LuIrFJzzV.RXebw2xvvB.ESW6Hz6yrrqO\",\"fullName\":\"Rubinov Sergey Nikolaevich\",\"id\":2}]"
+                        "[{\"login\":\"userx\",\"password\":\"$2a$10$OQB5/ci7ajvO7r3FknsbGutElRAeMv7Pl.O.VBP0N/2mydO/Th4gC\",\"fullName\":\"Yakovenko Ivan Venediktovich\",\"id\":1}" +
+                        ",{\"login\":\"usery\",\"password\":\"$2a$10$7LUptJ9VzHnViMx98rz.LuIrFJzzV.RXebw2xvvB.ESW6Hz6yrrqO\",\"fullName\":\"Rubinov Sergey Nikolaevich\",\"id\":2}]"
         );
         contactWriter.write(
                         "[{\"lastName\":\"Dovbash\",\"firstName\":\"Sveta\",\"middleName\":\"Andriivna\",\"mobilePhone\":\"+380(66)1234567\",\"homePhone\":\"+380(44)1234567\",\"address\":\"Kyiv, Mechnikova str. 2\",\"email\":\"sveta@gmail.com\",\"userId\":1,\"id\":1}" +

@@ -1,4 +1,4 @@
-package com.telecom.util.exception;
+package com.telecom.service.exception;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {
