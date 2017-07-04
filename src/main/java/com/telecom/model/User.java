@@ -19,7 +19,6 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "login", nullable = false, unique=true)
     private String login;
 
-    @NotBlank
     @Length(min = 5, max = 64)
     @Column(name = "password", nullable = false)
     private String password;

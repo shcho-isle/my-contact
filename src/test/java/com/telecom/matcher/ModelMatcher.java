@@ -59,11 +59,11 @@ public class ModelMatcher<T> {
         Assert.assertEquals(wrap(expected), wrap(actual));
     }
 
-    public Wrapper wrap(T entity) {
+    private Wrapper wrap(T entity) {
         return new Wrapper(entity);
     }
 
-    public List<Wrapper> wrap(Collection<T> collection) {
+    private List<Wrapper> wrap(Collection<T> collection) {
         return collection.stream().map(this::wrap).collect(Collectors.toList());
     }
 }

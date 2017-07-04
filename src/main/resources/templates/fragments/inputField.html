@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div th:class="form-group + ${#fields.hasErrors(name) ? ' error' : ''}" th:fragment="inputField(placeholder, name, value, inputType, icon)">
+<div th:class="form-group + ${#fields.hasErrors(name) ? ' error' : ''}" th:fragment="inputField(name, value, inputType, icon)">
 
     <div class="col-sm-4">
         <div class="input-group">
             <span class="input-group-addon">
                 <span th:class="'glyphicon glyphicon-' + ${icon}"></span>
             </span>
-            <input th:type="${inputType}" th:name="${name}" th:value="${value}" th:attr="placeholder=${placeholder}" class="form-control"/>
+            <input th:type="${inputType}" th:name="${name}" th:value="${value}" th:placeholder="#{'app.' + ${name}}" class="form-control" th:title="#{'info.' + ${name}}"/>
         </div>
     </div>
 

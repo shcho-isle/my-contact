@@ -15,9 +15,9 @@
                 <form action="#" th:object="${user}" class="form-horizontal" method="post" th:action="@{/register}"
                       charset="utf-8" accept-charset="UTF-8">
 
-                    <div th:replace="fragments/inputField :: inputField(#{app.fullName}, 'fullName', *{fullName}, 'text', 'user')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.login}, 'login', *{login}, 'text', 'user')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.password}, 'password', *{password}, 'password', 'lock')"></div>
+                    <div th:replace="fragments/inputField :: inputField('fullName', *{fullName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField('login', *{login}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField('password', *{password}, 'password', 'lock')"></div>
 
                     <div class="form-group">
                         <div class="col-xs-10">

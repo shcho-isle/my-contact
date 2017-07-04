@@ -17,13 +17,13 @@
 
                     <input type="hidden" name="id" id="id" th:value="*{id}"/>
 
-                    <div th:replace="fragments/inputField :: inputField(#{app.lastName}, 'lastName', *{lastName}, 'text', 'user')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.firstName}, 'firstName', *{firstName}, 'text', 'user')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.middleName}, 'middleName', *{middleName}, 'text', 'user')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.mobilePhone}, 'mobilePhone', *{mobilePhone}, 'text', 'phone')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.homePhone}, 'homePhone', *{homePhone}, 'text', 'phone-alt')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.address}, 'address', *{address}, 'text', 'map-marker')"></div>
-                    <div th:replace="fragments/inputField :: inputField(#{app.email}, 'email', *{email}, 'text', 'envelope')"></div>
+                    <div th:replace="fragments/inputField :: inputField('lastName', *{lastName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField('firstName', *{firstName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField('middleName', *{middleName}, 'text', 'user')"></div>
+                    <div th:replace="fragments/inputField :: inputField('mobilePhone', *{mobilePhone}, 'text', 'phone')"></div>
+                    <div th:replace="fragments/inputField :: inputField('homePhone', *{homePhone}, 'text', 'phone-alt')"></div>
+                    <div th:replace="fragments/inputField :: inputField('address', *{address}, 'text', 'map-marker')"></div>
+                    <div th:replace="fragments/inputField :: inputField('email', *{email}, 'text', 'envelope')"></div>
 
                     <div class="form-group">
                         <div class="col-xs-10">
