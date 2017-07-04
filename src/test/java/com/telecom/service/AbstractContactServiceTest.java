@@ -8,7 +8,7 @@ import com.telecom.util.exception.NotFoundException;
 import java.util.Arrays;
 
 import static com.telecom.ContactTestData.*;
-import static com.telecom.UserTestData.VANO_ID;
+import static com.telecom.UserTestData.USER1_ID;
 
 public abstract class AbstractContactServiceTest extends AbstractServiceTest {
 
@@ -17,57 +17,57 @@ public abstract class AbstractContactServiceTest extends AbstractServiceTest {
 
     @Test
     public void testDelete() throws Exception {
-        service.delete(VANO_CONTACT_ID, VANO_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
+        service.delete(USER1_CONTACT_ID, USER1_ID);
+        MATCHER.assertCollectionEquals(Arrays.asList(USER1_CONTACT2, USER1_CONTACT3, USER1_CONTACT4, USER1_CONTACT5, USER1_CONTACT6), service.getAll(USER1_ID));
     }
 
     @Test
     public void testDeleteNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.delete(SERG_CONTACT_ID, VANO_ID);
+        service.delete(USER2_CONTACT_ID, USER1_ID);
     }
 
     @Test
     public void testSave() throws Exception {
         Contact created = getCreated();
-        service.save(created, VANO_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(created, VANO_CONTACT1, VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
+        service.save(created, USER1_ID);
+        MATCHER.assertCollectionEquals(Arrays.asList(created, USER1_CONTACT1, USER1_CONTACT2, USER1_CONTACT3, USER1_CONTACT4, USER1_CONTACT5, USER1_CONTACT6), service.getAll(USER1_ID));
     }
 
     @Test
     public void testGet() throws Exception {
-        Contact actual = service.get(VANO_CONTACT_ID, VANO_ID);
-        MATCHER.assertEquals(VANO_CONTACT1, actual);
+        Contact actual = service.get(USER1_CONTACT_ID, USER1_ID);
+        MATCHER.assertEquals(USER1_CONTACT1, actual);
     }
 
     @Test
     public void testGetNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        service.get(SERG_CONTACT_ID, VANO_ID);
+        service.get(USER2_CONTACT_ID, USER1_ID);
     }
 
     @Test
     public void testUpdate() throws Exception {
         Contact updated = getUpdated();
-        service.update(updated, VANO_ID);
-        MATCHER.assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
+        service.update(updated, USER1_ID);
+        MATCHER.assertEquals(updated, service.get(USER1_CONTACT_ID, USER1_ID));
     }
 
     @Test
     public void testUpdateNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
-        thrown.expectMessage("Not found entity with id=" + SERG_CONTACT_ID);
-        service.update(SERG_CONTACT1, VANO_ID);
+        thrown.expectMessage("Not found entity with id=" + USER2_CONTACT_ID);
+        service.update(USER2_CONTACT1, USER1_ID);
     }
 
     @Test
     public void testGetAll() throws Exception {
-        MATCHER.assertCollectionEquals(CONTACTS, service.getAll(VANO_ID));
+        MATCHER.assertCollectionEquals(CONTACTS, service.getAll(USER1_ID));
     }
 
     @Test
     public void testGetFiltered() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT1, VANO_CONTACT3),
-                service.getFiltered("as", VANO_ID));
+        MATCHER.assertCollectionEquals(Arrays.asList(USER1_CONTACT1, USER1_CONTACT3),
+                service.getFiltered("as", USER1_ID));
     }
 }

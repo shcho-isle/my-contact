@@ -18,18 +18,18 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         User newUser = new User(null, "new", "newPass", "new Full Name");
         User created = service.save(newUser);
         newUser.setId(created.getId());
-        MATCHER.assertEquals(newUser, service.get(VANO_ID + 2));
+        MATCHER.assertEquals(newUser, service.get(USER1_ID + 2));
     }
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateLoginSave() throws Exception {
-        service.save(new User(null, "Serg", "newPass", "Duplicate"));
+        service.save(new User(null, "use2", "newPass", "Duplicate"));
     }
 
     @Test
     public void testGet() throws Exception {
-        User user = service.get(VANO_ID);
-        MATCHER.assertEquals(VANO, user);
+        User user = service.get(USER1_ID);
+        MATCHER.assertEquals(USER1, user);
     }
 
     @Test(expected = NotFoundException.class)

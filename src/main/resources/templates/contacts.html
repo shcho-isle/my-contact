@@ -11,8 +11,8 @@
         <div th:if="${not #lists.isEmpty(param.message)}">
             <div class="message" th:text="${#messages.msg(param.message)}">message</div>
         </div>
+        <br/>
         <div class="shadow">
-            <br></br>
             <div class="view-box">
                 <div class="row">
                     <div class="col-sm-3 col-sm-offset-9">
@@ -21,7 +21,7 @@
                                 <form action="search">
                                     <div class="form-group">
                                         <input type="text" name="searchLine" id="searchLine" class="form-control"
-                                               th:attr="placeholder=#{app.search}" th:value="${searchLine}" required="true"/>
+                                               th:attr="placeholder=#{app.search}" th:value="${searchLine}" th:required="required"/>
                                     </div>
                                     <div class="panel-footer text-right">
                                         <button type="submit" class="btn btn-primary">

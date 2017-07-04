@@ -27,25 +27,25 @@ public class ContactControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGet() throws Exception {
-        mockMvc.perform(get("/update-" + SERG_CONTACT_ID + "-contact")
-                .with(userAuth(SERG)))
+        mockMvc.perform(get("/update-" + USER2_CONTACT_ID + "-contact")
+                .with(userAuth(USER2)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"))
-                .andExpect(model().attribute("contact", is(SERG_CONTACT1)));
+                .andExpect(model().attribute("contact", is(USER2_CONTACT1)));
     }
 
     @Test
     public void testGetUnauth() throws Exception {
-        mockMvc.perform(get("/update-" + SERG_CONTACT_ID + "-contact"))
+        mockMvc.perform(get("/update-" + USER2_CONTACT_ID + "-contact"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/"));
     }
 
     @Test
     public void testGetNotFound() throws Exception {
-        mockMvc.perform(get("/update-" + SERG_CONTACT_ID + "-contact")
-                .with(userAuth(VANO)))
+        mockMvc.perform(get("/update-" + USER2_CONTACT_ID + "-contact")
+                .with(userAuth(USER1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("exception/exception"));
@@ -53,8 +53,8 @@ public class ContactControllerTest extends AbstractControllerTest {
 
     @Test
     public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(get("/delete-" + SERG_CONTACT_ID + "-contact")
-                .with(userAuth(VANO)))
+        mockMvc.perform(get("/delete-" + USER2_CONTACT_ID + "-contact")
+                .with(userAuth(USER1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("exception/exception"));
@@ -63,12 +63,12 @@ public class ContactControllerTest extends AbstractControllerTest {
     @Test
     @Transactional
     public void testDelete() throws Exception {
-        mockMvc.perform(get("/delete-" + VANO_CONTACT_ID + "-contact")
-                .with(userAuth(VANO)))
+        mockMvc.perform(get("/delete-" + USER1_CONTACT_ID + "-contact")
+                .with(userAuth(USER1)))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andExpect(redirectedUrl("contacts?message=contacts.deleted"));
-        MATCHER.assertCollectionEquals(Arrays.asList(VANO_CONTACT2, VANO_CONTACT3, VANO_CONTACT4, VANO_CONTACT5, VANO_CONTACT6), service.getAll(VANO_ID));
+        MATCHER.assertCollectionEquals(Arrays.asList(USER1_CONTACT2, USER1_CONTACT3, USER1_CONTACT4, USER1_CONTACT5, USER1_CONTACT6), service.getAll(USER1_ID));
     }
 
     @Test
@@ -83,45 +83,45 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .param("firstName", updated.getFirstName())
                 .param("middleName", updated.getMiddleName())
                 .param("mobilePhone", updated.getMobilePhone())
-                .with(userAuth(VANO))
+                .with(userAuth(USER1))
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andExpect(redirectedUrl("contacts?message=contacts.updated"));
 
-        MATCHER.assertEquals(updated, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(updated, service.get(USER1_CONTACT_ID, USER1_ID));
     }
 
     @Test
     public void testUpdateInvalid() throws Exception {
         mockMvc.perform(post("/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", VANO_CONTACT_ID.toString())
-                .with(userAuth(VANO))
+                .param("id", USER1_CONTACT_ID.toString())
+                .with(userAuth(USER1))
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"));
 
-        MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(USER1_CONTACT1, service.get(USER1_CONTACT_ID, USER1_ID));
     }
 
     @Test
     public void testUpdateHtmlUnsafe() throws Exception {
         mockMvc.perform(post("/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("id", VANO_CONTACT_ID.toString())
+                .param("id", USER1_CONTACT_ID.toString())
                 .param("lastName", "LastName")
                 .param("firstName", "FirstName")
                 .param("middleName", "<script>alert(123)</script>")
                 .param("mobilePhone", "+380(66)1234567")
-                .with(userAuth(VANO))
+                .with(userAuth(USER1))
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"));
 
-        MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(USER1_CONTACT1, service.get(USER1_CONTACT_ID, USER1_ID));
     }
 
     @Test
@@ -138,12 +138,12 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .param("homePhone", "")
                 .param("address", "")
                 .param("email", "")
-                .with(userAuth(SERG))
+                .with(userAuth(USER2))
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andDo(print())
                 .andExpect(redirectedUrl("contacts?message=contacts.created"));
-        assertEquals(3, service.getAll(SERG_ID).size());
+        assertEquals(3, service.getAll(USER2_ID).size());
     }
 
     @Test
@@ -152,37 +152,37 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("firstName", "Dummy")
-                .with(userAuth(SERG))
+                .with(userAuth(USER2))
                 .with(csrf()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(view().name("details"))
                 .andExpect(model().attribute("isNew", is(true)));
-        MATCHER.assertCollectionEquals(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
+        MATCHER.assertCollectionEquals(Arrays.asList(USER2_CONTACT1, USER2_CONTACT2), service.getAll(USER2_ID));
     }
 
     @Test
     public void testGetAll() throws Exception {
         mockMvc.perform(get("/contacts")
-                .with(userAuth(SERG)))
+                .with(userAuth(USER2)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(model().attribute("contactList", is(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2))));
+                .andExpect(model().attribute("contactList", is(Arrays.asList(USER2_CONTACT1, USER2_CONTACT2))));
     }
 
     @Test
     public void testSearch() throws Exception {
         mockMvc.perform(get("/search?searchLine=55")
-                .with(userAuth(VANO)))
+                .with(userAuth(USER1)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(model().attribute("contactList", is(Arrays.asList(VANO_CONTACT4, VANO_CONTACT6))));
+                .andExpect(model().attribute("contactList", is(Arrays.asList(USER1_CONTACT4, USER1_CONTACT6))));
     }
 
     @Test
     public void testUpdateDuplicate() throws Exception {
-        Contact invalid = new Contact(VANO_CONTACT_ID, "Dummy", "Dummy", "Dummy", VANO_CONTACT2.getMobilePhone());
+        Contact invalid = new Contact(USER1_CONTACT_ID, "Dummy", "Dummy", "Dummy", USER1_CONTACT2.getMobilePhone());
         mockMvc.perform(post("/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", invalid.getId().toString())
@@ -190,18 +190,18 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .param("firstName", invalid.getFirstName())
                 .param("middleName", invalid.getMiddleName())
                 .param("mobilePhone", invalid.getMobilePhone())
-                .with(userAuth(VANO))
+                .with(userAuth(USER1))
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(model().hasErrors())
                 .andExpect(view().name("details"));
-        MATCHER.assertEquals(VANO_CONTACT1, service.get(VANO_CONTACT_ID, VANO_ID));
+        MATCHER.assertEquals(USER1_CONTACT1, service.get(USER1_CONTACT_ID, USER1_ID));
     }
 
     @Test
     public void testCreateDuplicate() throws Exception {
-        Contact invalid = new Contact(null, "Dummy", "Dummy", "Dummy", SERG_CONTACT1.getMobilePhone());
+        Contact invalid = new Contact(null, "Dummy", "Dummy", "Dummy", USER2_CONTACT1.getMobilePhone());
         mockMvc.perform(post("/new")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
@@ -212,12 +212,12 @@ public class ContactControllerTest extends AbstractControllerTest {
                 .param("homePhone", "")
                 .param("address", "")
                 .param("email", "")
-                .with(userAuth(SERG))
+                .with(userAuth(USER2))
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(model().hasErrors())
                 .andExpect(view().name("details"));
-        MATCHER.assertCollectionEquals(Arrays.asList(SERG_CONTACT1, SERG_CONTACT2), service.getAll(SERG_ID));
+        MATCHER.assertCollectionEquals(Arrays.asList(USER2_CONTACT1, USER2_CONTACT2), service.getAll(USER2_ID));
     }
 }

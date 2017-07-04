@@ -5,8 +5,8 @@ ALTER TABLE users AUTO_INCREMENT = 1;
 ALTER TABLE contacts AUTO_INCREMENT = 1;
 
 INSERT INTO users (login, password, full_name) VALUES
-  ('vano', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Yakovenko Ivan Venediktovich'),
-  ('serg', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Rubinov Sergey Nikolaevich');
+  ('user1', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Yakovenko Ivan Venediktovich'),
+  ('user2', '$2a$10$.JJyQ78f1MVbE9IbHB8d9ei2HSsl7Q1JCVAvoFYv7Mntu.NaGZQeS', 'Rubinov Sergey Nikolaevich');
 
 INSERT INTO contacts (last_name, first_name, middle_name, mobile_phone, home_phone, address, email, user_id) VALUES
   ('Dovbash', 'Sveta', 'Andriivna', '+380(66)1234567', '+380(44)1234567', 'Kyiv, Mechnikova str. 2', 'sveta@gmail.com', 1),
